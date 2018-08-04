@@ -4,8 +4,32 @@
 
     
   <url>
+    <loc>https://chaoge123456.github.io/KNN.html/</loc>
+    <lastmod>2018-08-04T07:33:39.914Z</lastmod>
+    <data>
+        <display>
+        <title>K近邻算法详解</title>
+        <pubTime>2018-08-03T06:14:23.000Z</pubTime>
+        
+        <tag>KNN</tag>
+         
+        <tag>KD树</tag>
+         
+        <tag>机器学习</tag>
+         
+         
+           
+             
+              <breadCrumb title="机器学习算法" url="https://chaoge123456.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://chaoge123456.github.io/hex.html/</loc>
-    <lastmod>2018-08-01T02:57:23.121Z</lastmod>
+    <lastmod>2018-08-04T07:32:58.735Z</lastmod>
     <data>
         <display>
         <title>搭建博客：HEXO+GITHUB+CODING</title>
