@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="HTTPS和HTTP,SSL安全套接层,TLS安全传输层协议," />
+  <meta name="keywords" content="HTTPS和HTTP,SSL安全套接层,TLS安全传输层协议,openssl," />
 
 
 
@@ -89,7 +89,7 @@
 
 
 <meta name="description" content="摘要: 最近在看关于web安全相关的书籍，说到web安全HTTP和HTTPS之间的联系和区别是一个无法回避的问题。很长时间以来，我也被这个问题所困扰，对于其中涉及的细节问题更是难以触及，但是现在是该去好好考虑这个问题了。在网上查阅了大量资料之后，我发现很多文章在解释这个问题的时候含糊不清，让人难以理解。所以我写下了这篇博客，希望能给大家提供帮助，如有不足之处，欢迎指正！   文章概览 区别与联系">
-<meta name="keywords" content="HTTPS和HTTP,SSL安全套接层,TLS安全传输层协议">
+<meta name="keywords" content="HTTPS和HTTP,SSL安全套接层,TLS安全传输层协议,openssl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTTPS详解：SSL&#x2F;TLS协议">
 <meta property="og:url" content="https://chaoge123456.github.io/TLS.html/index.html">
@@ -111,7 +111,7 @@
 <meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/new_session_key.PNG?imageView2/2/w/600">
 <meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/diffie_hellman.jpg?imageView2/2/w/600">
 <meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/handshake_rsa.png?imageView2/2/w/600">
-<meta property="og:updated_time" content="2018-08-07T09:22:46.774Z">
+<meta property="og:updated_time" content="2018-08-07T12:06:50.317Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTPS详解：SSL&#x2F;TLS协议">
 <meta name="twitter:description" content="摘要: 最近在看关于web安全相关的书籍，说到web安全HTTP和HTTPS之间的联系和区别是一个无法回避的问题。很长时间以来，我也被这个问题所困扰，对于其中涉及的细节问题更是难以触及，但是现在是该去好好考虑这个问题了。在网上查阅了大量资料之后，我发现很多文章在解释这个问题的时候含糊不清，让人难以理解。所以我写下了这篇博客，希望能给大家提供帮助，如有不足之处，欢迎指正！   文章概览 区别与联系">
@@ -417,7 +417,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  4,067
+                  4,525
                 </span>
               
 
@@ -433,7 +433,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  14
+                  16
                 </span>
               
             </div>
@@ -473,9 +473,9 @@
 <li>密码套件</li>
 <li>记录协议</li>
 <li>握手协议</li>
+<li>前向安全</li>
 </ul>
 </li>
-<li><a href="#security">安全性研究</a></li>
 <li><a href="#openssl">OPENSSL</a></li>
 </ul>
 <h2 id="difference">区别与联系</h2>
@@ -512,18 +512,19 @@
 <li>在客户端和服务器开始握手之前先进行TCP三次握手，这部分的内容本文不会讨论。三次握手之后，开始握手协议，先在这展示一下抓到的所有握手包。<img title="handshake" alt="handshake" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/handshake.PNG?imageView2/2/w/600"></li>
 <li>client hello：由于客户端对一些加解密算法的支持程度不一样，但是SSL/TLS协议传输过程中必须要求客户端与服务器端使用相同的加解密算法。所以在client hello阶段，客户端要首先告知服务端，自己支持哪些密码套件，客户端将支持的密码套件列表发送给服务端；同时客户端还会产生一个随机数，这个随机数双方都要保存（生成主密钥）；session id字段是用于维持会话，如果客户端与服务端关闭会话之后，客户端又要重新发起会话，session id可用于双方协商是否要进行重新握手过程；extension字段用于添加一些拓展功能；compress表示支持的压缩方法。  <img title="client_hello" alt="client" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/client_hello.PNG?imageView2/2/w/600">  </li>
 <li>server hello：server hello是根据客户端发送过来的密码套件和压缩方法选择双方都支持的类型，同时服务器端也会生成一个随机数，双方都要保存。<img title="server_hello" alt="server_hello" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/server_hello.PNG?imageView2/2/w/600">  </li>
-<li>certificate：该过程由服务器发送证书给客户端以认证身份<img title="certificate" alt="certificate" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/certificate.PNG?imageView2/2/w/600">  </li>
-<li>server key exchange：对于ECDHE_RSA密钥交换算法来说这一过程是必须的，在此过程服务端将生成一对公钥和私钥，私钥保留（用于服务器端生成主密钥），并将公钥发送给客户端（用于客户端生成主密钥），同时将前一阶段所有的会话内容利用私钥进行前面发给客户端，用于验证服务端身份，防止中间人攻击。而对于RSA_RSA密钥交换算法，没有这一过程，同样有这个过程的还有DHE密钥交换算法，有没有这一过程都是却决于密钥交换算法自身。在这个数据包中，还给出了服务端生成公私钥所用的算法sec256r1  <img title="server_key_change" alt="server_key_change" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/server_key_change.PNG?imageView2/2/w/600">  </li>
+<li>certificate：该过程中服务器用私钥签名证书，发送给客户端以认证身份<img title="certificate" alt="certificate" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/certificate.PNG?imageView2/2/w/600">  </li>
+<li>server key exchange：对于ECDHE_RSA密钥交换算法来说这一过程是必须的，在此过程服务端将生成一对公钥和私钥，私钥保留（用于服务器端生成预主密钥），并将公钥发送给客户端（用于客户端生成预主密钥），同时将前一阶段所有的会话内容利用私钥进行前面发给客户端，用于验证服务端身份，防止中间人攻击。而对于RSA_RSA密钥交换算法，没有这一过程，同样有这个过程的还有DHE密钥交换算法，有没有这一过程都是却决于密钥交换算法自身。在这个数据包中，还给出了服务端生成公私钥所用的算法sec256r1  <img title="server_key_change" alt="server_key_change" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/server_key_change.PNG?imageView2/2/w/600">  </li>
 <li>server hello done：表示server hello结束，这是个空消息  <img title="server_hello_done" alt="server_hello_done" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/server_hello_done.PNG?imageView2/2/w/600">  </li>
-<li>client key exchange：客户端也生成一对公钥和私钥，私钥保留（用于客户端生成主密钥），公钥发给服务端（用于服务端生成主密钥）  <img title="client_key_exchange" alt="client_key_exchange" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/client_key_exchange.PNG?imageView2/2/w/600">  </li>
+<li>client key exchange：客户端也生成一对公钥和私钥，私钥保留（用于客户端生成预主密钥），公钥发给服务端（用于服务端生成预主密钥）  <img title="client_key_exchange" alt="client_key_exchange" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/client_key_exchange.PNG?imageView2/2/w/600">  </li>
 <li>change cipher spec：客户端根据交互过程中获得的信息，以及应用服务端规定的密码套件，已经生成了相应的密钥。通过这条消息，客户端告诉服务器端：从现在起，我将使用双方约定的密码规范进行通信  <img title="change_client_cipher" alt="change_client_cipher" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/change_client_spec.PNG?imageView2/2/w/600">  </li>
 <li>encrypted handshake message：客户端利用生成的密钥加密一段finishde数据传送给服务端，此数据是为了在正式传输应用之前对刚刚握手建立起来的加解密通道进行验证  <img title="client_finish" alt="client_finish" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/client_finish.PNG?imageView2/2/w/600">  </li>
 <li>new session ticket：服务端告知客户端将生成新的session ticket用于保持会话（session ticket与前面提到的session id作用类似，但两者实现方式不同）<img title="new_session_ticket" alt="new_session_ticket" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/new_session_key.PNG?imageView2/2/w/600">  </li>
 <li>change cipher spec：同样服务端也要发送这段信息，作用与客户端一致  </li>
 <li>encrypted handshake message：作用与客户端一致<br>至此，握手协议结束，双方开始建立加密通道。  </li>
 </ul>
-<p>&emsp;&emsp;值得注意的是在这个过程中客户端和服务器端都各自产生一对公钥和私钥还有一个随机数，这些都是作为生成主密钥的元素。主密钥分别在客户端和服务器端生成，算法的特性能够保证二者生成的主密钥相同。获取主密钥之后，我们要利用主密钥来生成客户端验证密钥、服务器端验证密钥、客户端加密密钥、服务器端加密密钥以及客户端分组加密的初始向量和服务器端的分组加密初始向量。对基于DH算法和RSA算法的握手过程可以参见下图，也可以参考<a href="https://segmentfault.com/a/1190000002554673" target="_blank" rel="noopener">这篇博客</a>。<br><img title="基于DH算法的握手过程" alt="基于DH算法的握手过程" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/diffie_hellman.jpg?imageView2/2/w/600"><br><img title="基于RSA算法的握手过程" alt="基于RSA算法的握手过程" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/handshake_rsa.png?imageView2/2/w/600">  </p>
-<h2 id="security">安全性研究</h2>
+<p>&emsp;&emsp;值得注意的是在这个过程中客户端和服务器端都各自产生一对公钥和私钥还有一个随机数，这些都是作为生成预主密钥的元素。预主密钥分别在客户端和服务器端生成，算法的特性能够保证二者生成的预主密钥相同。那么由预主密钥如何生成会话密钥呢，这就要用到前面提到的伪随机函数，通过预主密钥我们将生成客户端验证密钥、服务器端验证密钥、客户端加密密钥、服务器端加密密钥以及客户端分组加密的初始向量和服务器端的分组加密初始向量，具体生成过程可以参考<a href="https://xz.aliyun.com/t/2531" target="_blank" rel="noopener">这篇博客</a>。对基于DH算法和RSA算法的握手过程可以参见下图，也可以参考<a href="https://segmentfault.com/a/1190000002554673" target="_blank" rel="noopener">这篇博客</a>。<br><img title="基于DH算法的握手过程" alt="基于DH算法的握手过程" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/diffie_hellman.jpg?imageView2/2/w/600"><br><img title="基于RSA算法的握手过程" alt="基于RSA算法的握手过程" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/handshake_rsa.png?imageView2/2/w/600">  </p>
+<p></p><h3>前向安全</h3><br>&emsp;&emsp;在这里有必要提一下关于前向安全的定义：前向安全或前向保密，有时也被称为完美前向安全（Perfect Forward Secrecy，缩写：PFS），是密码学中通讯协议的安全属性，指的是长期使用的主密钥泄漏不会导致过去的会话密钥泄漏。前向安全能够保护过去进行的通讯不受密码或密钥在未来暴露的威胁。如果系统具有前向安全性，就可以保证在主密钥泄露时历史通讯的安全，即使系统遭到主动攻击也是如此。在传输层安全协议（TLS）中，提供了基于迪菲-赫尔曼密钥交换（DHE）的前向安全通讯，分别为（DHE-RSA）和DHE-DSA），还有基于椭圆曲线迪菲-赫尔曼密钥交换（ECDHE）的前向安全通讯，包括（ECDHE-RSA与ECDHE-ECDSA）。理论上，从SSLv3开始，就已经可以使用支持前向安全的密码算法进行通讯。之前我们提到ECDHE算法在sever key exchage阶段会生成一个临时的公私钥对，公钥发送给用户，私钥用于对数据进行RSA签名来验证服务器的身份，如果服务器的私钥泄露，这些会话不会受到影响，无法解密。对于有些算法而言，它在握手过程中不会有这个生成公私钥对的过程，它将使用服务器的私钥进行签名。如果服务器的私钥泄露，这些会话都将被暴露，这就是所谓的前向安全。<p></p>
+<h2 id="openssl">openssl</h2>
 
       
 
@@ -595,6 +596,8 @@
             <a href="/tags/SSL安全套接层/" rel="tag"><i class="fa fa-tag"></i> SSL安全套接层</a>
           
             <a href="/tags/TLS安全传输层协议/" rel="tag"><i class="fa fa-tag"></i> TLS安全传输层协议</a>
+          
+            <a href="/tags/openssl/" rel="tag"><i class="fa fa-tag"></i> openssl</a>
           
         </div>
       
@@ -721,7 +724,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -795,7 +798,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#difference"><span class="nav-number">1.1.</span> <span class="nav-text">区别与联系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.1.</span> <span class="nav-text">HTTP和HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">联系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.2.</span> <span class="nav-text">SSL和TLS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">联系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protocol"><span class="nav-number">1.2.</span> <span class="nav-text">SSL/TLS协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.1.</span> <span class="nav-text">密码套件（cipher suite）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.2.</span> <span class="nav-text">记录协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.3.</span> <span class="nav-text">握手协议</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#security"><span class="nav-number">1.3.</span> <span class="nav-text">安全性研究</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#difference"><span class="nav-number">1.1.</span> <span class="nav-text">区别与联系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.1.</span> <span class="nav-text">HTTP和HTTPS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.1.1.</span> <span class="nav-text">联系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.1.2.</span> <span class="nav-text">区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.2.</span> <span class="nav-text">SSL和TLS</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">联系</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#protocol"><span class="nav-number">1.2.</span> <span class="nav-text">SSL/TLS协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.1.</span> <span class="nav-text">密码套件（cipher suite）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.2.</span> <span class="nav-text">记录协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.3.</span> <span class="nav-text">握手协议</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.2.4.</span> <span class="nav-text">前向安全</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#openssl"><span class="nav-number">1.3.</span> <span class="nav-text">openssl</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -829,7 +832,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">17.5k</span>
+    <span title="Site words total count">18.0k</span>
   
 </div>
 
