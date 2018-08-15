@@ -8,8 +8,27 @@
     <atom:link href="/rss2.xml" rel="self" type="application/rss+xml"/>
     
     <description>网络安全和机器学习相关技术分享</description>
-    <pubDate>Tue, 07 Aug 2018 12:06:50 GMT</pubDate>
+    <pubDate>Wed, 15 Aug 2018 03:56:45 GMT</pubDate>
     <generator>http://hexo.io/</generator>
+    
+    <item>
+      <title>2018年下半年学习计划</title>
+      <link>https://chaoge123456.github.io/plan.html/</link>
+      <guid>https://chaoge123456.github.io/plan.html/</guid>
+      <pubDate>Wed, 15 Aug 2018 02:25:02 GMT</pubDate>
+      <description>
+      
+        
+        
+          &lt;p&gt;&lt;strong&gt;摘要:&lt;/strong&gt; 即将开始研究生阶段的学习生活了，我希望这对于我来说是一个全新的开始。所有伟大的梦想都源于一个切实可行的计划，为了迎接即将开始的旅程，我也需要这样一个计划，希望在它的鞭策和激励下让我不断成长，奋力前行！&lt;br&gt;&lt;img class=&quot;
+        
+      
+      </description>
+      
+      <content:encoded><![CDATA[<p><strong>摘要:</strong> 即将开始研究生阶段的学习生活了，我希望这对于我来说是一个全新的开始。所有伟大的梦想都源于一个切实可行的计划，为了迎接即将开始的旅程，我也需要这样一个计划，希望在它的鞭策和激励下让我不断成长，奋力前行！<br><img class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/KNN/plan.jpg?imageView2/2/w/600">   </p><h1 id="计划大纲"><a href="#计划大纲" class="headerlink" title="计划大纲"></a>计划大纲</h1><ul><li><a href="#August">2018.8.16-2018.9.1</a>  <ul><li>机器学习算法实现系列博客（贝叶斯分类器和决策树）</li><li>学习python数据结构和算法  </li></ul></li><li><a href="#September">2018.9.2-2018.9.30</a>  <ul><li>阅读高质量论文两篇 </li><li>完成机器学习算法实现系列博客（大概5篇）</li><li>开始阅读《凸优化理论》 </li></ul></li><li><a href="#October">2018.10.1-2018.10.31</a>  <ul><li>阅读高质量论文三篇</li><li>完成《凸优化理论》的学习</li><li>开始阅读流畅的python  </li><li>博客写作三篇  </li></ul></li><li><a href="#November">2018.11.1-2018.11.30</a>  <ul><li>阅读高质量论文三篇</li><li>完成流畅的python</li><li>学习javascript  </li><li>博客写作三篇</li></ul></li><li><a href="#December">2018.12.1-2018.12.31</a>  <ul><li>阅读高质量论文三篇</li><li>学习node.js</li><li>阅读HTTP协议详解  </li><li>博客写作三篇</li></ul></li><li><a href="#January">2018.1.1-2018.1.31</a><ul><li>阅读高质量论文三篇</li><li>搭建node.js网站</li><li>学习docker  </li><li>博客写作三篇</li></ul></li></ul><h2 id="August">八月学习计划完成情况</h2>]]></content:encoded>
+      
+      <comments>https://chaoge123456.github.io/plan.html/#disqus_thread</comments>
+    </item>
     
     <item>
       <title>HTTPS详解：SSL/TLS协议</title>
