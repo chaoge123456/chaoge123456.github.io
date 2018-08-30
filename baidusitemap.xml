@@ -4,6 +4,30 @@
 
     
   <url>
+    <loc>https://chaoge123456.github.io/verify-code.html/</loc>
+    <lastmod>2018-08-30T05:33:59.096Z</lastmod>
+    <data>
+        <display>
+        <title>验证码识别：找回四六级准考证号</title>
+        <pubTime>2018-08-29T12:27:33.000Z</pubTime>
+        
+        <tag>机器学习</tag>
+         
+        <tag>验证码识别</tag>
+         
+        <tag>爬虫</tag>
+         
+         
+           
+             
+              <breadCrumb title="机器学习算法" url="https://chaoge123456.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>https://chaoge123456.github.io/plan.html/</loc>
     <lastmod>2018-08-15T03:56:45.267Z</lastmod>
     <data>
@@ -57,11 +81,11 @@
         <title>K近邻算法详解</title>
         <pubTime>2018-08-03T06:14:23.000Z</pubTime>
         
+        <tag>机器学习</tag>
+         
         <tag>KNN</tag>
          
         <tag>KD树</tag>
-         
-        <tag>机器学习</tag>
          
          
            
