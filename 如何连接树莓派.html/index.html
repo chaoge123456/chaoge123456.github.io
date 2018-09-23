@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="树莓派," />
 
 
 
@@ -88,16 +88,25 @@
 
 
 
-<meta name="description" content="网络安全和机器学习相关技术分享">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小生很忙">
-<meta property="og:url" content="https://chaoge123456.github.io/tags/python/index.html">
+<meta name="description" content="摘要 早就听说了树莓派的大名，什么智能家居，智能机器人，无人机等等它都不在话下。我最近刚刚入手了一款树莓派3B+，想利用它来开发一个智能家居的控制系统。由于从来没有接触过相关的硬件，在配置过程中确实遇到了不少坑，在这里简单的记录一下，希望能给读者一些启发。本文主要讲解如何连接树莓派的问题。  文章概览 基本配置 系统安装 连接树莓派 有路由器和网线的情况下 有网线没有路由器的情况下 没有路由器没有">
+<meta name="keywords" content="树莓派">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何连接树莓派">
+<meta property="og:url" content="https://chaoge123456.github.io/如何连接树莓派.html/index.html">
 <meta property="og:site_name" content="小生很忙">
-<meta property="og:description" content="网络安全和机器学习相关技术分享">
+<meta property="og:description" content="摘要 早就听说了树莓派的大名，什么智能家居，智能机器人，无人机等等它都不在话下。我最近刚刚入手了一款树莓派3B+，想利用它来开发一个智能家居的控制系统。由于从来没有接触过相关的硬件，在配置过程中确实遇到了不少坑，在这里简单的记录一下，希望能给读者一些启发。本文主要讲解如何连接树莓派的问题。  文章概览 基本配置 系统安装 连接树莓派 有路由器和网线的情况下 有网线没有路由器的情况下 没有路由器没有">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/shumei.jpg?imageView2/2/w/600">
+<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/1.PNG?imageView2/2/w/600">
+<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/2.PNG?imageView2/2/w/600">
+<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/3.PNG?imageView2/2/w/600">
+<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/4.PNG?imageView2/2/w/600">
+<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/5.PNG?imageView2/2/w/600">
+<meta property="og:updated_time" content="2018-09-13T15:41:01.225Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小生很忙">
-<meta name="twitter:description" content="网络安全和机器学习相关技术分享">
+<meta name="twitter:title" content="如何连接树莓派">
+<meta name="twitter:description" content="摘要 早就听说了树莓派的大名，什么智能家居，智能机器人，无人机等等它都不在话下。我最近刚刚入手了一款树莓派3B+，想利用它来开发一个智能家居的控制系统。由于从来没有接触过相关的硬件，在配置过程中确实遇到了不少坑，在这里简单的记录一下，希望能给读者一些启发。本文主要讲解如何连接树莓派的问题。  文章概览 基本配置 系统安装 连接树莓派 有路由器和网线的情况下 有网线没有路由器的情况下 没有路由器没有">
+<meta name="twitter:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/shumei.jpg?imageView2/2/w/600">
 
 
 
@@ -127,13 +136,13 @@
 
 
 
-  <link rel="canonical" href="https://chaoge123456.github.io/tags/python/"/>
+  <link rel="canonical" href="https://chaoge123456.github.io/如何连接树莓派.html/"/>
 
 
 
 
 
-  <title>标签: python | 小生很忙</title>
+  <title>如何连接树莓派 | 小生很忙</title>
   
 
 
@@ -162,7 +171,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <a href="https://github.com/chaoge123456" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -292,82 +301,292 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>python<small>标签</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chaoge123456.github.io/如何连接树莓派.html/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="光阴的故事">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小生很忙">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/raspberry入门配置.html/" itemprop="url">
-              
-                <span itemprop="name">raspberry入门配置</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">如何连接树莓派</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-22T20:53:38+08:00"
-              content="2018-09-22" >
-          09-22
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T20:08:02+08:00">
+                2018-09-13
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/如何连接树莓派.html/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/如何连接树莓派.html/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,597
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  5
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/解释型语言python.html/" itemprop="url">
-              
-                <span itemprop="name">解释型语言python</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-10T23:14:35+08:00"
-              content="2018-09-10" >
-          09-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
+        <p><strong>摘要</strong> 早就听说了树莓派的大名，什么智能家居，智能机器人，无人机等等它都不在话下。我最近刚刚入手了一款树莓派3B+，想利用它来开发一个智能家居的控制系统。由于从来没有接触过相关的硬件，在配置过程中确实遇到了不少坑，在这里简单的记录一下，希望能给读者一些启发。本文主要讲解如何连接树莓派的问题。</p>
+<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/shumei.jpg?imageView2/2/w/600">
+<h2 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h2><ul>
+<li>基本配置</li>
+<li>系统安装</li>
+<li>连接树莓派<ul>
+<li>有路由器和网线的情况下</li>
+<li>有网线没有路由器的情况下</li>
+<li>没有路由器没有网线的情况下</li>
+</ul>
+</li>
+</ul>
+<h3 id="基本配置"><a href="#基本配置" class="headerlink" title="基本配置"></a>基本配置</h3><p>&emsp;&emsp;想要玩树莓派，仅仅买一块主板是不够的，基本的配置包括：一块主板（大概225RMB）、一个读卡器（大概10RMB）、一根电源线（大概8RMB）、一张大于8G的内存卡（我买的是32G的，38RMB）、散热片（大概5RMB）和一个保护外壳（大概20RMB），推荐大家主板和配件分开买，这样比较划算。</p>
+<h3 id="系统安装"><a href="#系统安装" class="headerlink" title="系统安装"></a>系统安装</h3><p>&emsp;&emsp;树莓派的安装过程比较简单，首先我们需要下载准备安装的系统镜像，在<a href="#https://www.raspberrypi.org/downloads/">树莓派官网</a>可以下载到相关的镜像文件，树莓派支持的系统很多，包括ubuntu、kail、win10等等。我选择的系统是树莓派官方推荐的RSAPBIAN，基于Debian，稳定兼容性好。然后我们需要下载一款工具：<a href="#http://sourceforge.net/projects/win32diskimager/files/latest/download">win32diskimager</a>，我们需要利用这款工具将树莓派的系统镜像写入内存卡。</p>
+<p>&emsp;&emsp;准备工作完成后，我们通过读卡器将内存卡接入电脑，在利用win32diskmager工具将系统镜像写入内存卡（这个过程很简单，这里不再详细解释）。镜像写入完成之后，我们的系统就成功的安装到内存卡中。但是，有一个问题需要我们注意，镜像写入完成后系统会弹出一个对话框，大概的意思是：无法识别内存卡中的数据，是否要将内存卡格式化，这个时候大家一定选择否或者直接关闭对话框。因为系统写入完成之后，我们的主机只能读出内存卡中系统的boot分区（大概只有40多MB），内存卡中的其他分区我们的系统识别不出来，所以才会弹出这个对话框，一旦我们选择格式化，刚才安装的系统会被删除。如果有小伙伴不小心选择了格式化，那就只有重新安装系统了，大家可以参考<a href="#https://www.jianshu.com/p/6af60049fdf1">这篇博客</a>。</p>
+<p>&emsp;&emsp;还有一个需要注意的问题是，树莓派默认没有开启ssh服务，所以之后我们如果需要通过ssh连接树莓派时，我们需要在刚刚写入系统的内存卡的boot文件夹下，建立一个文件名为ssh的空文件（无后缀名），这样在之后的操作中我们就能通过ssh连接树莓派。</p>
+<h3 id="连接树莓派"><a href="#连接树莓派" class="headerlink" title="连接树莓派"></a>连接树莓派</h3><p>&emsp;&emsp;连接树莓派最简单的方法就是通过HDMI数据线连接显示屏，这样我们可以直接通过显示屏对树莓派进行操作。那如果我们没有显示屏，我们该如何连接树莓派呢？</p>
+<h4 id="有路由器和网线的情况下"><a href="#有路由器和网线的情况下" class="headerlink" title="有路由器和网线的情况下"></a>有路由器和网线的情况下</h4><p>&emsp;&emsp;这种情况下连接树莓派也比较简单，我们只需要将网线的一端接入路由器的lan接口，一端接入树莓派的网络接口（树莓派会自动获取IP地址），同时我们的主机也连接在路由器所建立的局域网内，此时我们可以通过路由器查看树莓派的IP地址。获取树莓派IP地址之后，我们通过主机中的xshell或者putty等远程连接工具就可以连接到树莓派。</p>
+<h4 id="有网线没有路由器的情况下"><a href="#有网线没有路由器的情况下" class="headerlink" title="有网线没有路由器的情况下"></a>有网线没有路由器的情况下</h4><p>&emsp;&emsp;没有了路由器，树莓派就不能获取到IP地址，这种情况稍微复杂一点。解决办法是：将网线的两端连接树莓派和主机，然后我们打开主机的网络和共享中心</p>
+<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/1.PNG?imageView2/2/w/600">
+<p>点击我们已经连接的网络，查看其属性</p>
+<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/2.PNG?imageView2/2/w/600">
+<p>点击共享按钮，勾选允许其他网络用户通过此计算机的Internet连接来连接（N）</p>
+<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/3.PNG?imageView2/2/w/600">
+<p>接下来我们回到网络和共享中心，点击未识别的网络那一栏对于的以太网选项，查看其详细信息，可以看到其IP地址，这里的IP为192.168.137.1</p>
+<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/4.PNG?imageView2/2/w/600">
+<p>然后我们拔掉网线，关掉树莓派，拔出内存卡，将其通过读卡器连接到主机上。我们进入内存卡的boot文件夹，修改comline.txt文件，将 ip = 192.168.137.100 这句话添加到开头。完成上述步骤之后，我们将内存卡插入树莓派，用网线重新连接树莓派和主机，启动树莓派电源。我们通过远程连接工具连接树莓派，此时树莓派的IP地址为刚才设置的192.168.137.100，不出意外的话，我们也能连接上树莓派。</p>
+<h4 id="没有路由器没有网线的情况下"><a href="#没有路由器没有网线的情况下" class="headerlink" title="没有路由器没有网线的情况下"></a>没有路由器没有网线的情况下</h4><p>&emsp;&emsp;要使我们的主机能够远程连接到树莓派上，我们必须满足一个条件：主机和树莓派位于同一个局域网。没有路由器和网线的情况下，我们可以通过手机热点建立一个局域网环境，让树莓派和主机同时连接手机热点。现在需要解决的问题是如何才能让树莓派连接上手机的热点。开机状态下，树莓派的无线模块一直处于工作状态，我们需要将无线热点的相关配置文件写入系统。同样，我们通过读卡器读取内存卡boot文件夹，在文件夹下新建文件名为wpa_supplicant.conf的文件，在文件内写入手机热点的配置信息并保存。</p>
+<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/5.PNG?imageView2/2/w/600">
+<p>然后重新插入内存卡，开启树莓派，在手机上查看树莓派的IP地址，用远程连接工具进行连接。</p>
+
+      
+
+       <div>
+        
+        
+           <ul class="post-copyright">
+             <br class="post-copyright-author">
+                 <strong>本文作者：</strong>光阴的故事
+             </br>
+             <br class="post-copyright-link">
+               <strong>本文链接：</strong>
+               <a href="/如何连接树莓派.html/" title="如何连接树莓派">如何连接树莓派.html/</a>
+             </br>
+             <br class="post-copyright-license">
+               <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+             </br>
+           </ul>
+         
+       </div>
+
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="光阴的故事 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="光阴的故事 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/树莓派/" rel="tag"><i class="fa fa-tag"></i> 树莓派</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/解释型语言python.html/" rel="next" title="解释型语言python">
+                <i class="fa fa-chevron-left"></i> 解释型语言python
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/raspberry入门配置.html/" rel="prev" title="raspberry入门配置">
+                raspberry入门配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -375,6 +594,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -395,8 +621,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -501,6 +736,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本配置"><span class="nav-number">1.1.</span> <span class="nav-text">基本配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统安装"><span class="nav-number">1.2.</span> <span class="nav-text">系统安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接树莓派"><span class="nav-number">1.3.</span> <span class="nav-text">连接树莓派</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#有路由器和网线的情况下"><span class="nav-number">1.3.1.</span> <span class="nav-text">有路由器和网线的情况下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#有网线没有路由器的情况下"><span class="nav-number">1.3.2.</span> <span class="nav-text">有网线没有路由器的情况下</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#没有路由器没有网线的情况下"><span class="nav-number">1.3.3.</span> <span class="nav-text">没有路由器没有网线的情况下</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -685,6 +936,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

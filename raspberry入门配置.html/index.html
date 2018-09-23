@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="python,树莓派,内网穿透," />
 
 
 
@@ -88,16 +88,20 @@
 
 
 
-<meta name="description" content="网络安全和机器学习相关技术分享">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小生很忙">
-<meta property="og:url" content="https://chaoge123456.github.io/tags/python/index.html">
+<meta name="description" content="摘要 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。    文章概览 重新安装系统 连接树莓派 安装远程桌面服务 更新软件源 raspi-conf">
+<meta name="keywords" content="python,树莓派,内网穿透">
+<meta property="og:type" content="article">
+<meta property="og:title" content="raspberry入门配置">
+<meta property="og:url" content="https://chaoge123456.github.io/raspberry入门配置.html/index.html">
 <meta property="og:site_name" content="小生很忙">
-<meta property="og:description" content="网络安全和机器学习相关技术分享">
+<meta property="og:description" content="摘要 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。    文章概览 重新安装系统 连接树莓派 安装远程桌面服务 更新软件源 raspi-conf">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/images.png?imageView2/2/w/600">
+<meta property="og:updated_time" content="2018-09-23T00:26:08.858Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小生很忙">
-<meta name="twitter:description" content="网络安全和机器学习相关技术分享">
+<meta name="twitter:title" content="raspberry入门配置">
+<meta name="twitter:description" content="摘要 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。    文章概览 重新安装系统 连接树莓派 安装远程桌面服务 更新软件源 raspi-conf">
+<meta name="twitter:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/images.png?imageView2/2/w/600">
 
 
 
@@ -127,13 +131,13 @@
 
 
 
-  <link rel="canonical" href="https://chaoge123456.github.io/tags/python/"/>
+  <link rel="canonical" href="https://chaoge123456.github.io/raspberry入门配置.html/"/>
 
 
 
 
 
-  <title>标签: python | 小生很忙</title>
+  <title>raspberry入门配置 | 小生很忙</title>
   
 
 
@@ -162,7 +166,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <a href="https://github.com/chaoge123456" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -292,82 +296,290 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>python<small>标签</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chaoge123456.github.io/raspberry入门配置.html/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="光阴的故事">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小生很忙">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/raspberry入门配置.html/" itemprop="url">
-              
-                <span itemprop="name">raspberry入门配置</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">raspberry入门配置</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-22T20:53:38+08:00"
-              content="2018-09-22" >
-          09-22
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-22T20:53:38+08:00">
+                2018-09-22
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/树莓派/" itemprop="url" rel="index">
+                    <span itemprop="name">树莓派</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/raspberry入门配置.html/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/raspberry入门配置.html/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1,094
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h3 class="post-title">
-        
-            <a class="post-title-link" href="/解释型语言python.html/" itemprop="url">
-              
-                <span itemprop="name">解释型语言python</span>
-              
-            </a>
-        
-      </h3>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-09-10T23:14:35+08:00"
-              content="2018-09-10" >
-          09-10
-        </time>
-      </div>
-
-    </header>
-  </article>
-
+      
 
       
+        <p><strong>摘要</strong> 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。</p>
+<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/images.png?imageView2/2/w/600">  
+<h2 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h2><ul>
+<li>重新安装系统</li>
+<li>连接树莓派</li>
+<li>安装远程桌面服务</li>
+<li>更新软件源</li>
+<li>raspi-config</li>
+<li>配置无线网络</li>
+<li>配置静态IP</li>
+<li>配置内网映射</li>
+<li>安装zsh</li>
+<li>python环境搭建</li>
+</ul>
+<h3 id="重新安装系统"><a href="#重新安装系统" class="headerlink" title="重新安装系统"></a>重新安装系统</h3><p>&emsp;&emsp;重新安装系统的过程我们需要用到：<a href="#https://www.raspberrypi.org/downloads/">系统镜像</a>、<a href="#http://www.diskgenius.cn/">DiskGenius</a>、<a href="#https://sourceforge.net/projects/win32diskimager/">Win32DiskImager</a>，DiskGenius的作用是格式化TF卡，Win32DiskImager的作用是将系统镜像写入TF卡，具体的操作过程可以参考<a href="#https://www.jianshu.com/p/6af60049fdf1">这篇博客</a>。</p>
+<h3 id="连接树莓派"><a href="#连接树莓派" class="headerlink" title="连接树莓派"></a>连接树莓派</h3><p>&emsp;&emsp;对于如何连接树莓派，我在之前的博客中详细的讨论过，这里不再赘述，需要提醒大家的是只需要使用某一种方法连接树莓派即可。</p>
+<h3 id="安装远程连接服务"><a href="#安装远程连接服务" class="headerlink" title="安装远程连接服务"></a>安装远程连接服务</h3><p>&emsp;&emsp;ssh连接是通过命令行对树莓派进行远程操作，而远程桌面是直接通过树莓派的GUI界面进行操作，操作简单，交互性好。xrdp是一个开源的远程桌面服务器，支持windows远程桌面连接，但是需要使用tightvncserver作为其基础服务，具体安装操作如下所示。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update #更新</span><br><span class="line">sudo apt-get install xrdp</span><br><span class="line">sudo apt-get install tightvncserver</span><br></pre></td></tr></table></figure>
+<p>安装好以上两个服务以后。可以使用windows自带的远程连接工具连接到树莓派。</p>
+<h3 id="更新软件源"><a href="#更新软件源" class="headerlink" title="更新软件源"></a>更新软件源</h3><p>&emsp;&emsp;在更新软件源的时候，大家注意查看自己的系统版本（推荐大家安装最新的系统版本），具体操作参见<a href="#https://mirror.tuna.tsinghua.edu.cn/help/">清华大学开源软件镜像站</a>。</p>
+<h3 id="raspi-config"><a href="#raspi-config" class="headerlink" title="raspi-config"></a>raspi-config</h3><p>&emsp;&emsp;通过远程桌面连接到树莓派之后，系统会提示进行一些初始化配置，包括拓展内存、设置时区、语言等等，具体操作参见<a href="#http://shumeipai.nxez.com/2013/09/07/raspi-config-configuration-raspberry-pie.html">这篇博客</a>。</p>
+<h3 id="配置无线网络"><a href="#配置无线网络" class="headerlink" title="配置无线网络"></a>配置无线网络</h3><p>&emsp;&emsp;配置无线网络有两种方式，一个是在图形化界面直接选择连接的ssid，输入密码即可，系统会保存该无线网络的相关信息到/etc/wpa_supplicant/wpa_supplicant.conf文件；另外一种方式是直接修改该配置文件，将无线网络配置信息添加到该文件中。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">country=CN</span><br><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line">    ssid="***"</span><br><span class="line">    psk="***"</span><br><span class="line">    priority=1</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="配置静态IP"><a href="#配置静态IP" class="headerlink" title="配置静态IP"></a>配置静态IP</h3><p>&emsp;&emsp;由于每次树莓派连接路由器的时候，路由器会分配不同的IP地址，所以当我们连接树莓派的时候每次都要通过路由器查看树莓派的IP地址，这样比较麻烦，所以，我们需要给路由器指定静态的IP。修改/etc/dhcpcd.conf文件（一定要注意不是修改/etc/network/interfaces文件），在后面添加以下内容：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">interface eth0 #有线</span><br><span class="line"> </span><br><span class="line">static ip_address=192.168.0.10/24</span><br><span class="line">static routers=192.168.0.1</span><br><span class="line">static domain_name_servers=192.168.0.1</span><br><span class="line"> </span><br><span class="line">interface wlan0 #无线连接</span><br><span class="line"> </span><br><span class="line">static ip_address=192.168.0.200/24</span><br><span class="line">static routers=192.168.0.1</span><br><span class="line">static domain_name_servers=192.168.0.1</span><br></pre></td></tr></table></figure>
+<h3 id="配置内网映射"><a href="#配置内网映射" class="headerlink" title="配置内网映射"></a>配置内网映射</h3><p>&emsp;&emsp;如果想要从外网直接访问树莓派，那我们需要将树莓派的内网IP映射到公网当中，这里我们使用的映射工具是花生壳，具体操作参见<a href="#http://service.oray.com/question/2680.html">官方教程</a>。</p>
+<h3 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装zsh</h3><p>&emsp;&emsp;树莓派基于linux操作系统，其终端shell默认的是bash，而zsh是比bash更加强大的shell，而且更加美观，具体配置参见<a href="#https://mlapp.cn/310.html">这篇博客</a>。</p>
+<h3 id="python环境搭建"><a href="#python环境搭建" class="headerlink" title="python环境搭建"></a>python环境搭建</h3><p>&emsp;&emsp;树莓派中内置了两个版本的python，python2.7和python3.5，系统默认版本为python2.7。在进行系统环境配置和相关依赖安装的过程中，一律使用系统默认版本即python2.7（如果切换至python3.5.会出现各种各样的问题）。在程序开发过程中如果需要使用python3.5，可以切换python环境，具体操作参见<a href="#https://linux.cn/article-6970-1.html">这篇博客</a>。</p>
+
+      
+
+       <div>
+        
+        
+           <ul class="post-copyright">
+             <br class="post-copyright-author">
+                 <strong>本文作者：</strong>光阴的故事
+             </br>
+             <br class="post-copyright-link">
+               <strong>本文链接：</strong>
+               <a href="/raspberry入门配置.html/" title="raspberry入门配置">raspberry入门配置.html/</a>
+             </br>
+             <br class="post-copyright-license">
+               <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+             </br>
+           </ul>
+         
+       </div>
+
     </div>
+    
+    
+    
 
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="光阴的故事 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="光阴的故事 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
+          
+            <a href="/tags/树莓派/" rel="tag"><i class="fa fa-tag"></i> 树莓派</a>
+          
+            <a href="/tags/内网穿透/" rel="tag"><i class="fa fa-tag"></i> 内网穿透</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/如何连接树莓派.html/" rel="next" title="如何连接树莓派">
+                <i class="fa fa-chevron-left"></i> 如何连接树莓派
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -375,6 +587,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -395,8 +614,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -501,6 +729,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重新安装系统"><span class="nav-number">1.1.</span> <span class="nav-text">重新安装系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接树莓派"><span class="nav-number">1.2.</span> <span class="nav-text">连接树莓派</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装远程连接服务"><span class="nav-number">1.3.</span> <span class="nav-text">安装远程连接服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新软件源"><span class="nav-number">1.4.</span> <span class="nav-text">更新软件源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#raspi-config"><span class="nav-number">1.5.</span> <span class="nav-text">raspi-config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置无线网络"><span class="nav-number">1.6.</span> <span class="nav-text">配置无线网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置静态IP"><span class="nav-number">1.7.</span> <span class="nav-text">配置静态IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置内网映射"><span class="nav-number">1.8.</span> <span class="nav-text">配置内网映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装zsh"><span class="nav-number">1.9.</span> <span class="nav-text">安装zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python环境搭建"><span class="nav-number">1.10.</span> <span class="nav-text">python环境搭建</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -685,6 +929,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
