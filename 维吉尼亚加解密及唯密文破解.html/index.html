@@ -97,7 +97,11 @@
 <meta property="og:description" content="摘要 古典密码体制主要通过字符间的置换和代换来实现，常见的置换密码包括列置换密码和周期置换密码，而常见的代换密码包括单表代换密码和多表代换密码，本文所讨论的维吉尼亚算法是属于多表代换密码的一种。多表代换密码是以一系列代换表依次对明文消息的字母序列进行代换的加密方法，即明文消息中出现的同一个字母，在加密时不是完全被同一固定的字母代换，而是根据其出现的位置次序用不同的字母代换。如果代换表序列是非周期的">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/crypt.jpg?imageView2/2/w/600">
-<meta property="og:updated_time" content="2018-10-21T15:55:28.713Z">
+<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/jiami.PNG?imageView2/2/w/600">
+<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/jiemi.PNG?imageView2/2/w/600">
+<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/keylen.PNG?imageView2/2/w/600">
+<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/nichonghe.PNG?imageView2/2/w/600">
+<meta property="og:updated_time" content="2018-10-21T16:18:12.206Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="维吉尼亚加解密及唯密文破解">
 <meta name="twitter:description" content="摘要 古典密码体制主要通过字符间的置换和代换来实现，常见的置换密码包括列置换密码和周期置换密码，而常见的代换密码包括单表代换密码和多表代换密码，本文所讨论的维吉尼亚算法是属于多表代换密码的一种。多表代换密码是以一系列代换表依次对明文消息的字母序列进行代换的加密方法，即明文消息中出现的同一个字母，在加密时不是完全被同一固定的字母代换，而是根据其出现的位置次序用不同的字母代换。如果代换表序列是非周期的">
@@ -403,7 +407,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,392
+                  2,412
                 </span>
               
 
@@ -444,16 +448,14 @@
 <img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/crypt.jpg?imageView2/2/w/600">  
 <h2 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h2><ul>
 <li>维吉尼亚算法简介</li>
-<li>加密算法实现</li>
-<li><ul>
+<li>加密算法实现<ul>
 <li>编码方式</li>
 <li>对明文进行处理</li>
 <li>加密过程</li>
 </ul>
 </li>
 <li>解密算法实现</li>
-<li>唯密文攻击</li>
-<li><ul>
+<li>唯密文攻击<ul>
 <li>确定密钥长度</li>
 <li>确定密钥</li>
 <li>恢复明文</li>
@@ -489,6 +491,10 @@
 <h4 id="确定密钥"><a href="#确定密钥" class="headerlink" title="确定密钥"></a>确定密钥</h4><p>&emsp;&emsp;确定密钥长度大致过程是：利用之前得到的l个子串，对每个子串都进行移位操作。假设现在对第i个子串进行移位操作（子串的每个字符移动相同的位数，最坏情况下对同一个子串需要进行26次移位操作），移动的位数为k,（k在[0-25]区间内，也就对应了[a-z]）。每进行一次移位操作，就对该子串计算一次拟重合指数，如果该拟重合指数位于[0.06,0.07]这个区间内，则说明此时移动的位数对应的s列表中的字符即为该子串的密钥；否则，继续进行下一次移位操作。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">crack_key</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    cracker函数的主要作用是破解密钥</span></span><br><span class="line"><span class="string">    :return: 返回密钥</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">"crypt.txt"</span>,<span class="string">"r"</span>) <span class="keyword">as</span> f:</span><br><span class="line">        crypt = f.read()</span><br><span class="line">    len_key,d = guess_len_key(crypt)</span><br><span class="line">    key = <span class="string">''</span></span><br><span class="line">    print(<span class="string">"\n-------------------------------------"</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"|       经计算可知，密钥长度为%s         |"</span> % len_key)</span><br><span class="line">    print(<span class="string">"-------------------------------------\n"</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len_key):</span><br><span class="line">        substring = d[i]</span><br><span class="line">        print(<span class="string">"当前字串为："</span>,d[i])</span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">26</span>):</span><br><span class="line">            dex = quasi_index(substring, n)</span><br><span class="line">            print(<span class="string">"假设子串移动&#123;&#125;,拟重合指数为&#123;:.4f&#125;"</span>.format(s[n],dex))</span><br><span class="line">            <span class="keyword">if</span> dex &gt;= <span class="number">0.06</span> <span class="keyword">and</span> dex &lt;= <span class="number">0.07</span>:</span><br><span class="line">                key += s[n]</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    print(<span class="string">"******************************破解的最终密钥为%s*********************************"</span> % key)</span><br></pre></td></tr></table></figure>
 <h4 id="恢复明文"><a href="#恢复明文" class="headerlink" title="恢复明文"></a>恢复明文</h4><p>&emsp;&emsp;恢复明文的过程与解密过程类似，这里不在详述。</p>
+<h3 id="系统运行演示"><a href="#系统运行演示" class="headerlink" title="系统运行演示"></a>系统运行演示</h3><h4 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h4><img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/jiami.PNG?imageView2/2/w/600">  
+<h4 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h4><img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/jiemi.PNG?imageView2/2/w/600">  
+<h4 id="猜解密钥长度"><a href="#猜解密钥长度" class="headerlink" title="猜解密钥长度"></a>猜解密钥长度</h4><img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/keylen.PNG?imageView2/2/w/600">  
+<h4 id="猜解密钥"><a href="#猜解密钥" class="headerlink" title="猜解密钥"></a>猜解密钥</h4><img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/nichonghe.PNG?imageView2/2/w/600">  
 
       
 
@@ -762,7 +768,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#维吉尼亚算法简介"><span class="nav-number">1.1.</span> <span class="nav-text">维吉尼亚算法简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加密算法实现"><span class="nav-number">1.2.</span> <span class="nav-text">加密算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编码方式"><span class="nav-number">1.2.1.</span> <span class="nav-text">编码方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对明文进行处理"><span class="nav-number">1.2.2.</span> <span class="nav-text">对明文进行处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加密过程"><span class="nav-number">1.2.3.</span> <span class="nav-text">加密过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解密算法实现"><span class="nav-number">1.3.</span> <span class="nav-text">解密算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#唯密文攻击"><span class="nav-number">1.4.</span> <span class="nav-text">唯密文攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#确定密钥长度"><span class="nav-number">1.4.1.</span> <span class="nav-text">确定密钥长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确定密钥"><span class="nav-number">1.4.2.</span> <span class="nav-text">确定密钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#恢复明文"><span class="nav-number">1.4.3.</span> <span class="nav-text">恢复明文</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#维吉尼亚算法简介"><span class="nav-number">1.1.</span> <span class="nav-text">维吉尼亚算法简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#加密算法实现"><span class="nav-number">1.2.</span> <span class="nav-text">加密算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#编码方式"><span class="nav-number">1.2.1.</span> <span class="nav-text">编码方式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对明文进行处理"><span class="nav-number">1.2.2.</span> <span class="nav-text">对明文进行处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#加密过程"><span class="nav-number">1.2.3.</span> <span class="nav-text">加密过程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解密算法实现"><span class="nav-number">1.3.</span> <span class="nav-text">解密算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#唯密文攻击"><span class="nav-number">1.4.</span> <span class="nav-text">唯密文攻击</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#确定密钥长度"><span class="nav-number">1.4.1.</span> <span class="nav-text">确定密钥长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#确定密钥"><span class="nav-number">1.4.2.</span> <span class="nav-text">确定密钥</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#恢复明文"><span class="nav-number">1.4.3.</span> <span class="nav-text">恢复明文</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统运行演示"><span class="nav-number">1.5.</span> <span class="nav-text">系统运行演示</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#加密"><span class="nav-number">1.5.1.</span> <span class="nav-text">加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解密"><span class="nav-number">1.5.2.</span> <span class="nav-text">解密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#猜解密钥长度"><span class="nav-number">1.5.3.</span> <span class="nav-text">猜解密钥长度</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#猜解密钥"><span class="nav-number">1.5.4.</span> <span class="nav-text">猜解密钥</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
