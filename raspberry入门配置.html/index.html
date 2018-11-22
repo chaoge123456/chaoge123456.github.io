@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="python,树莓派,内网穿透," />
+  <meta name="keywords" content="树莓派,python,内网穿透," />
 
 
 
@@ -88,20 +88,20 @@
 
 
 
-<meta name="description" content="摘要 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。    文章概览 重新安装系统 连接树莓派 安装远程桌面服务 更新软件源 raspi-conf">
-<meta name="keywords" content="python,树莓派,内网穿透">
+<meta name="description" content="摘要 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。  文章概览 重新安装系统 连接树莓派 安装远程桌面服务 更新软件源 raspi-config">
+<meta name="keywords" content="树莓派,python,内网穿透">
 <meta property="og:type" content="article">
 <meta property="og:title" content="raspberry入门配置">
 <meta property="og:url" content="https://chaoge123456.github.io/raspberry入门配置.html/index.html">
 <meta property="og:site_name" content="小生很忙">
-<meta property="og:description" content="摘要 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。    文章概览 重新安装系统 连接树莓派 安装远程桌面服务 更新软件源 raspi-conf">
+<meta property="og:description" content="摘要 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。  文章概览 重新安装系统 连接树莓派 安装远程桌面服务 更新软件源 raspi-config">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/images.png?imageView2/2/w/600">
-<meta property="og:updated_time" content="2018-09-23T00:26:08.858Z">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/images.png">
+<meta property="og:updated_time" content="2018-11-22T10:56:01.642Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="raspberry入门配置">
-<meta name="twitter:description" content="摘要 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。    文章概览 重新安装系统 连接树莓派 安装远程桌面服务 更新软件源 raspi-conf">
-<meta name="twitter:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/images.png?imageView2/2/w/600">
+<meta name="twitter:description" content="摘要 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。  文章概览 重新安装系统 连接树莓派 安装远程桌面服务 更新软件源 raspi-config">
+<meta name="twitter:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/images.png">
 
 
 
@@ -441,7 +441,7 @@
 
       
         <p><strong>摘要</strong> 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。</p>
-<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/images.png?imageView2/2/w/600">  
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/images.png" alt="avatar"></p>
 <h2 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h2><ul>
 <li>重新安装系统</li>
 <li>连接树莓派</li>
@@ -454,20 +454,20 @@
 <li>安装zsh</li>
 <li>python环境搭建</li>
 </ul>
-<h3 id="重新安装系统"><a href="#重新安装系统" class="headerlink" title="重新安装系统"></a>重新安装系统</h3><p>&emsp;&emsp;重新安装系统的过程我们需要用到：<a href="#https://www.raspberrypi.org/downloads/">系统镜像</a>、<a href="#http://www.diskgenius.cn/">DiskGenius</a>、<a href="#https://sourceforge.net/projects/win32diskimager/">Win32DiskImager</a>，DiskGenius的作用是格式化TF卡，Win32DiskImager的作用是将系统镜像写入TF卡，具体的操作过程可以参考<a href="#https://www.jianshu.com/p/6af60049fdf1">这篇博客</a>。</p>
+<h3 id="重新安装系统"><a href="#重新安装系统" class="headerlink" title="重新安装系统"></a>重新安装系统</h3><p>&emsp;&emsp;重新安装系统的过程我们需要用到：<a href="https://www.raspberrypi.org/downloads/" target="_blank" rel="noopener">系统镜像</a>、<a href="http://www.diskgenius.cn/" target="_blank" rel="noopener">DiskGenius</a>、<a href="#https://sourceforge.net/projects/win32diskimager/">Win32DiskImager</a>，DiskGenius的作用是格式化TF卡，Win32DiskImager的作用是将系统镜像写入TF卡，具体的操作过程可以参考<a href="https://www.jianshu.com/p/6af60049fdf1" target="_blank" rel="noopener">这篇博客</a>。</p>
 <h3 id="连接树莓派"><a href="#连接树莓派" class="headerlink" title="连接树莓派"></a>连接树莓派</h3><p>&emsp;&emsp;对于如何连接树莓派，我在之前的博客中详细的讨论过，这里不再赘述，需要提醒大家的是只需要使用某一种方法连接树莓派即可。</p>
 <h3 id="安装远程连接服务"><a href="#安装远程连接服务" class="headerlink" title="安装远程连接服务"></a>安装远程连接服务</h3><p>&emsp;&emsp;ssh连接是通过命令行对树莓派进行远程操作，而远程桌面是直接通过树莓派的GUI界面进行操作，操作简单，交互性好。xrdp是一个开源的远程桌面服务器，支持windows远程桌面连接，但是需要使用tightvncserver作为其基础服务，具体安装操作如下所示。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update #更新</span><br><span class="line">sudo apt-get install xrdp</span><br><span class="line">sudo apt-get install tightvncserver</span><br></pre></td></tr></table></figure>
 <p>安装好以上两个服务以后。可以使用windows自带的远程连接工具连接到树莓派。</p>
-<h3 id="更新软件源"><a href="#更新软件源" class="headerlink" title="更新软件源"></a>更新软件源</h3><p>&emsp;&emsp;在更新软件源的时候，大家注意查看自己的系统版本（推荐大家安装最新的系统版本），具体操作参见<a href="#https://mirror.tuna.tsinghua.edu.cn/help/">清华大学开源软件镜像站</a>。</p>
-<h3 id="raspi-config"><a href="#raspi-config" class="headerlink" title="raspi-config"></a>raspi-config</h3><p>&emsp;&emsp;通过远程桌面连接到树莓派之后，系统会提示进行一些初始化配置，包括拓展内存、设置时区、语言等等，具体操作参见<a href="#http://shumeipai.nxez.com/2013/09/07/raspi-config-configuration-raspberry-pie.html">这篇博客</a>。</p>
+<h3 id="更新软件源"><a href="#更新软件源" class="headerlink" title="更新软件源"></a>更新软件源</h3><p>&emsp;&emsp;在更新软件源的时候，大家注意查看自己的系统版本（推荐大家安装最新的系统版本），具体操作参见<a href="https://mirror.tuna.tsinghua.edu.cn/help/" target="_blank" rel="noopener">清华大学开源软件镜像站</a>。</p>
+<h3 id="raspi-config"><a href="#raspi-config" class="headerlink" title="raspi-config"></a>raspi-config</h3><p>&emsp;&emsp;通过远程桌面连接到树莓派之后，系统会提示进行一些初始化配置，包括拓展内存、设置时区、语言等等，具体操作参见<a href="http://shumeipai.nxez.com/2013/09/07/raspi-config-configuration-raspberry-pie.html" target="_blank" rel="noopener">这篇博客</a>。</p>
 <h3 id="配置无线网络"><a href="#配置无线网络" class="headerlink" title="配置无线网络"></a>配置无线网络</h3><p>&emsp;&emsp;配置无线网络有两种方式，一个是在图形化界面直接选择连接的ssid，输入密码即可，系统会保存该无线网络的相关信息到/etc/wpa_supplicant/wpa_supplicant.conf文件；另外一种方式是直接修改该配置文件，将无线网络配置信息添加到该文件中。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">country=CN</span><br><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line">    ssid="***"</span><br><span class="line">    psk="***"</span><br><span class="line">    priority=1</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 <h3 id="配置静态IP"><a href="#配置静态IP" class="headerlink" title="配置静态IP"></a>配置静态IP</h3><p>&emsp;&emsp;由于每次树莓派连接路由器的时候，路由器会分配不同的IP地址，所以当我们连接树莓派的时候每次都要通过路由器查看树莓派的IP地址，这样比较麻烦，所以，我们需要给路由器指定静态的IP。修改/etc/dhcpcd.conf文件（一定要注意不是修改/etc/network/interfaces文件），在后面添加以下内容：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">interface eth0 #有线</span><br><span class="line"> </span><br><span class="line">static ip_address=192.168.0.10/24</span><br><span class="line">static routers=192.168.0.1</span><br><span class="line">static domain_name_servers=192.168.0.1</span><br><span class="line"> </span><br><span class="line">interface wlan0 #无线连接</span><br><span class="line"> </span><br><span class="line">static ip_address=192.168.0.200/24</span><br><span class="line">static routers=192.168.0.1</span><br><span class="line">static domain_name_servers=192.168.0.1</span><br></pre></td></tr></table></figure>
-<h3 id="配置内网映射"><a href="#配置内网映射" class="headerlink" title="配置内网映射"></a>配置内网映射</h3><p>&emsp;&emsp;如果想要从外网直接访问树莓派，那我们需要将树莓派的内网IP映射到公网当中，这里我们使用的映射工具是花生壳，具体操作参见<a href="#http://service.oray.com/question/2680.html">官方教程</a>。</p>
-<h3 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装zsh</h3><p>&emsp;&emsp;树莓派基于linux操作系统，其终端shell默认的是bash，而zsh是比bash更加强大的shell，而且更加美观，具体配置参见<a href="#https://mlapp.cn/310.html">这篇博客</a>。</p>
-<h3 id="python环境搭建"><a href="#python环境搭建" class="headerlink" title="python环境搭建"></a>python环境搭建</h3><p>&emsp;&emsp;树莓派中内置了两个版本的python，python2.7和python3.5，系统默认版本为python2.7。在进行系统环境配置和相关依赖安装的过程中，一律使用系统默认版本即python2.7（如果切换至python3.5.会出现各种各样的问题）。在程序开发过程中如果需要使用python3.5，可以切换python环境，具体操作参见<a href="#https://linux.cn/article-6970-1.html">这篇博客</a>。</p>
+<h3 id="配置内网映射"><a href="#配置内网映射" class="headerlink" title="配置内网映射"></a>配置内网映射</h3><p>&emsp;&emsp;如果想要从外网直接访问树莓派，那我们需要将树莓派的内网IP映射到公网当中，这里我们使用的映射工具是花生壳，具体操作参见<a href="http://service.oray.com/question/2680.html" target="_blank" rel="noopener">官方教程</a>。</p>
+<h3 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装zsh</h3><p>&emsp;&emsp;树莓派基于linux操作系统，其终端shell默认的是bash，而zsh是比bash更加强大的shell，而且更加美观，具体配置参见<a href="https://mlapp.cn/310.html" target="_blank" rel="noopener">这篇博客</a>。</p>
+<h3 id="python环境搭建"><a href="#python环境搭建" class="headerlink" title="python环境搭建"></a>python环境搭建</h3><p>&emsp;&emsp;树莓派中内置了两个版本的python，python2.7和python3.5，系统默认版本为python2.7。在进行系统环境配置和相关依赖安装的过程中，一律使用系统默认版本即python2.7（如果切换至python3.5.会出现各种各样的问题）。在程序开发过程中如果需要使用python3.5，可以切换python环境，具体操作参见<a href="https://linux.cn/article-6970-1.html" target="_blank" rel="noopener">这篇博客</a>。</p>
 
       
 
@@ -534,9 +534,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
-          
             <a href="/tags/树莓派/" rel="tag"><i class="fa fa-tag"></i> 树莓派</a>
+          
+            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
           
             <a href="/tags/内网穿透/" rel="tag"><i class="fa fa-tag"></i> 内网穿透</a>
           
@@ -647,7 +647,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -658,7 +658,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -669,7 +669,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -777,7 +777,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">31.4k</span>
+    <span title="Site words total count">31.8k</span>
   
 </div>
 

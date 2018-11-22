@@ -88,34 +88,34 @@
 
 
 
-<meta name="description" content="摘要: 最近在看关于web安全相关的书籍，说到web安全HTTP和HTTPS之间的联系和区别是一个无法回避的问题。很长时间以来，我也被这个问题所困扰，对于其中涉及的细节问题更是难以触及，但是现在是该去好好考虑这个问题了。在网上查阅了大量资料之后，我发现很多文章在解释这个问题的时候含糊不清，让人难以理解。所以我写下了这篇博客，希望能给大家提供帮助，如有不足之处，欢迎指正！   文章概览 区别与联系">
+<meta name="description" content="摘要: 最近在看关于web安全相关的书籍，说到web安全HTTP和HTTPS之间的联系和区别是一个无法回避的问题。很长时间以来，我也被这个问题所困扰，对于其中涉及的细节问题更是难以触及，但是现在是该去好好考虑这个问题了。在网上查阅了大量资料之后，我发现很多文章在解释这个问题的时候含糊不清，让人难以理解。所以我写下了这篇博客，希望能给大家提供帮助，如有不足之处，欢迎指正！  文章概览 区别与联系 H">
 <meta name="keywords" content="HTTPS和HTTP,SSL安全套接层,TLS安全传输层协议,openssl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HTTPS详解：SSL&#x2F;TLS协议">
 <meta property="og:url" content="https://chaoge123456.github.io/TLS.html/index.html">
 <meta property="og:site_name" content="小生很忙">
-<meta property="og:description" content="摘要: 最近在看关于web安全相关的书籍，说到web安全HTTP和HTTPS之间的联系和区别是一个无法回避的问题。很长时间以来，我也被这个问题所困扰，对于其中涉及的细节问题更是难以触及，但是现在是该去好好考虑这个问题了。在网上查阅了大量资料之后，我发现很多文章在解释这个问题的时候含糊不清，让人难以理解。所以我写下了这篇博客，希望能给大家提供帮助，如有不足之处，欢迎指正！   文章概览 区别与联系">
+<meta property="og:description" content="摘要: 最近在看关于web安全相关的书籍，说到web安全HTTP和HTTPS之间的联系和区别是一个无法回避的问题。很长时间以来，我也被这个问题所困扰，对于其中涉及的细节问题更是难以触及，但是现在是该去好好考虑这个问题了。在网上查阅了大量资料之后，我发现很多文章在解释这个问题的时候含糊不清，让人难以理解。所以我写下了这篇博客，希望能给大家提供帮助，如有不足之处，欢迎指正！  文章概览 区别与联系 H">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/http_vs_https.png?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/http-problems.png?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/overview.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/handshake.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/client_hello.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/server_hello.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/certificate.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/server_key_change.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/server_hello_done.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/client_key_exchange.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/change_client_spec.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/client_finish.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/new_session_key.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/diffie_hellman.jpg?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/handshake_rsa.png?imageView2/2/w/600">
-<meta property="og:updated_time" content="2018-08-07T12:06:50.317Z">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/http_vs_https.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/http-problems.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/overview.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/handshake.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/client_hello.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/server_hello.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/certificate.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/server_key_change.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/server_hello_done.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/client_key_exchange.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/change_client_spec.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/client_finish.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/new_session_key.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/diffie_hellman.jpg">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/handshake_rsa.png">
+<meta property="og:updated_time" content="2018-11-22T10:43:50.668Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="HTTPS详解：SSL&#x2F;TLS协议">
-<meta name="twitter:description" content="摘要: 最近在看关于web安全相关的书籍，说到web安全HTTP和HTTPS之间的联系和区别是一个无法回避的问题。很长时间以来，我也被这个问题所困扰，对于其中涉及的细节问题更是难以触及，但是现在是该去好好考虑这个问题了。在网上查阅了大量资料之后，我发现很多文章在解释这个问题的时候含糊不清，让人难以理解。所以我写下了这篇博客，希望能给大家提供帮助，如有不足之处，欢迎指正！   文章概览 区别与联系">
-<meta name="twitter:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/http_vs_https.png?imageView2/2/w/600">
+<meta name="twitter:description" content="摘要: 最近在看关于web安全相关的书籍，说到web安全HTTP和HTTPS之间的联系和区别是一个无法回避的问题。很长时间以来，我也被这个问题所困扰，对于其中涉及的细节问题更是难以触及，但是现在是该去好好考虑这个问题了。在网上查阅了大量资料之后，我发现很多文章在解释这个问题的时候含糊不清，让人难以理解。所以我写下了这篇博客，希望能给大家提供帮助，如有不足之处，欢迎指正！  文章概览 区别与联系 H">
+<meta name="twitter:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/http_vs_https.png">
 
 
 
@@ -454,7 +454,7 @@
       
 
       
-        <p><strong>摘要:</strong> 最近在看关于web安全相关的书籍，说到web安全HTTP和HTTPS之间的联系和区别是一个无法回避的问题。很长时间以来，我也被这个问题所困扰，对于其中涉及的细节问题更是难以触及，但是现在是该去好好考虑这个问题了。在网上查阅了大量资料之后，我发现很多文章在解释这个问题的时候含糊不清，让人难以理解。所以我写下了这篇博客，希望能给大家提供帮助，如有不足之处，欢迎指正！<br><img alt="http" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/http_vs_https.png?imageView2/2/w/600">  </p>
+        <p><strong>摘要:</strong> 最近在看关于web安全相关的书籍，说到web安全HTTP和HTTPS之间的联系和区别是一个无法回避的问题。很长时间以来，我也被这个问题所困扰，对于其中涉及的细节问题更是难以触及，但是现在是该去好好考虑这个问题了。在网上查阅了大量资料之后，我发现很多文章在解释这个问题的时候含糊不清，让人难以理解。所以我写下了这篇博客，希望能给大家提供帮助，如有不足之处，欢迎指正！<br><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/http_vs_https.png" alt="avatar"> </p>
 <h1 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h1><ul>
 <li><a href="#difference">区别与联系</a><ul>
 <li>HTTP和HTTPS<ul>
@@ -480,7 +480,7 @@
 </ul>
 <h2 id="difference">区别与联系</h2>
 
-<h3>HTTP和HTTPS</h3><br><h4>联系</h4><br>&emsp;&emsp;HTTP（超文本传输协议）是一个客户端终端（用户）和服务器端（网站）请求和应答的标准（TCP）。通过使用网页浏览器、网络爬虫或者其它的工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80）。我们称这个客户端为用户代理程序（user agent）。应答的服务器上存储着一些资源，比如HTML文件和图像。我们称这个应答服务器为源服务器（origin server）。在用户代理和源服务器中间可能存在多个“中间层”，比如代理服务器、网关或者隧道（tunnel）。可以从HTTP头、HTTP请求方法、HTTP状态码和统一资源定位符URL四个方面深入理解HTTP协议。<br><img title="HTTP存在的问题" alt="HTTP存在的问题" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/http-problems.png?imageView2/2/w/600"><br>&emsp;&emsp;超文本传输协议HTTP协议被用于在Web浏览器和网站服务器之间传递信息。HTTP协议以明文方式发送内容，不提供任何方式的数据加密，易遭受窃听、篡改、劫持等攻击，因此HTTP协议不适合传输一些敏感信息，比如信用卡号、密码等。为了解决HTTP协议的这一缺陷，需要使用另一种协议：安全套接字层超文本传输协议HTTPS。为了数据传输的安全，HTTPS在HTTP的基础上加入了SSL/TLS协议，SSL/TLS依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密，一次HTTPS协议实现了数据传输过程中的保密性、完整性和身份认证性。<br><h4>区别</h4><br>&emsp;&emsp;HTTP和HTTPS的主要区别如下包括:HTTPS协议需要到CA申请证书,而HTTP协议则不用；HTTP是超文本传输协议，信息是明文传输，而HTTPS则是加密传输；HTTP和HTTPS使用完全不同的连接方式，所占用的端口也不一样，前者占用80端口，后者占用443端口；HTTPS传输过程比较复杂，对服务端占用的资源比较多，由于握手过程的复杂性和加密传输的特性导致HTTPS传输的效率比较低；HTTP的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比HTTP协议安全。<br><h3>SSL和TLS</h3>
+<h3>HTTP和HTTPS</h3><br><h4>联系</h4><br>&emsp;&emsp;HTTP（超文本传输协议）是一个客户端终端（用户）和服务器端（网站）请求和应答的标准（TCP）。通过使用网页浏览器、网络爬虫或者其它的工具，客户端发起一个HTTP请求到服务器上指定端口（默认端口为80）。我们称这个客户端为用户代理程序（user agent）。应答的服务器上存储着一些资源，比如HTML文件和图像。我们称这个应答服务器为源服务器（origin server）。在用户代理和源服务器中间可能存在多个“中间层”，比如代理服务器、网关或者隧道（tunnel）。可以从HTTP头、HTTP请求方法、HTTP状态码和统一资源定位符URL四个方面深入理解HTTP协议。<br><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/http-problems.png" alt="avatar"><br>&emsp;&emsp;超文本传输协议HTTP协议被用于在Web浏览器和网站服务器之间传递信息。HTTP协议以明文方式发送内容，不提供任何方式的数据加密，易遭受窃听、篡改、劫持等攻击，因此HTTP协议不适合传输一些敏感信息，比如信用卡号、密码等。为了解决HTTP协议的这一缺陷，需要使用另一种协议：安全套接字层超文本传输协议HTTPS。为了数据传输的安全，HTTPS在HTTP的基础上加入了SSL/TLS协议，SSL/TLS依靠证书来验证服务器的身份，并为浏览器和服务器之间的通信加密，一次HTTPS协议实现了数据传输过程中的保密性、完整性和身份认证性。<br><br><h4>区别</h4><br>&emsp;&emsp;HTTP和HTTPS的主要区别如下包括:HTTPS协议需要到CA申请证书,而HTTP协议则不用；HTTP是超文本传输协议，信息是明文传输，而HTTPS则是加密传输；HTTP和HTTPS使用完全不同的连接方式，所占用的端口也不一样，前者占用80端口，后者占用443端口；HTTPS传输过程比较复杂，对服务端占用的资源比较多，由于握手过程的复杂性和加密传输的特性导致HTTPS传输的效率比较低；HTTP的连接很简单，是无状态的；HTTPS协议是由SSL+HTTP协议构建的可进行加密传输、身份认证的网络协议，比HTTP协议安全。<br><h3>SSL和TLS</h3>
 
 <p></p><h4>联系</h4><br>&emsp;&emsp;SSL(Secure Sockets Layer 安全套接层)为Netscape所研发，用以保障在Internet上数据传输之安全，利用数据加密(Encryption)技术，可确保数据在网络上之传输过程中不会被截取及窃听。SSL协议位于TCP/IP协议与各种应用层协议之间，为数据通讯提供安全支持。SSL协议可分为两层： SSL记录协议（SSL Record Protocol）：它建立在可靠的传输协议（如TCP）之上，为高层协议提供数据封装、压缩、加密等基本功能的支持。 SSL握手协议（SSL Handshake Protocol）：它建立在SSL记录协议之上，用于在实际的数据传输开始前，通讯双方进行身份认证、协商加密算法、交换加密密钥等。<br>&emsp;&emsp;安全传输层协议（TLS）用于在两个通信应用程序之间提供保密性和数据完整性。该协议由两层组成： TLS 记录协议（TLS Record）和 TLS 握手协议（TLS Handshake）。较低的层为 TLS 记录协议，位于某个可靠的传输协议（例如 TCP）上面，与具体的应用无关，所以，一般把TLS协议归为传输层安全协议。TLS 的最大优势就在于：TLS 是独立于应用协议。高层协议可以透明地分布在 TLS 协议上面。然而，TLS 标准并没有规定应用程序如何在 TLS 上增加安全性；它把如何启动 TLS 握手协议以及如何解释交换的认证证书的决定权留给协议的设计者和实施者来判断。<br>&emsp;&emsp;SSL是Netscape开发的专门用户保护Web通讯的，而TLS1.0是IETF(工程任务组)制定的一种新的协议，它建立在SSL 3.0协议规范之上，是SSL 3.0的后续版本。两者差别很小，可以理解为SSL 3.1，它是写入了RFC的。为了兼顾各种说法本文将SSL和TLS统称为SSL/TLS，但是请注意，本文所涉及的关于各种协议的解析是基于TLS1.2版本（这是目前使用最广泛的版本）。  <p></p>
 <p></p><h4>区别</h4><br>&emsp;&emsp;SSL和TLS的主要区别如下：  <p></p>
@@ -507,22 +507,40 @@
 <li>私有――对称加密用以数据加密（DES 、RC4 等）。对称加密所产生的密钥对每个连接都是唯一的，且此密钥基于另一个协议（如握手协议）协商。记录协议也可以不加密使用  </li>
 <li>可靠――信息传输包括使用密钥的 MAC 进行信息完整性检查。安全哈希功能（ SHA、MD5 等）用于 MAC 计算。记录协议在没有 MAC 的情况下也能操作，但一般只能用于这种模式，即有另一个协议正在使用记录协议传输协商安全参数</li>
 </ul>
-<p></p><h3>握手协议</h3><br>&emsp;&emsp;TLS握手协议处理对等用户的认证，在这一层使用了公共密钥和证书，并协商算法和加密实际数据传输的密钥，该过程在TLS记录协议之上进行。TLS握手协议是TLS协议中最复杂的部分，它定义了10种消息，客户端和服务器利用这10种消息相互认证，协商哈希函数和加密算法并相互提供产生加密密钥的机密数据。TLS记录协议会在加密算法中用到这些加密密钥，从而提供数据保密性和一致性保护。<br>&emsp;&emsp;我们先来分析基于ECDHE_RSA密钥交换算法的握手过程，在这之前先来解释一下ECDHE是什么。ECDHE_RSA = EC（<a href="https://baike.baidu.com/item/%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%AF%86%E7%A0%81%E5%AD%A6/2249951" target="_blank" rel="noopener">椭圆曲线加密算法</a>）+ DH（<a href="https://baike.baidu.com/item/Diffie-Hellman" target="_blank" rel="noopener">Diffie-Hellman密钥交换算法</a>）+ E（临时的temporary）+ RSA（用于签名，防止中间人攻击），所以ECDHE的意思是结合椭圆曲线的生成临时会话密钥的密钥交换算法。对于这个算法的具体计算过程，这里不详细讨论。<br>&emsp;&emsp;下图是EDCHE_RSA密钥交换算法的大致流程，接下来我会结合wireshark抓取的数据包来分析握手的过程：<br><img title="握手过程" alt="握手过程" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/overview.PNG?imageView2/2/w/600"><p></p>
+<p></p><h3>握手协议</h3><br>&emsp;&emsp;TLS握手协议处理对等用户的认证，在这一层使用了公共密钥和证书，并协商算法和加密实际数据传输的密钥，该过程在TLS记录协议之上进行。TLS握手协议是TLS协议中最复杂的部分，它定义了10种消息，客户端和服务器利用这10种消息相互认证，协商哈希函数和加密算法并相互提供产生加密密钥的机密数据。TLS记录协议会在加密算法中用到这些加密密钥，从而提供数据保密性和一致性保护。<br>&emsp;&emsp;我们先来分析基于ECDHE_RSA密钥交换算法的握手过程，在这之前先来解释一下ECDHE是什么。ECDHE_RSA = EC（<a href="https://baike.baidu.com/item/%E6%A4%AD%E5%9C%86%E6%9B%B2%E7%BA%BF%E5%AF%86%E7%A0%81%E5%AD%A6/2249951" target="_blank" rel="noopener">椭圆曲线加密算法</a>)+ DH(<a href="https://baike.baidu.com/item/Diffie-Hellman" target="_blank" rel="noopener">Diffie-Hellman密钥交换算法</a>)+ E(临时的temporary)+ RSA(用于签名，防止中间人攻击)，所以ECDHE的意思是结合椭圆曲线的生成临时会话密钥的密钥交换算法。对于这个算法的具体计算过程，这里不详细讨论。<br>&emsp;&emsp;下图是EDCHE_RSA密钥交换算法的大致流程，接下来我会结合wireshark抓取的数据包来分析握手的过程：<br><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/overview.PNG" alt="avatar"><p></p>
 <ul>
-<li>在客户端和服务器开始握手之前先进行TCP三次握手，这部分的内容本文不会讨论。三次握手之后，开始握手协议，先在这展示一下抓到的所有握手包。<img title="handshake" alt="handshake" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/handshake.PNG?imageView2/2/w/600"></li>
-<li>client hello：由于客户端对一些加解密算法的支持程度不一样，但是SSL/TLS协议传输过程中必须要求客户端与服务器端使用相同的加解密算法。所以在client hello阶段，客户端要首先告知服务端，自己支持哪些密码套件，客户端将支持的密码套件列表发送给服务端；同时客户端还会产生一个随机数，这个随机数双方都要保存（生成主密钥）；session id字段是用于维持会话，如果客户端与服务端关闭会话之后，客户端又要重新发起会话，session id可用于双方协商是否要进行重新握手过程；extension字段用于添加一些拓展功能；compress表示支持的压缩方法。  <img title="client_hello" alt="client" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/client_hello.PNG?imageView2/2/w/600">  </li>
-<li>server hello：server hello是根据客户端发送过来的密码套件和压缩方法选择双方都支持的类型，同时服务器端也会生成一个随机数，双方都要保存。<img title="server_hello" alt="server_hello" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/server_hello.PNG?imageView2/2/w/600">  </li>
-<li>certificate：该过程中服务器用私钥签名证书，发送给客户端以认证身份<img title="certificate" alt="certificate" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/certificate.PNG?imageView2/2/w/600">  </li>
-<li>server key exchange：对于ECDHE_RSA密钥交换算法来说这一过程是必须的，在此过程服务端将生成一对公钥和私钥，私钥保留（用于服务器端生成预主密钥），并将公钥发送给客户端（用于客户端生成预主密钥），同时将前一阶段所有的会话内容利用私钥进行前面发给客户端，用于验证服务端身份，防止中间人攻击。而对于RSA_RSA密钥交换算法，没有这一过程，同样有这个过程的还有DHE密钥交换算法，有没有这一过程都是却决于密钥交换算法自身。在这个数据包中，还给出了服务端生成公私钥所用的算法sec256r1  <img title="server_key_change" alt="server_key_change" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/server_key_change.PNG?imageView2/2/w/600">  </li>
-<li>server hello done：表示server hello结束，这是个空消息  <img title="server_hello_done" alt="server_hello_done" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/server_hello_done.PNG?imageView2/2/w/600">  </li>
-<li>client key exchange：客户端也生成一对公钥和私钥，私钥保留（用于客户端生成预主密钥），公钥发给服务端（用于服务端生成预主密钥）  <img title="client_key_exchange" alt="client_key_exchange" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/client_key_exchange.PNG?imageView2/2/w/600">  </li>
-<li>change cipher spec：客户端根据交互过程中获得的信息，以及应用服务端规定的密码套件，已经生成了相应的密钥。通过这条消息，客户端告诉服务器端：从现在起，我将使用双方约定的密码规范进行通信  <img title="change_client_cipher" alt="change_client_cipher" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/change_client_spec.PNG?imageView2/2/w/600">  </li>
-<li>encrypted handshake message：客户端利用生成的密钥加密一段finishde数据传送给服务端，此数据是为了在正式传输应用之前对刚刚握手建立起来的加解密通道进行验证  <img title="client_finish" alt="client_finish" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/client_finish.PNG?imageView2/2/w/600">  </li>
-<li>new session ticket：服务端告知客户端将生成新的session ticket用于保持会话（session ticket与前面提到的session id作用类似，但两者实现方式不同）<img title="new_session_ticket" alt="new_session_ticket" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/new_session_key.PNG?imageView2/2/w/600">  </li>
-<li>change cipher spec：同样服务端也要发送这段信息，作用与客户端一致  </li>
-<li>encrypted handshake message：作用与客户端一致<br>至此，握手协议结束，双方开始建立加密通道。  </li>
+<li><p>在客户端和服务器开始握手之前先进行TCP三次握手，这部分的内容本文不会讨论。三次握手之后，开始握手协议，先在这展示一下抓到的所有握手包。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/handshake.PNG" alt="avatar"></p>
+</li>
+<li><p>Client hello：由于客户端对一些加解密算法的支持程度不一样，但是SSL/TLS协议传输过程中必须要求客户端与服务器端使用相同的加解密算法。所以在client hello阶段，客户端要首先告知服务端，自己支持哪些密码套件，客户端将支持的密码套件列表发送给服务端；同时客户端还会产生一个随机数，这个随机数双方都要保存（生成主密钥）；session id字段是用于维持会话，如果客户端与服务端关闭会话之后，客户端又要重新发起会话，session id可用于双方协商是否要进行重新握手过程；extension字段用于添加一些拓展功能；compress表示支持的压缩方法。<br><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/client_hello.PNG" alt="avatar"></p>
+</li>
+<li><p>server hello：server hello是根据客户端发送过来的密码套件和压缩方法选择双方都支持的类型，同时服务器端也会生成一个随机数，双方都要保存。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/server_hello.PNG" alt="avatar"></p>
+</li>
+<li><p>certificate：该过程中服务器用私钥签名证书，发送给客户端以认证身份</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/certificate.PNG" alt="avatar"></p>
+</li>
+<li><p>server key exchange：对于ECDHE_RSA密钥交换算法来说这一过程是必须的，在此过程服务端将生成一对公钥和私钥，私钥保留（用于服务器端生成预主密钥），并将公钥发送给客户端（用于客户端生成预主密钥），同时将前一阶段所有的会话内容利用私钥进行前面发给客户端，用于验证服务端身份，防止中间人攻击。而对于RSA_RSA密钥交换算法，没有这一过程，同样有这个过程的还有DHE密钥交换算法，有没有这一过程都是却决于密钥交换算法自身。在这个数据包中，还给出了服务端生成公私钥所用的算法sec256r1<br><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/server_key_change.PNG" alt="avatar"></p>
+</li>
+<li><p>server hello done：表示server hello结束，这是个空消息<br><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/server_hello_done.PNG" alt="avatar"></p>
+</li>
+<li><p>client key exchange：客户端也生成一对公钥和私钥，私钥保留（用于客户端生成预主密钥），公钥发给服务端（用于服务端生成预主密钥）<br><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/client_key_exchange.PNG" alt="avatar"></p>
+</li>
+<li><p>change cipher spec：客户端根据交互过程中获得的信息，以及应用服务端规定的密码套件，已经生成了相应的密钥。通过这条消息，客户端告诉服务器端：从现在起，我将使用双方约定的密码规范进行通信<br><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/change_client_spec.PNG" alt="avatar"></p>
+</li>
+<li><p>encrypted handshake message：客户端利用生成的密钥加密一段finishde数据传送给服务端，此数据是为了在正式传输应用之前对刚刚握手建立起来的加解密通道进行验证<br><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/client_finish.PNG" alt="avatar"></p>
+</li>
+<li><p>new session ticket：服务端告知客户端将生成新的session ticket用于保持会话（session ticket与前面提到的session id作用类似，但两者实现方式不同）</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/new_session_key.PNG" alt="avatar"></p>
+</li>
+<li><p>change cipher spec：同样服务端也要发送这段信息，作用与客户端一致  </p>
+</li>
+<li><p>encrypted handshake message：作用与客户端一致<br>至此，握手协议结束，双方开始建立加密通道。  </p>
+</li>
 </ul>
-<p>&emsp;&emsp;值得注意的是在这个过程中客户端和服务器端都各自产生一对公钥和私钥还有一个随机数，这些都是作为生成预主密钥的元素。预主密钥分别在客户端和服务器端生成，算法的特性能够保证二者生成的预主密钥相同。那么由预主密钥如何生成会话密钥呢，这就要用到前面提到的伪随机函数，通过预主密钥我们将生成客户端验证密钥、服务器端验证密钥、客户端加密密钥、服务器端加密密钥以及客户端分组加密的初始向量和服务器端的分组加密初始向量，具体生成过程可以参考<a href="https://xz.aliyun.com/t/2531" target="_blank" rel="noopener">这篇博客</a>。对基于DH算法和RSA算法的握手过程可以参见下图，也可以参考<a href="https://segmentfault.com/a/1190000002554673" target="_blank" rel="noopener">这篇博客</a>。<br><img title="基于DH算法的握手过程" alt="基于DH算法的握手过程" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/diffie_hellman.jpg?imageView2/2/w/600"><br><img title="基于RSA算法的握手过程" alt="基于RSA算法的握手过程" class="class1 class2" src="http://pcvm1j2f3.bkt.clouddn.com/static/images/TLS/handshake_rsa.png?imageView2/2/w/600">  </p>
+<p>&emsp;&emsp;值得注意的是在这个过程中客户端和服务器端都各自产生一对公钥和私钥还有一个随机数，这些都是作为生成预主密钥的元素。预主密钥分别在客户端和服务器端生成，算法的特性能够保证二者生成的预主密钥相同。那么由预主密钥如何生成会话密钥呢，这就要用到前面提到的伪随机函数，通过预主密钥我们将生成客户端验证密钥、服务器端验证密钥、客户端加密密钥、服务器端加密密钥以及客户端分组加密的初始向量和服务器端的分组加密初始向量，具体生成过程可以参考<a href="https://xz.aliyun.com/t/2531" target="_blank" rel="noopener">这篇博客</a>。对基于DH算法和RSA算法的握手过程可以参见下图，也可以参考<a href="https://segmentfault.com/a/1190000002554673" target="_blank" rel="noopener">这篇博客</a>。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/diffie_hellman.jpg" alt="avatar">  </p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/TLS/handshake_rsa.png" alt="avatar"></p>
 <p></p><h3>前向安全</h3><br>&emsp;&emsp;在这里有必要提一下关于前向安全的定义：前向安全或前向保密，有时也被称为完美前向安全（Perfect Forward Secrecy，缩写：PFS），是密码学中通讯协议的安全属性，指的是长期使用的主密钥泄漏不会导致过去的会话密钥泄漏。前向安全能够保护过去进行的通讯不受密码或密钥在未来暴露的威胁。如果系统具有前向安全性，就可以保证在主密钥泄露时历史通讯的安全，即使系统遭到主动攻击也是如此。在传输层安全协议（TLS）中，提供了基于迪菲-赫尔曼密钥交换（DHE）的前向安全通讯，分别为（DHE-RSA）和DHE-DSA），还有基于椭圆曲线迪菲-赫尔曼密钥交换（ECDHE）的前向安全通讯，包括（ECDHE-RSA与ECDHE-ECDSA）。理论上，从SSLv3开始，就已经可以使用支持前向安全的密码算法进行通讯。之前我们提到ECDHE算法在sever key exchage阶段会生成一个临时的公私钥对，公钥发送给用户，私钥用于对数据进行RSA签名来验证服务器的身份，如果服务器的私钥泄露，这些会话不会受到影响，无法解密。对于有些算法而言，它在握手过程中不会有这个生成公私钥对的过程，它将使用服务器的私钥进行签名。如果服务器的私钥泄露，这些会话都将被暴露，这就是所谓的前向安全。<p></p>
 <h2 id="openssl">openssl</h2>
 
@@ -706,7 +724,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -717,7 +735,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -728,7 +746,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -836,7 +854,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">31.4k</span>
+    <span title="Site words total count">31.8k</span>
   
 </div>
 

@@ -96,17 +96,17 @@
 <meta property="og:site_name" content="小生很忙">
 <meta property="og:description" content="摘要 早就听说了树莓派的大名，什么智能家居，智能机器人，无人机等等它都不在话下。我最近刚刚入手了一款树莓派3B+，想利用它来开发一个智能家居的控制系统。由于从来没有接触过相关的硬件，在配置过程中确实遇到了不少坑，在这里简单的记录一下，希望能给读者一些启发。本文主要讲解如何连接树莓派的问题。  文章概览 基本配置 系统安装 连接树莓派 有路由器和网线的情况下 有网线没有路由器的情况下 没有路由器没有">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/shumei.jpg?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/1.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/2.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/3.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/4.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/5.PNG?imageView2/2/w/600">
-<meta property="og:updated_time" content="2018-09-13T15:41:01.225Z">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/shumei.jpg">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/1.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/2.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/3.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/4.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/5.PNG">
+<meta property="og:updated_time" content="2018-11-22T10:54:17.203Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何连接树莓派">
 <meta name="twitter:description" content="摘要 早就听说了树莓派的大名，什么智能家居，智能机器人，无人机等等它都不在话下。我最近刚刚入手了一款树莓派3B+，想利用它来开发一个智能家居的控制系统。由于从来没有接触过相关的硬件，在配置过程中确实遇到了不少坑，在这里简单的记录一下，希望能给读者一些启发。本文主要讲解如何连接树莓派的问题。  文章概览 基本配置 系统安装 连接树莓派 有路由器和网线的情况下 有网线没有路由器的情况下 没有路由器没有">
-<meta name="twitter:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/shumei.jpg?imageView2/2/w/600">
+<meta name="twitter:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/shumei.jpg">
 
 
 
@@ -446,7 +446,7 @@
 
       
         <p><strong>摘要</strong> 早就听说了树莓派的大名，什么智能家居，智能机器人，无人机等等它都不在话下。我最近刚刚入手了一款树莓派3B+，想利用它来开发一个智能家居的控制系统。由于从来没有接触过相关的硬件，在配置过程中确实遇到了不少坑，在这里简单的记录一下，希望能给读者一些启发。本文主要讲解如何连接树莓派的问题。</p>
-<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/shumei.jpg?imageView2/2/w/600">
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/shumei.jpg" alt="avatar"></p>
 <h2 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h2><ul>
 <li>基本配置</li>
 <li>系统安装</li>
@@ -464,16 +464,16 @@
 <h3 id="连接树莓派"><a href="#连接树莓派" class="headerlink" title="连接树莓派"></a>连接树莓派</h3><p>&emsp;&emsp;连接树莓派最简单的方法就是通过HDMI数据线连接显示屏，这样我们可以直接通过显示屏对树莓派进行操作。那如果我们没有显示屏，我们该如何连接树莓派呢？</p>
 <h4 id="有路由器和网线的情况下"><a href="#有路由器和网线的情况下" class="headerlink" title="有路由器和网线的情况下"></a>有路由器和网线的情况下</h4><p>&emsp;&emsp;这种情况下连接树莓派也比较简单，我们只需要将网线的一端接入路由器的lan接口，一端接入树莓派的网络接口（树莓派会自动获取IP地址），同时我们的主机也连接在路由器所建立的局域网内，此时我们可以通过路由器查看树莓派的IP地址。获取树莓派IP地址之后，我们通过主机中的xshell或者putty等远程连接工具就可以连接到树莓派。</p>
 <h4 id="有网线没有路由器的情况下"><a href="#有网线没有路由器的情况下" class="headerlink" title="有网线没有路由器的情况下"></a>有网线没有路由器的情况下</h4><p>&emsp;&emsp;没有了路由器，树莓派就不能获取到IP地址，这种情况稍微复杂一点。解决办法是：将网线的两端连接树莓派和主机，然后我们打开主机的网络和共享中心</p>
-<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/1.PNG?imageView2/2/w/600">
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/1.PNG" alt="avatar"></p>
 <p>点击我们已经连接的网络，查看其属性</p>
-<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/2.PNG?imageView2/2/w/600">
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/2.PNG" alt="avatar"></p>
 <p>点击共享按钮，勾选允许其他网络用户通过此计算机的Internet连接来连接（N）</p>
-<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/3.PNG?imageView2/2/w/600">
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/3.PNG" alt="avatar"></p>
 <p>接下来我们回到网络和共享中心，点击未识别的网络那一栏对于的以太网选项，查看其详细信息，可以看到其IP地址，这里的IP为192.168.137.1</p>
-<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/4.PNG?imageView2/2/w/600">
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/4.PNG" alt="avatar"></p>
 <p>然后我们拔掉网线，关掉树莓派，拔出内存卡，将其通过读卡器连接到主机上。我们进入内存卡的boot文件夹，修改comline.txt文件，将 ip = 192.168.137.100 这句话添加到开头。完成上述步骤之后，我们将内存卡插入树莓派，用网线重新连接树莓派和主机，启动树莓派电源。我们通过远程连接工具连接树莓派，此时树莓派的IP地址为刚才设置的192.168.137.100，不出意外的话，我们也能连接上树莓派。</p>
 <h4 id="没有路由器没有网线的情况下"><a href="#没有路由器没有网线的情况下" class="headerlink" title="没有路由器没有网线的情况下"></a>没有路由器没有网线的情况下</h4><p>&emsp;&emsp;要使我们的主机能够远程连接到树莓派上，我们必须满足一个条件：主机和树莓派位于同一个局域网。没有路由器和网线的情况下，我们可以通过手机热点建立一个局域网环境，让树莓派和主机同时连接手机热点。现在需要解决的问题是如何才能让树莓派连接上手机的热点。开机状态下，树莓派的无线模块一直处于工作状态，我们需要将无线热点的相关配置文件写入系统。同样，我们通过读卡器读取内存卡boot文件夹，在文件夹下新建文件名为wpa_supplicant.conf的文件，在文件内写入手机热点的配置信息并保存。</p>
-<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/raspberry/5.PNG?imageView2/2/w/600">
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/5.PNG" alt="avatar"></p>
 <p>然后重新插入内存卡，开启树莓派，在手机上查看树莓派的IP地址，用远程连接工具进行连接。</p>
 
       
@@ -650,7 +650,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -661,7 +661,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -672,7 +672,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -780,7 +780,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">31.4k</span>
+    <span title="Site words total count">31.8k</span>
   
 </div>
 

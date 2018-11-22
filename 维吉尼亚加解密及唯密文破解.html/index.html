@@ -96,16 +96,16 @@
 <meta property="og:site_name" content="小生很忙">
 <meta property="og:description" content="摘要 古典密码体制主要通过字符间的置换和代换来实现，常见的置换密码包括列置换密码和周期置换密码，而常见的代换密码包括单表代换密码和多表代换密码，本文所讨论的维吉尼亚算法是属于多表代换密码的一种。多表代换密码是以一系列代换表依次对明文消息的字母序列进行代换的加密方法，即明文消息中出现的同一个字母，在加密时不是完全被同一固定的字母代换，而是根据其出现的位置次序用不同的字母代换。如果代换表序列是非周期的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/crypt.jpg?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/jiami.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/jiemi.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/keylen.PNG?imageView2/2/w/600">
-<meta property="og:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/nichonghe.PNG?imageView2/2/w/600">
-<meta property="og:updated_time" content="2018-10-21T16:18:12.206Z">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/verify/crypt.jpg">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/verify/jiami.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/verify/jiemi.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/verify/keylen.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/verify/nichonghe.PNG">
+<meta property="og:updated_time" content="2018-11-22T10:59:26.426Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="维吉尼亚加解密及唯密文破解">
 <meta name="twitter:description" content="摘要 古典密码体制主要通过字符间的置换和代换来实现，常见的置换密码包括列置换密码和周期置换密码，而常见的代换密码包括单表代换密码和多表代换密码，本文所讨论的维吉尼亚算法是属于多表代换密码的一种。多表代换密码是以一系列代换表依次对明文消息的字母序列进行代换的加密方法，即明文消息中出现的同一个字母，在加密时不是完全被同一固定的字母代换，而是根据其出现的位置次序用不同的字母代换。如果代换表序列是非周期的">
-<meta name="twitter:image" content="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/crypt.jpg?imageView2/2/w/600">
+<meta name="twitter:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/verify/crypt.jpg">
 
 
 
@@ -445,7 +445,7 @@
 
       
         <p><strong>摘要</strong> 古典密码体制主要通过字符间的置换和代换来实现，常见的置换密码包括列置换密码和周期置换密码，而常见的代换密码包括单表代换密码和多表代换密码，本文所讨论的维吉尼亚算法是属于多表代换密码的一种。多表代换密码是以一系列代换表依次对明文消息的字母序列进行代换的加密方法，即明文消息中出现的同一个字母，在加密时不是完全被同一固定的字母代换，而是根据其出现的位置次序用不同的字母代换。如果代换表序列是非周期的无限序列，则相应的密码称为非周期多表代换密码，这类密码对每个明文都采用了不同的代换表进行加密，故称为一次一密密码，它是理论上不可破译的密码体制。但实际应用中经常采用的是周期多表代换密码，它通常使用有限个代换表，代换表被重复使用以完成消息的加密。作为多表代换密码的典型代表，维吉尼亚密码算法蕴含着丰富的古典密码设计思想，本文将深入探讨维吉尼亚算法的加解密过程实现，以及利用统计分析的方法进行唯密文攻击。</p>
-<img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/crypt.jpg?imageView2/2/w/600">  
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/verify/crypt.jpg" alt="avatar"></p>
 <h2 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h2><ul>
 <li>维吉尼亚算法简介</li>
 <li>加密算法实现<ul>
@@ -462,12 +462,12 @@
 </ul>
 </li>
 </ul>
-<h3 id="维吉尼亚算法简介"><a href="#维吉尼亚算法简介" class="headerlink" title="维吉尼亚算法简介"></a><a href="#https://zh.wikipedia.org/wiki/%E7%BB%B4%E5%90%89%E5%B0%BC%E4%BA%9A%E5%AF%86%E7%A0%81">维吉尼亚算法简介</a></h3><h3 id="加密算法实现"><a href="#加密算法实现" class="headerlink" title="加密算法实现"></a>加密算法实现</h3><p>&emsp;&emsp;实现加密算法的大致流程是：首先我们需要确定编码方式，本文采用的编码方式是[a-z]对应[0-25]；接着进行加密算法前需要对明文字符串进行处理，删除非字母字符，将大写字符统一转换为小写字母；最后选定密钥对密文中的逐个字符进行加密（即代换操作），生成最后的密文。</p>
+<h3 id="维吉尼亚算法简介"><a href="#维吉尼亚算法简介" class="headerlink" title="维吉尼亚算法简介"></a><a href="https://zh.wikipedia.org/wiki/%E7%BB%B4%E5%90%89%E5%B0%BC%E4%BA%9A%E5%AF%86%E7%A0%81" target="_blank" rel="noopener">维吉尼亚算法简介</a></h3><h3 id="加密算法实现"><a href="#加密算法实现" class="headerlink" title="加密算法实现"></a>加密算法实现</h3><p>&emsp;&emsp;实现加密算法的大致流程是：首先我们需要确定编码方式，本文采用的编码方式是[a-z]对应[0-25]；接着进行加密算法前需要对明文字符串进行处理，删除非字母字符，将大写字符统一转换为小写字母；最后选定密钥对密文中的逐个字符进行加密（即代换操作），生成最后的密文。</p>
 <h4 id="编码方式"><a href="#编码方式" class="headerlink" title="编码方式"></a>编码方式</h4><p>&emsp;&emsp;本文的字母编码方式由列表s确定，s中每个元素的索引即对应该元素的数字编码。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s = [<span class="string">'a'</span>,<span class="string">'b'</span>,<span class="string">'c'</span>,<span class="string">'d'</span>,<span class="string">'e'</span>,<span class="string">'f'</span>,<span class="string">'g'</span>,<span class="string">'h'</span>,<span class="string">'i'</span>,<span class="string">'j'</span>,<span class="string">'k'</span>,<span class="string">'l'</span>,<span class="string">'m'</span>,<span class="string">'n'</span>,<span class="string">'o'</span>,<span class="string">'p'</span>,<span class="string">'q'</span>,<span class="string">'r'</span>,<span class="string">'s'</span>,<span class="string">'t'</span>,<span class="string">'u'</span>,<span class="string">'v'</span>,<span class="string">'w'</span>,<span class="string">'x'</span>,<span class="string">'y'</span>,<span class="string">'z'</span>]</span><br></pre></td></tr></table></figure>
 <h4 id="对明文进行处理"><a href="#对明文进行处理" class="headerlink" title="对明文进行处理"></a>对明文进行处理</h4><p>&emsp;&emsp;对明文进行处理的目的是去除明文中非字母的字符，并将大写字母统一转换为小写字母。转换大小写我们可以使用python字符串内置的lower()函数，稍微有点棘手的是前者，因为在这里需要考虑到一些效率的问题还有如何对后续操作进行优化的问题，比如说:</p>
 <ul>
-<li>读取文件中的明文时我们可以采用read()，readline()，readlines()这三个函数，那我们到底采用哪一个呢？（这三个函数的对比可以参考<a href="#https://blog.csdn.net/quiet_girl/article/details/80113591">这篇博客</a>)</li>
+<li>读取文件中的明文时我们可以采用read()，readline()，readlines()这三个函数，那我们到底采用哪一个呢？（这三个函数的对比可以参考<a href="https://blog.csdn.net/quiet_girl/article/details/80113591" target="_blank" rel="noopener">这篇博客</a>)</li>
 <li>采用不同读取明文的函数，导致读取结果也不尽相同，有列表形式也有字符串形式，到底哪种形式对后续的操作更有好处</li>
 <li>去掉读取后的明文中的非字母字符应采用何种方式？（逐个字符判断或者正则表达式）</li>
 </ul>
@@ -485,16 +485,16 @@
 <li>确定密钥，常用的方法是拟重合指数法</li>
 <li>根据密文和密钥恢复明文</li>
 </ul>
-<h4 id="确定密钥长度"><a href="#确定密钥长度" class="headerlink" title="确定密钥长度"></a>确定密钥长度</h4><p>&emsp;&emsp;本文采用重合指数法猜解密钥长度，关于重合指数法的具体解释可以参照《现代密码学教程》或者<a href="#https://zh.wikipedia.org/wiki/%E7%BB%B4%E5%90%89%E5%B0%BC%E4%BA%9A%E5%AF%86%E7%A0%81">维基百科</a>，本文主要讲解猜解密钥长度的实现过程。</p>
+<h4 id="确定密钥长度"><a href="#确定密钥长度" class="headerlink" title="确定密钥长度"></a>确定密钥长度</h4><p>&emsp;&emsp;本文采用重合指数法猜解密钥长度，关于重合指数法的具体解释可以参照《现代密码学教程》或者<a href="https://zh.wikipedia.org/wiki/%E7%BB%B4%E5%90%89%E5%B0%BC%E4%BA%9A%E5%AF%86%E7%A0%81" target="_blank" rel="noopener">维基百科</a>，本文主要讲解猜解密钥长度的实现过程。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">guess_len_key</span><span class="params">(crypt)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    guess_len_key函数的主要作用是通过密文猜解密钥长度</span></span><br><span class="line"><span class="string">    :param crypt: 密文</span></span><br><span class="line"><span class="string">    :return: 密钥长度以及划为的子串</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    l = <span class="number">1</span></span><br><span class="line">    d = &#123;&#125;</span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span>:</span><br><span class="line">        print(<span class="string">"****************************假设密钥长度        为%s***********************************"</span> % l)</span><br><span class="line">        sum_index = <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(len(crypt)):</span><br><span class="line">            n = i % l</span><br><span class="line">            <span class="keyword">if</span> n <span class="keyword">not</span> <span class="keyword">in</span> d:</span><br><span class="line">                d[n] = <span class="string">''</span></span><br><span class="line">            d[n] += crypt[i]</span><br><span class="line">        sum_index = sum(coincidence_index(d[j]) <span class="keyword">for</span> j <span class="keyword">in</span> range(l)) / l</span><br><span class="line">        <span class="keyword">if</span> sum_index &gt;= <span class="number">0.06</span> <span class="keyword">and</span> sum_index &lt;= <span class="number">0.07</span>:</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            l += <span class="number">1</span></span><br><span class="line">            d = &#123;&#125;</span><br><span class="line">    <span class="keyword">return</span> l,d</span><br></pre></td></tr></table></figure>
 <p>该算法的主要思想是将密文划分为l个子串，子串存放在字典d中。分别计算l个子串的重合指数，然后计算l个重合指数的平均数，如果该平均数位于[0.06,0.07]这个区间内，则说明密钥长度为l，返回密钥长度以及划分的l个子串；如果得到的平均数不在[0.06,0.07]这个区间内，则l自增，d初始化，进行下一轮猜解。</p>
 <h4 id="确定密钥"><a href="#确定密钥" class="headerlink" title="确定密钥"></a>确定密钥</h4><p>&emsp;&emsp;确定密钥长度大致过程是：利用之前得到的l个子串，对每个子串都进行移位操作。假设现在对第i个子串进行移位操作（子串的每个字符移动相同的位数，最坏情况下对同一个子串需要进行26次移位操作），移动的位数为k,（k在[0-25]区间内，也就对应了[a-z]）。每进行一次移位操作，就对该子串计算一次拟重合指数，如果该拟重合指数位于[0.06,0.07]这个区间内，则说明此时移动的位数对应的s列表中的字符即为该子串的密钥；否则，继续进行下一次移位操作。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">crack_key</span><span class="params">()</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    cracker函数的主要作用是破解密钥</span></span><br><span class="line"><span class="string">    :return: 返回密钥</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">"crypt.txt"</span>,<span class="string">"r"</span>) <span class="keyword">as</span> f:</span><br><span class="line">        crypt = f.read()</span><br><span class="line">    len_key,d = guess_len_key(crypt)</span><br><span class="line">    key = <span class="string">''</span></span><br><span class="line">    print(<span class="string">"\n-------------------------------------"</span>)</span><br><span class="line"></span><br><span class="line">    print(<span class="string">"|       经计算可知，密钥长度为%s         |"</span> % len_key)</span><br><span class="line">    print(<span class="string">"-------------------------------------\n"</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len_key):</span><br><span class="line">        substring = d[i]</span><br><span class="line">        print(<span class="string">"当前字串为："</span>,d[i])</span><br><span class="line">        <span class="keyword">for</span> n <span class="keyword">in</span> range(<span class="number">26</span>):</span><br><span class="line">            dex = quasi_index(substring, n)</span><br><span class="line">            print(<span class="string">"假设子串移动&#123;&#125;,拟重合指数为&#123;:.4f&#125;"</span>.format(s[n],dex))</span><br><span class="line">            <span class="keyword">if</span> dex &gt;= <span class="number">0.06</span> <span class="keyword">and</span> dex &lt;= <span class="number">0.07</span>:</span><br><span class="line">                key += s[n]</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">    print(<span class="string">"******************************破解的最终密钥为%s*********************************"</span> % key)</span><br></pre></td></tr></table></figure>
 <h4 id="恢复明文"><a href="#恢复明文" class="headerlink" title="恢复明文"></a>恢复明文</h4><p>&emsp;&emsp;恢复明文的过程与解密过程类似，这里不在详述。</p>
-<h3 id="系统运行演示"><a href="#系统运行演示" class="headerlink" title="系统运行演示"></a>系统运行演示</h3><h4 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h4><img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/jiami.PNG?imageView2/2/w/600">  
-<h4 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h4><img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/jiemi.PNG?imageView2/2/w/600">  
-<h4 id="猜解密钥长度"><a href="#猜解密钥长度" class="headerlink" title="猜解密钥长度"></a>猜解密钥长度</h4><img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/keylen.PNG?imageView2/2/w/600">  
-<h4 id="猜解密钥"><a href="#猜解密钥" class="headerlink" title="猜解密钥"></a>猜解密钥</h4><img src="http://pcvm1j2f3.bkt.clouddn.com/static/images/verify/nichonghe.PNG?imageView2/2/w/600">  
+<h3 id="系统运行演示"><a href="#系统运行演示" class="headerlink" title="系统运行演示"></a>系统运行演示</h3><h4 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h4><p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/verify/jiami.PNG" alt="avatar"></p>
+<h4 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h4><p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/verify/jiemi.PNG" alt="avatar"></p>
+<h4 id="猜解密钥长度"><a href="#猜解密钥长度" class="headerlink" title="猜解密钥长度"></a>猜解密钥长度</h4><p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/verify/keylen.PNG" alt="avatar"></p>
+<h4 id="猜解密钥"><a href="#猜解密钥" class="headerlink" title="猜解密钥"></a>猜解密钥</h4><p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/verify/nichonghe.PNG" alt="avatar"></p>
 
       
 
@@ -590,6 +590,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/HITB安全峰会之旅.html/" rel="prev" title="HITB安全峰会之旅.md">
+                HITB安全峰会之旅.md <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -672,7 +676,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -683,7 +687,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -694,7 +698,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">26</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -802,7 +806,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">31.4k</span>
+    <span title="Site words total count">31.8k</span>
   
 </div>
 
