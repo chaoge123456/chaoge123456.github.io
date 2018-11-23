@@ -97,6 +97,7 @@
 <meta property="og:description" content="摘要：Hadoop，是一个分布式系统基础架构，由Apache基金会开发。用户可以在不了解分布式底层细节的情况下，开发分布式程序。充分利用集群的威力高速运算和存储。简单地说来，Hadoop是一个可以更容易开发和运行处理大规模数据的软件平台。该平台使用的是面向对象编程语言Java实现的，具有良好的可移植性。本文将介绍Hadoop相关的技术框架以及搭建Hadoop平台的详细过程。  文章概览 Hadoo">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/hadoop/hadoop1.png">
+<meta property="og:image" content="https://i.ytimg.com/vi/f6UmOlD7NkA/maxresdefault.jpg">
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/hadoop/HDFS.png">
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/hadoop/HDFS_Read.png">
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/hadoop/HDFS_Write.png">
@@ -108,7 +109,7 @@
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/hadoop/4.PNG">
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/hadoop/5.PNG">
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/hadoop/hadoop.png">
-<meta property="og:updated_time" content="2018-11-23T15:38:53.332Z">
+<meta property="og:updated_time" content="2018-11-23T16:08:47.321Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Hadoop分布式集群搭建">
 <meta name="twitter:description" content="摘要：Hadoop，是一个分布式系统基础架构，由Apache基金会开发。用户可以在不了解分布式底层细节的情况下，开发分布式程序。充分利用集群的威力高速运算和存储。简单地说来，Hadoop是一个可以更容易开发和运行处理大规模数据的软件平台。该平台使用的是面向对象编程语言Java实现的，具有良好的可移植性。本文将介绍Hadoop相关的技术框架以及搭建Hadoop平台的详细过程。  文章概览 Hadoo">
@@ -454,19 +455,16 @@
         <p><strong>摘要</strong>：Hadoop，是一个分布式系统基础架构，由Apache基金会开发。用户可以在不了解分布式底层细节的情况下，开发分布式程序。充分利用集群的威力高速运算和存储。简单地说来，Hadoop是一个可以更容易开发和运行处理大规模数据的软件平台。该平台使用的是面向对象编程语言Java实现的，具有良好的可移植性。本文将介绍Hadoop相关的技术框架以及搭建Hadoop平台的详细过程。</p>
 <p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/hadoop/hadoop1.png" alt="avatar"></p>
 <h2 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h2><ul>
-<li>Hadoop简介</li>
-<li><ul>
+<li>Hadoop简介<ul>
 <li>Hadoop体系结构</li>
-</ul>
-</li>
-<li><ul>
 <li>HDFS分布式文件系统</li>
 <li>MapReduce编程模型</li>
 </ul>
 </li>
 <li>Hadoop平台搭建</li>
 </ul>
-<h3 id="Hadoop简介"><a href="#Hadoop简介" class="headerlink" title="Hadoop简介"></a>Hadoop简介</h3><h4 id="Hadoop体系结构"><a href="#Hadoop体系结构" class="headerlink" title="Hadoop体系结构"></a>Hadoop体系结构</h4><h4 id="HDFS分布式文件系统"><a href="#HDFS分布式文件系统" class="headerlink" title="HDFS分布式文件系统"></a>HDFS分布式文件系统</h4><p>&emsp;&emsp;在正式讨论HDFS分布式文件系统之前，我们首先了解一下什么是文件系统。文件系统实际上可以看作是一个用户与底层数据交互的一个接口，对于底层数据而言它定义了数据的存储和组织方式，同时也提供了存储空间的管理功能；而对于用户而言它使用文件和树形目录的抽象逻辑概念代替了存储设备中块的概念，用户使用文件系统来操作数据不必关心数据实际保存在硬盘（或者光盘）的地址为多少的数据块上，只需要记住这个文件的所属目录和文件名（关于文件系统更详细的介绍参见<a href="https://zh.wikipedia.org/wiki/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F" target="_blank" rel="noopener">维基百科</a>和<a href="https://linux.cn/article-8887-1.html" target="_blank" rel="noopener">这篇博客</a>)。传统文件系统适用于存储容量小等一些没有特殊要求的应用场景。</p>
+<h3 id="Hadoop简介"><a href="#Hadoop简介" class="headerlink" title="Hadoop简介"></a>Hadoop简介</h3><h4 id="Hadoop体系结构"><a href="#Hadoop体系结构" class="headerlink" title="Hadoop体系结构"></a>Hadoop体系结构</h4><p><img src="https://i.ytimg.com/vi/f6UmOlD7NkA/maxresdefault.jpg" alt="avatar"></p>
+<h4 id="HDFS分布式文件系统"><a href="#HDFS分布式文件系统" class="headerlink" title="HDFS分布式文件系统"></a>HDFS分布式文件系统</h4><p>&emsp;&emsp;在正式讨论HDFS分布式文件系统之前，我们首先了解一下什么是文件系统。文件系统实际上可以看作是一个用户与底层数据交互的一个接口，对于底层数据而言它定义了数据的存储和组织方式，同时也提供了存储空间的管理功能；而对于用户而言它使用文件和树形目录的抽象逻辑概念代替了存储设备中块的概念，用户使用文件系统来操作数据不必关心数据实际保存在硬盘（或者光盘）的地址为多少的数据块上，只需要记住这个文件的所属目录和文件名（关于文件系统更详细的介绍参见<a href="https://zh.wikipedia.org/wiki/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F" target="_blank" rel="noopener">维基百科</a>和<a href="https://linux.cn/article-8887-1.html" target="_blank" rel="noopener">这篇博客</a>)。传统文件系统适用于存储容量小等一些没有特殊要求的应用场景。</p>
 <p>&emsp;&emsp;但是随着信息技术的不断发展，人们可以获取的数据成指数倍的增长，单纯通过增加硬盘个数来扩展计算机文件系统的存储容量的方式，在容量大小、容量增长速度、数据备份、数据安全等方面的表现都差强人意。为了满足这些特殊应用场景的需求，分布式文件系统应运而生。分布式文件系统可以有效解决数据的存储和管理难题：将固定于某个地点的某个文件系统，扩展到任意多个地点/多个文件系统，众多的节点组成一个文件系统网络。每个节点可以分布在不同的地点，通过网络进行节点间的通信和数据传输。人们在使用分布式文件系统时，无需关心数据是存储在哪个节点上、或者是从哪个节点从获取的，只需要像使用本地文件系统一样管理和存储文件系统中的数据（我们需要知道的是在分布式文件系统的每个数据结点上，数据的存储方式是建立在传统文件系统的基础上的，所谓分布式文件系统它提供的是数据宏观上的存储和管理方式）。</p>
 <p>&emsp;&emsp;HDFS是分布式文件系统的一种，它采用master/slave架构，一个HDFS集群是由一个Namenode和一定数目的Datanodes组成。它可以处理超大规模的数据，并且提供了良好的容错机制，下图是HDFS的基本结构。</p>
 <p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/hadoop/HDFS.png" alt="avatar"></p>
