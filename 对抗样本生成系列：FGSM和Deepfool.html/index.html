@@ -1,0 +1,1407 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="深度学习,对抗样本," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="小生很忙" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="摘要：近些年来，深度学习技术在海量数据以及强大计算能力的驱动下取得了长足的发展，特别是在语音识别、计算机视觉、自然语言处理等领域，深度学习以其强大的网络表达能力刷新了一项又一项记录，各种各样基于深度学习的产品和服务也逐渐在产业界落地应用。正因为深度学习技术蕴含着巨大的商业价值，其背后潜在的安全问题更值得我们去深究。最近的研究表明，深度学习面临安全和隐私等多方面的威胁。该系列主要讨论深度学习领域最为">
+<meta name="keywords" content="深度学习,对抗样本">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对抗样本生成系列：FGSM和DeepFool">
+<meta property="og:url" content="https://chaoge123456.github.io/对抗样本生成系列：FGSM和Deepfool.html/index.html">
+<meta property="og:site_name" content="小生很忙">
+<meta property="og:description" content="摘要：近些年来，深度学习技术在海量数据以及强大计算能力的驱动下取得了长足的发展，特别是在语音识别、计算机视觉、自然语言处理等领域，深度学习以其强大的网络表达能力刷新了一项又一项记录，各种各样基于深度学习的产品和服务也逐渐在产业界落地应用。正因为深度学习技术蕴含着巨大的商业价值，其背后潜在的安全问题更值得我们去深究。最近的研究表明，深度学习面临安全和隐私等多方面的威胁。该系列主要讨论深度学习领域最为">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/panda.jpg">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/origin.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/adversary_1.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/linear.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/deepfool.PNG">
+<meta property="og:updated_time" content="2019-08-22T07:09:59.607Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对抗样本生成系列：FGSM和DeepFool">
+<meta name="twitter:description" content="摘要：近些年来，深度学习技术在海量数据以及强大计算能力的驱动下取得了长足的发展，特别是在语音识别、计算机视觉、自然语言处理等领域，深度学习以其强大的网络表达能力刷新了一项又一项记录，各种各样基于深度学习的产品和服务也逐渐在产业界落地应用。正因为深度学习技术蕴含着巨大的商业价值，其背后潜在的安全问题更值得我们去深究。最近的研究表明，深度学习面临安全和隐私等多方面的威胁。该系列主要讨论深度学习领域最为">
+<meta name="twitter:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/panda.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chaoge123456.github.io/对抗样本生成系列：FGSM和Deepfool.html/"/>
+
+
+
+
+
+  <title>对抗样本生成系列：FGSM和DeepFool | 小生很忙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?864e67f86882d21f52697b62b69de48d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/chaoge123456" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小生很忙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">THINK THE WORLD</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chaoge123456.github.io/对抗样本生成系列：FGSM和Deepfool.html/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="光阴的故事">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小生很忙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">对抗样本生成系列：FGSM和DeepFool</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-20T14:11:01+08:00">
+                2019-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/机器学习安全/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/对抗样本生成系列：FGSM和Deepfool.html/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/对抗样本生成系列：FGSM和Deepfool.html/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,949
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>摘要：</strong>近些年来，深度学习技术在海量数据以及强大计算能力的驱动下取得了长足的发展，特别是在语音识别、计算机视觉、自然语言处理等领域，深度学习以其强大的网络表达能力刷新了一项又一项记录，各种各样基于深度学习的产品和服务也逐渐在产业界落地应用。正因为深度学习技术蕴含着巨大的商业价值，其背后潜在的安全问题更值得我们去深究。最近的研究表明，深度学习面临安全和隐私等多方面的威胁。该系列主要讨论深度学习领域最为热门的安全问题–对抗样本。本文讨论的FGSM和DeepFool是较为的早期对抗样本的生成算法，除此之外还会对DeepFool衍生出的Universal Perturbation进行解读。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/panda.jpg" alt="avatar"></p>
+<h2 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h2><ul>
+<li>FGSM<ul>
+<li>算法概述</li>
+<li>代码实现</li>
+</ul>
+</li>
+<li>DeepFool<ul>
+<li>算法概述</li>
+<li>代码实现</li>
+</ul>
+</li>
+<li>Universal Perturbation </li>
+</ul>
+<h3 id="FGSM"><a href="#FGSM" class="headerlink" title="FGSM"></a>FGSM</h3><h4 id="算法概述"><a href="#算法概述" class="headerlink" title="算法概述"></a>算法概述</h4><p>&emsp;&emsp;在机器学习领域，对抗样本的问题始终存在。特别是在入侵检测、垃圾邮件识别等传统的安全应用场景，对抗样本的生成和识别一直是攻击者和防御者博弈的战场。2013年，Szegedy等人首次提出针对深度学习场景下的对抗样本生成算法–<a href="https://arxiv.org/abs/1312.6199" target="_blank" rel="noopener">BFGS</a>，作者认为，深度神经网络所具有的强大的非线性表达能力和模型的过拟合是可能产生对抗性样本原因之一。2014年，Goodfellow等人（包括Szegedy）对该问题进行了更深层次的研究，它们认为高维空间下深度神经网络的线性线性行为是导致该问题的根本原因。并根据该解释，设计出一种快速有效的生成对抗性样例的算法–<a href="https://arxiv.org/abs/1412.6572" target="_blank" rel="noopener">FGSM</a>。以下是对论文的解读。</p>
+<p>&emsp;&emsp;对于线性模型$f(x)=w^Tx+b$来说，如果我们对输入$ x $添加一些扰动，使得$ \tilde{x}=x+\eta $。为了确保添加的扰动是极小的或者说是无法感知的，我们要求$ \left|\eta\right|_\infty&lt;\epsilon $。所以我们可以得到加噪后的模型输出为<br>$$<br>f(\tilde{x})=w^Tx+w^T\eta+b<br>$$<br>为了尽可能增大添加的噪声对输出结果的影响，令$\eta=\epsilon sign(w)​$（<a href="https://baike.baidu.com/item/sign%E5%87%BD%E6%95%B0/1343199" target="_blank" rel="noopener">sign()函数的定义</a>)。如果$w​$是一个$n​$维的向量，每一维的均值为$m​$，则$w^T\eta=\epsilon nm​$。虽然$\epsilon​$的值很小，但是当$w​$的维度$n​$很大时，$\epsilon nm​$将是一个很大的值，这将会给模型的预测带来很大的影响。因此，高维特征和线性行为可以成为对抗性样本存在的一种解释。</p>
+<p>&emsp;&emsp;上面的解释是基于线性模型而言的，而深度神经网络作为一种高度非线性模型，为什么会存在对抗性样例呢？深度神经网络的非线性单元赋予了其强大的表达能力，但是非线性单元的存在会降低学习的效率。为了提高学习效率，需要对非线性单元进行改进，通常的做法是通过降低其非线性来实现。从早期的sigmoid到tanh再到ReLU，我们会发现这些非线性单元的线性行为在不断增强，这也导致了深度神经网络中的线性能力的增强，这在一定程度上解释了深度神经网络中对抗性样例存在的原因。</p>
+<p>&emsp;&emsp;根据这种解释，作者提出了生成对抗性样例的算法FGSM。我们将深度神经网络模型看作是一个线性模型，即类似于$f(x)=w^Tx+b$。在线性模型中，$w$为$f(x)$关于$x$的导数，而在深度神经网络模型中我们可以将$w$视为代价函数关于输入$x​$的导数，即<br>$$<br>w=\nabla_{x}J(\theta,x,y)<br>$$</p>
+<p>$$<br>\eta=\epsilon sign(\nabla_{x}J(\theta,x,y))<br>$$</p>
+<p>&emsp;&emsp;在文章的后半部分主要介绍了针对对抗性样本的防御机制，即通过对抗性训练来提高模型的鲁棒性，这些内容会在之后的工作中讨论。</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>&emsp;&emsp;为了更好的理解算法的实现过程，以下给出本文相关的代码段。这些代码段给出的定义，对于后面的DeepFool和Universal Perturbation算法的解读依赖有效。所有的代码基于python实现，使用的深度学习框架为pytorch，更加完整的算法实现，参加<a href="">我的github</a>.</p>
+<ul>
+<li><p>网络模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Net, self).__init__()</span><br><span class="line">        self.fc1 = nn.Linear(<span class="number">28</span>*<span class="number">28</span>, <span class="number">300</span>)</span><br><span class="line">        self.fc2 = nn.Linear(<span class="number">300</span>, <span class="number">100</span>)</span><br><span class="line">        self.fc3 = nn.Linear(<span class="number">100</span>, <span class="number">10</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x = F.relu(self.fc1(x))</span><br><span class="line">        x = F.relu(self.fc2(x))</span><br><span class="line">        x = self.fc3(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>数据集（这里只给出测试集的数据定义）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义数据转换格式</span></span><br><span class="line">mnist_transform = transforms.Compose([transforms.ToTensor(), transforms.Lambda(<span class="keyword">lambda</span> x : x.resize_(<span class="number">28</span>*<span class="number">28</span>))])</span><br><span class="line"><span class="comment"># 导入数据，定义数据接口</span></span><br><span class="line">testdata  = torchvision.datasets.MNIST(root=<span class="string">"./mnist"</span>, train=<span class="keyword">False</span>, download=<span class="keyword">True</span>, transform=mnist_transform)</span><br><span class="line">testloader = torch.utils.data.DataLoader(testdata, batch_size=<span class="number">256</span>, shuffle=<span class="keyword">True</span>, num_workers=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>代价函数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">loss_function = nn.CrossEntropyLoss()</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>&emsp;&emsp;FGSM算法的实现较为简单，其核心在于利用代价函数求解已知样本的梯度值。我们假设模型已经训练完成，首先我们加载已训练完成的深度网络模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">net = torch.load(<span class="string">'mnist_net_all.pkl'</span>) <span class="comment"># 加载模型</span></span><br></pre></td></tr></table></figure>
+<p>然后我们选择一个测试样本，针对该测试样本生成其对应的对抗性样例。其原始图片格式如图所示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">index = <span class="number">100</span> <span class="comment"># 选择测试样本</span></span><br><span class="line">image = Variable(testdata[index][<span class="number">0</span>].resize_(<span class="number">1</span>,<span class="number">784</span>), requires_grad=<span class="keyword">True</span>) <span class="comment"># requires_grad存储梯度值</span></span><br><span class="line">label = torch.tensor([testdata[index][<span class="number">1</span>]])</span><br></pre></td></tr></table></figure>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/origin.PNG" alt="avatar"></p>
+<p>接着将测试样本作为网络模型的输入，通过前向传播的过程计算其损失，然后利用其损失进行反向传播（即求导）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">outputs = net(image) <span class="comment"># 前向传播</span></span><br><span class="line">loss = loss_function(outputs, label) <span class="comment"># 计算损失</span></span><br><span class="line">loss.backward() <span class="comment"># 反向传播</span></span><br></pre></td></tr></table></figure>
+<p>在深度学习框架中，反向传播的过程对用户来说是透明的。计算结束后，其梯度值存储在image.data.grad中，添加扰动的过程如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># FGSM添加扰动</span></span><br><span class="line">epsilon = <span class="number">0.1</span> <span class="comment"># 扰动程度</span></span><br><span class="line">x_grad = torch.sign(image.grad.data)</span><br><span class="line">x_adversarial = torch.clamp(image.data + epsilon * x_grad, <span class="number">0</span>, <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>添加扰动后，得到对抗性样本如下所示</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/adversary_1.PNG" alt="avatar"></p>
+<p>实验过程中我们发现，深度网络模型对于原始的图片能够正确的分类，而对于扰动之后的的样本不能正确分类（分类结果为2）。</p>
+<h3 id="DeepFool"><a href="#DeepFool" class="headerlink" title="DeepFool"></a>DeepFool</h3><h4 id="算法概述-1"><a href="#算法概述-1" class="headerlink" title="算法概述"></a>算法概述</h4><p>&emsp;&emsp;FGSM算法能够快速简单的生成对抗性样例，但是它没有对原始样本扰动的范围进行界定（扰动程度$\epsilon$是人为指定的），我们希望通过最小程度的扰动来获得良好性能的对抗性样例。2016年，Seyed等人提出的<a href="https://www.cv-foundation.org/openaccess/content_cvpr_2016/html/Moosavi-Dezfooli_DeepFool_A_Simple_CVPR_2016_paper.html" target="_blank" rel="noopener">DeepFool</a>算法很好的解决了这一问题。文章的核心思想是希望找到一种对抗性扰动的方法来作为对不同分类器对对抗性扰动鲁棒性评估的标准。简单来说就是，现在我需要两个相同任务的分类器A、B针对同一个样本生成各自的对抗性样例。对于分类器A而言，其生成对抗性样例所需要添加的最小扰动为$a$；对于分类器B而言，其生成对抗性样例所需要添加的最小扰动为$b$；通过对$a$、$b$的大小进行比较，我们就可以对这两个分类器对对抗性样例的鲁棒性进行评估。由于FGSM产生扰动是人为界定的，所以它不能作为评估的依据。DeepFool可以生成十分接近最小扰动的对抗性样例，因此它可以作为衡量分类器鲁棒性的标准。</p>
+<p>&emsp;&emsp;DeepFool源于对分类问题的思考。对于如图所示的线性二分类问题，令$f(x)=w^Tx+b$，其中$\mathscr{F}={x : f(x)=0}$。此时$x_0$位于直线的下方，即$f(x_0)&gt;0$。现在我们希望对$x_0$添加扰动$r$，使得分类器$f(x_0+r)&lt;0$。那么如何添加扰动才能使得扰动的程度最小呢？这个问题可以转化为求点到直线之间的距离，我们通过$x_0$做直线$\mathscr{F}$的垂线，与$\mathscr{F}$相交于$p$（投影点），则$p$与$x_0$之间的距离即为$x_0$到分类边界$\mathscr{F}$的最短距离。所以当我们沿着分类边界法线方向对$x_0​$进行扰动，可以保证扰动的程度最小<br>$$<br>r(x_0):={\arg\min_k}{|{r}|_{2}}=-{\frac{f(x_0)}{|{w}|_{2}^{2}}{w}}<br>$$<br>添加扰动之后将$x_0$映射到分类边界的投影点$p$，即$p=x_0+r(x_0)​$。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/linear.PNG" alt="avatar"></p>
+<p>&emsp;&emsp;同样，对于非线性的二分类问题（分类边界为曲线或者曲面），我们也需要计算从目标样本点到分类边界的最短距离。这个计算过程较为复杂，一般采用垂直逼近法来逐步的逼近$x_0​$在分类边界上的投影点，所以在论文中算法1会有一个迭代过程。值得注意的是，我们得到最终的$\sum_i{r_i}​$表示的是从$x_0​$到分类边界投影点的距离向量，满足$f(x_0+\sum_i{r_i})=0​$。如果要使分类结果改变，需要再添加一些极小的扰动，如$f(x_0+(1+\eta)\sum_i{r_i})&lt;0​$（文中$\eta​$取0.02）。</p>
+<p>&emsp;&emsp;对于多分类任务，思路也大致相同。在线性多分类任务中，需要注意的大致有两点：首先，对于多分类任务的分类边界要重新进行定义。我们令$f(x)​$为分类器，$\hat{k}(x)=\mathop{\arg\max}_{k}{f_k(x)}​$表示其对应的分类结果（一共有$k​$个类别）。分类边界定义为<br>$$<br>\mathscr{F}_k={x : f_k(x)-f_{\hat{k}(x_0)}(x)=0}<br>$$<br>其次，由于分类边界有多个，我们需要以此求出$x_0​$到每个分类边界的距离（类似于进行多次二分类的计算过程），然后进行比较，选择其中最短距离向量作为最终的扰动。<br>$$<br>\hat{l}(x_0)=\mathop{\arg\min_{k \neq \hat{k}_{x_0} }}{\frac{|f_k(x_0)-f_{\hat{k}(x_0)}(x_0)|}{|{w_k -w_{\hat{k}_{x_0}}}|_2}}<br>$$<br>之后通过计算$\boldsymbol{r}(x_0)​$得到$x_0​$在分类边界上的投影。</p>
+<p>&emsp;&emsp;在非线性多分类任务中，与线性多分类的区别在于其分类边界是不确定的，所以我们需要采用类似于非线性二分类任务中的方法来逼近分类边界。获得分类边界之后的计算与线性多分类的过程类似。此后，重复该过程多次，即可获得最终$x_0​$在分类边界的投影。</p>
+<h4 id="代码实现-1"><a href="#代码实现-1" class="headerlink" title="代码实现"></a>代码实现</h4><p>&emsp;&emsp;以下讨论多分类情况下DeepFool算法的代码实现，模型结构以及数据集等与上述一致，不再重复。首先，我们选择一个测试样本，生成该样本的对抗性样例。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">net = torch.load(<span class="string">'mnist_net_all.pkl'</span>) <span class="comment"># 加载模型</span></span><br><span class="line">index = <span class="number">100</span> <span class="comment"># 选择测试样本</span></span><br><span class="line">image = Variable(testdata[index][<span class="number">0</span>].resize_(<span class="number">1</span>,<span class="number">784</span>), requires_grad=<span class="keyword">True</span>)</span><br><span class="line">label = torch.tensor([testdata[index][<span class="number">1</span>]])</span><br></pre></td></tr></table></figure>
+<p>接下来，通过前向传播的过程，我们获得该样本对每一类别可能的取值情况，并将其从大到小排列起来，列表$I$对应其索引值，$label$即$\hat{k}_{x_0}$。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">f_image = net.forward(image).data.numpy().flatten() </span><br><span class="line"><span class="comment"># f_image: [-1.1256416 , -1.0344085 ,  2.0596995 , -2.0181773 , -0.24274658, -0.53373957,  6.6361637 , -2.250309  ,  0.06580263, -3.0854702 ]</span></span><br><span class="line"></span><br><span class="line">I = (np.array(f_image)).flatten().argsort()[::<span class="number">-1</span>]</span><br><span class="line"><span class="comment"># I: [6, 2, 8, 4, 5, 1, 0, 3, 7, 9]</span></span><br><span class="line"></span><br><span class="line">label = I[<span class="number">0</span>] <span class="comment"># 该样本的标签为6</span></span><br></pre></td></tr></table></figure>
+<p>然后，我们定义一些需要用到的变量</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">input_shape = image.data.numpy().shape <span class="comment"># 获取原始样本的维度</span></span><br><span class="line">pert_image = copy.deepcopy(image) <span class="comment"># 深度复制原始样本</span></span><br><span class="line">w = np.zeros(input_shape) </span><br><span class="line">r_tot = np.zeros(input_shape)</span><br><span class="line"></span><br><span class="line">loop_i = <span class="number">0</span> </span><br><span class="line">max_iter = <span class="number">50</span> <span class="comment"># 最多迭代次数</span></span><br><span class="line">overshoot = <span class="number">0.02</span>  </span><br><span class="line">x = Variable(pert_image, requires_grad=<span class="keyword">True</span>)</span><br><span class="line">fs = net.forward(x)</span><br><span class="line">fs_list = [fs[<span class="number">0</span>][I[k]] <span class="keyword">for</span> k <span class="keyword">in</span> range(len(I))] <span class="comment"># 每个类别的取值情况，及其对应的梯度值</span></span><br><span class="line">k_i = label</span><br></pre></td></tr></table></figure>
+<p>下面是算法实现的核心部分，参考论文中的伪代码，其中orig_grad表示$\nabla f_{\hat{k}_{x_0}}(x_i)$，cur_grad表示$\nabla f_k(x_i)$，fs[0][I[k]]表示$f_k(x_i)$，fs[0][I[0]]表示$f_{\hat{k}_{x_0}}(x_i)$。通过内部的for循环可以获得x到各分类边界的距离；在外部的while循环中，我们利用内部循环获得的所有边界距离中的最小值对x进行更新。重复这一过程，直到$x​$的分类标签发生变化。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> k_i == label <span class="keyword">and</span> loop_i &lt; max_iter:</span><br><span class="line">    pert = np.inf</span><br><span class="line">    fs[<span class="number">0</span>][I[<span class="number">0</span>]].backward(retain_graph=<span class="keyword">True</span>)</span><br><span class="line">    orig_grad = x.grad.data.numpy().copy() </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> k <span class="keyword">in</span> range(len(I)):</span><br><span class="line">        zero_gradients(x)</span><br><span class="line">        fs[<span class="number">0</span>][I[k]].backward(retain_graph=<span class="keyword">True</span>)</span><br><span class="line">        cur_grad = x.grad.data.numpy().copy()</span><br><span class="line">        </span><br><span class="line">        w_k = cur_grad - orig_grad</span><br><span class="line">        f_k = (fs[<span class="number">0</span>][I[k]] - fs[<span class="number">0</span>][I[<span class="number">0</span>]]).data.numpy()</span><br><span class="line">        </span><br><span class="line">        pert_k = abs(f_k) / np.linalg.norm(w_k.flatten())</span><br><span class="line">        <span class="keyword">if</span> pert_k &lt; pert: <span class="comment"># 获得最小的分类边界距离向量</span></span><br><span class="line">            pert = pert_k</span><br><span class="line">            w = w_k</span><br><span class="line">    r_i = (pert + <span class="number">1e-4</span>) * w / np.linalg.norm(w) </span><br><span class="line">    r_tot = np.float32(r_tot + r_i) <span class="comment"># 累积扰动</span></span><br><span class="line">    </span><br><span class="line">    pert_image = image + (<span class="number">1</span>+overshoot)*torch.from_numpy(r_tot) <span class="comment"># 添加扰动</span></span><br><span class="line">    x = Variable(pert_image, requires_grad=<span class="keyword">True</span>)</span><br><span class="line">    fs = net.forward(x)</span><br><span class="line">    k_i = np.argmax(fs.data.numpy().flatten()) <span class="comment"># 扰动后的分类标签</span></span><br><span class="line">    loop_i += <span class="number">1</span></span><br><span class="line">r_tot = (<span class="number">1</span>+overshoot)*r_tot <span class="comment"># 最终累积的扰动</span></span><br></pre></td></tr></table></figure>
+<p>对原始图片，添加扰动获得如下图片（分类器将其错误分类为2，有些奇怪的地方在于其扰动的程度要大FGSM，算法应该没有问题，一直没找到原因）。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/deepfool.PNG" alt="avatar"></p>
+<h3 id="Universal-Perturbation"><a href="#Universal-Perturbation" class="headerlink" title="Universal Perturbation"></a>Universal Perturbation</h3><p>&emsp;&emsp;前面介绍的FGSM和DeepFool算法，它们都是针对单个样本生成其对抗性样例，也就是说每个对抗性样例的扰动程度都不同。那么是否能找到一种通用性的扰动边界，能够为不同的样本生成对抗性样例。在DeepFool工作的基础上，Seyed 等人提出了Universal Perturbation，该算法为寻找通用性扰动边界提供了可能。以下简单介绍一下论文的核心思想：</p>
+<ul>
+<li>从数据集中随机选取部分测试样本作为生成通用性扰动边界的范例，通过这些测试样本生成的通用性扰动适用于整个数据集。</li>
+<li>算法的计算过程：输入第一个样本后，通过DeepFool算法找到该样本的最小扰动距离向量，将其累积到通用扰动向量$v$中（对$v$的扰动程度会有限制和调整，${|v|_p&lt;\xi}$）；当输入第二个样本之后，对其添加$v$的扰动之后，然后再通过DeepFool计算扰动后的样本的最小扰动距离向量，将其累积到通用扰动向量$v$中（对$v$的扰动程度会有限制和调整,${|v|_p&lt;\xi}$）。重复这一过程，直到最后一个测试样本。然后，我们使用通用扰动向量$v$，对原始的测试样本进行扰动，测试其生成对抗性样例的成功率。如果小于预先设置的阈值$1-\delta$，则跳出循环返回结果。否则，重复上述过程。</li>
+<li>通用性扰动对不同的网络模型依然有效。也就是说，利用网络模型A生成的通用性扰动，同样适用于生成网络模型B的对抗性样例（A、B是不同类型的网络架构）。</li>
+</ul>
+
+      
+
+       <div>
+        
+        
+           <ul class="post-copyright">
+             <br class="post-copyright-author">
+                 <strong>本文作者：</strong>光阴的故事
+             </br>
+             <br class="post-copyright-link">
+               <strong>本文链接：</strong>
+               <a href="/对抗样本生成系列：FGSM和Deepfool.html/" title="对抗样本生成系列：FGSM和DeepFool">对抗样本生成系列：FGSM和Deepfool.html/</a>
+             </br>
+             <br class="post-copyright-license">
+               <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+             </br>
+           </ul>
+         
+       </div>
+
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="光阴的故事 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="光阴的故事 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"><i class="fa fa-tag"></i> 深度学习</a>
+          
+            <a href="/tags/对抗样本/" rel="tag"><i class="fa fa-tag"></i> 对抗样本</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/校园网环境下服务器双网卡配置.html/" rel="next" title="校园网环境下服务器双网卡配置">
+                <i class="fa fa-chevron-left"></i> 校园网环境下服务器双网卡配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head.jpg"
+                alt="光阴的故事" />
+            
+              <p class="site-author-name" itemprop="name">光阴的故事</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">37</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chaoge123456" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/e4cca84bd02e" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://lackar.com/aa/" title="资源搜索" target="_blank">资源搜索</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.shentoushi.top/" title="安全导航" target="_blank">安全导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sayhi2urmom.top/" title="sayhi博客" target="_blank">sayhi博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#FGSM"><span class="nav-number">1.1.</span> <span class="nav-text">FGSM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法概述"><span class="nav-number">1.1.1.</span> <span class="nav-text">算法概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现"><span class="nav-number">1.1.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DeepFool"><span class="nav-number">1.2.</span> <span class="nav-text">DeepFool</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#算法概述-1"><span class="nav-number">1.2.1.</span> <span class="nav-text">算法概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码实现-1"><span class="nav-number">1.2.2.</span> <span class="nav-text">代码实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Universal-Perturbation"><span class="nav-number">1.3.</span> <span class="nav-text">Universal Perturbation</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">光阴的故事</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">43.2k</span>
+  
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+
+<!--
+  <span class="post-meta-divider">|</span>
+-->
+
+
+
+<!--
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+-->
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'wtWdk3Onubla9rRs4LsPFnoJ-gzGzoHsz',
+        appKey: '2ULgKsbxIGrnmjnh1g6GVer5',
+        placeholder: '小生很忙',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
