@@ -97,7 +97,7 @@
 <meta property="og:description" content="摘要：最近一段时间在忙着写论文、看论文，博客一直没有更新了。这几天实验室添了两台交换机和五台服务器，这对于我这个爱折腾的人来说，确实是个大喜事，老师也把实验室设备的管理工作全权交予我来负责。忙活了几天时间，装好了系统，建立了一个小型的Hadoop集群和私有云。这其中我觉得最有意思的是关于实验室网络环境的配置，所以在这里做一些分享。   文章概览 网络环境简介  双网卡配置  Linux密码  网">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/network/tcp.jpg">
-<meta property="og:updated_time" content="2019-08-21T16:03:30.896Z">
+<meta property="og:updated_time" content="2019-08-23T06:07:23.264Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="校园网环境下服务器双网卡配置">
 <meta name="twitter:description" content="摘要：最近一段时间在忙着写论文、看论文，博客一直没有更新了。这几天实验室添了两台交换机和五台服务器，这对于我这个爱折腾的人来说，确实是个大喜事，老师也把实验室设备的管理工作全权交予我来负责。忙活了几天时间，装好了系统，建立了一个小型的Hadoop集群和私有云。这其中我觉得最有意思的是关于实验室网络环境的配置，所以在这里做一些分享。   文章概览 网络环境简介  双网卡配置  Linux密码  网">
@@ -403,7 +403,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  851
+                  1,055
                 </span>
               
 
@@ -419,7 +419,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  3
+                  4
                 </span>
               
             </div>
@@ -458,7 +458,14 @@
 <li>宽带账号只有一个，路由器一个，交换机一个</li>
 </ul>
 <p>综合这些因素，配置服务器双网卡可能是一个好的选择。每台服务器都有多个网口，将每台服务器同时连接在校园网和路由器两个网络中就能满足这些需求。通过给连接在校园网的网口配置校园网固定IP，可以保证校园网对服务器的访问；通过路由器拨号上网，将服务器的另一个网口连接到路由器上，即可保证服务器对外网的访问。</p>
-<h3 id="双网卡配置"><a href="#双网卡配置" class="headerlink" title="双网卡配置"></a>双网卡配置</h3><h3 id="Linux密码"><a href="#Linux密码" class="headerlink" title="Linux密码"></a>Linux密码</h3><p>&emsp;&emsp;之前一个同学在实验室主机上装过centos，可能太长时间没用，所以root密码忘了。找回LInux密码的过程挺有意思，一般情况下，通过单用户模式可以对root密码进行修改，但是系统设置了grub密码（防止修改用户密码）。至于grub密码就更不记得了，于是我们又想通过救援模式去修改grub密码，然后再修改root密码。参考了很多教程，我们发现修改不了grub密码。就在准备放弃的时候，我发现救援模式下可以直接访问/etc/shadow文件，我试着将文件中root用户记录删除，竟然修改成功了。重新开机之后，奇迹发生了，可以使用root用户直接登录了。这里给出<a href="https://www.tecmint.com/recover-or-rescue-corrupted-grub-boot-loader-in-centos-7/" target="_blank" rel="noopener">参考的博客链接</a>，希望对大家有所帮助。</p>
+<h3 id="双网卡配置"><a href="#双网卡配置" class="headerlink" title="双网卡配置"></a>双网卡配置</h3><p>&emsp;&emsp;配置过程需要注意以下几点：</p>
+<ul>
+<li>再给两个网卡配置静态IP的时候，不需要GATEWAY字段</li>
+<li>删除系统默认的网关（在 /etc/sysconfig/network文件中修改）</li>
+<li>使用ip route命令添加默认网关 （ip route add default via 网关地址 dev 网卡1）。一般我们将路由器的网关地址作为服务器的默认网关，这样能保证服务器可以访问外网。</li>
+<li>添加默认路由（ip route add 校园网网段 via 校园网静态ip的网关地址 dev 网卡2）。为了在校园网内部可以对服务器进行访问，我们需要添加一条默认的路由。对于校园网网段的访问，不通过路由器，而是通过校园网静态ip的网关地址。</li>
+</ul>
+<h3 id="Linux密码"><a href="#Linux密码" class="headerlink" title="Linux密码"></a>Linux密码</h3><p>&emsp;&emsp;之前一个同学在实验室主机上装过centos，可能太长时间没用，所以root密码忘了。找回LInux密码的过程挺有意思，一般情况下，通过单用户模式可以对root密码进行修改，但是系统设置了grub密码（防止修改用户密码）。至于grub密码就更不记得了，于是我们又想通过救援模式去修改grub密码，然后再修改root密码。参考了很多教程，我们发现修改不了grub密码。就在准备放弃的时候，我发现救援模式下可以直接访问/etc/shadow文件，我试着将文件中root用户记录删除，竟然修改成功了。重新开机之后，奇迹发生了，可以使用root用户直接登录了。这里给出<a href="https://www.tecmint.com/recover-or-rescue-corrupted-grub-boot-loader-in-centos-7/" target="_blank" rel="noopener">参考的博客链接</a>，希望对大家有所帮助。</p>
 
       
 
@@ -772,7 +779,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">43.2k</span>
+    <span title="Site words total count">43.4k</span>
   
 </div>
 
