@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="HEXO部署和美化,github pages,建站教程," />
+  <meta name="keywords" content="深度学习,对抗样本," />
 
 
 
@@ -88,21 +88,23 @@
 
 
 
-<meta name="description" content="摘要: 进入计算机行业已经好几年了，这么多年的摸爬滚打，我终于意识到了一个血的教训:好记性不如烂键盘!当我们遇到问题并解决问题之后，我们应该及时的把我们处理问题的过程记录下来，一来可以防止我们在此遇到同样的问题时又要重复造轮子，二来可以为遇到同样问题的小伙伴提供经验，所以对于我们来说有一个属于自己的博客尤为重要。本文记录的是搭建hexo个人博客平台过程中遇到的一些问题和心得，希望能对小伙伴们有所启">
-<meta name="keywords" content="HEXO部署和美化,github pages,建站教程">
+<meta name="description" content="摘要： 在之前的博客中介绍了三种对抗样本的生成算法，分别是FGSM、DeepFool和Universal Perturbation。这三种算法生成的对抗样本样本有一个共同的特点：其对抗性样例没有具体的目标，即我们无法控制目标模型对对抗性样例的分类结果。举例来说，如果我们构建了一个识别小动物的分类模型，现在我们需要对一张狗的照片生成其对抗性样例。先前的算法生成的对抗性样例只能达到让分类器分类错误的目">
+<meta name="keywords" content="深度学习,对抗样本">
 <meta property="og:type" content="article">
-<meta property="og:title" content="搭建博客：HEXO+GITHUB+CODING">
-<meta property="og:url" content="https://chaoge123456.github.io/hex.html/index.html">
+<meta property="og:title" content="对抗样本生成系列：JSMA目标扰动">
+<meta property="og:url" content="https://chaoge123456.github.io/对抗样本生成系列：JSMA目标扰动.html/index.html">
 <meta property="og:site_name" content="小生很忙">
-<meta property="og:description" content="摘要: 进入计算机行业已经好几年了，这么多年的摸爬滚打，我终于意识到了一个血的教训:好记性不如烂键盘!当我们遇到问题并解决问题之后，我们应该及时的把我们处理问题的过程记录下来，一来可以防止我们在此遇到同样的问题时又要重复造轮子，二来可以为遇到同样问题的小伙伴提供经验，所以对于我们来说有一个属于自己的博客尤为重要。本文记录的是搭建hexo个人博客平台过程中遇到的一些问题和心得，希望能对小伙伴们有所启">
+<meta property="og:description" content="摘要： 在之前的博客中介绍了三种对抗样本的生成算法，分别是FGSM、DeepFool和Universal Perturbation。这三种算法生成的对抗样本样本有一个共同的特点：其对抗性样例没有具体的目标，即我们无法控制目标模型对对抗性样例的分类结果。举例来说，如果我们构建了一个识别小动物的分类模型，现在我们需要对一张狗的照片生成其对抗性样例。先前的算法生成的对抗性样例只能达到让分类器分类错误的目">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/KNN/hexo.png">
-<meta property="og:image" content="https://chaoge123456.github.io/images/hexo.PNG">
-<meta property="og:updated_time" content="2018-11-22T11:01:11.197Z">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/aisecurity.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/Saliency_maps.PNG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/adv_flag1.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/adv_flag2.png">
+<meta property="og:updated_time" content="2019-09-01T05:18:03.490Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="搭建博客：HEXO+GITHUB+CODING">
-<meta name="twitter:description" content="摘要: 进入计算机行业已经好几年了，这么多年的摸爬滚打，我终于意识到了一个血的教训:好记性不如烂键盘!当我们遇到问题并解决问题之后，我们应该及时的把我们处理问题的过程记录下来，一来可以防止我们在此遇到同样的问题时又要重复造轮子，二来可以为遇到同样问题的小伙伴提供经验，所以对于我们来说有一个属于自己的博客尤为重要。本文记录的是搭建hexo个人博客平台过程中遇到的一些问题和心得，希望能对小伙伴们有所启">
-<meta name="twitter:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/KNN/hexo.png">
+<meta name="twitter:title" content="对抗样本生成系列：JSMA目标扰动">
+<meta name="twitter:description" content="摘要： 在之前的博客中介绍了三种对抗样本的生成算法，分别是FGSM、DeepFool和Universal Perturbation。这三种算法生成的对抗样本样本有一个共同的特点：其对抗性样例没有具体的目标，即我们无法控制目标模型对对抗性样例的分类结果。举例来说，如果我们构建了一个识别小动物的分类模型，现在我们需要对一张狗的照片生成其对抗性样例。先前的算法生成的对抗性样例只能达到让分类器分类错误的目">
+<meta name="twitter:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/aisecurity.png">
 
 
 
@@ -132,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://chaoge123456.github.io/hex.html/"/>
+  <link rel="canonical" href="https://chaoge123456.github.io/对抗样本生成系列：JSMA目标扰动.html/"/>
 
 
 
 
 
-  <title>搭建博客：HEXO+GITHUB+CODING | 小生很忙</title>
+  <title>对抗样本生成系列：JSMA目标扰动 | 小生很忙</title>
   
 
 
@@ -311,7 +313,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chaoge123456.github.io/hex.html/">
+    <link itemprop="mainEntityOfPage" href="https://chaoge123456.github.io/对抗样本生成系列：JSMA目标扰动.html/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="光阴的故事">
@@ -328,7 +330,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">搭建博客：HEXO+GITHUB+CODING</h2>
+          <h2 class="post-title" itemprop="name headline">对抗样本生成系列：JSMA目标扰动</h2>
         
 
         <div class="post-meta">
@@ -340,8 +342,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-31T21:30:00+08:00">
-                2018-07-31
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-31T20:07:56+08:00">
+                2019-08-31
               </time>
             
 
@@ -363,8 +365,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/HEXO相关/" itemprop="url" rel="index">
-                    <span itemprop="name">HEXO相关</span>
+                  <a href="/categories/机器学习安全/" itemprop="url" rel="index">
+                    <span itemprop="name">机器学习安全</span>
                   </a>
                 </span>
 
@@ -381,8 +383,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/hex.html/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/hex.html/" itemprop="commentCount"></span>
+                <a href="/对抗样本生成系列：JSMA目标扰动.html/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/对抗样本生成系列：JSMA目标扰动.html/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -404,7 +406,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2,629
+                  2,625
                 </span>
               
 
@@ -420,7 +422,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  9
+                  11
                 </span>
               
             </div>
@@ -441,85 +443,61 @@
       
 
       
-        <p><strong>摘要:</strong> 进入计算机行业已经好几年了，这么多年的摸爬滚打，我终于意识到了一个血的教训:好记性不如烂键盘!当我们遇到问题并解决问题之后，我们应该及时的把我们处理问题的过程记录下来，一来可以防止我们在此遇到同样的问题时又要重复造轮子，二来可以为遇到同样问题的小伙伴提供经验，所以对于我们来说有一个属于自己的博客尤为重要。本文记录的是搭建hexo个人博客平台过程中遇到的一些问题和心得，希望能对小伙伴们有所启发。<br><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/KNN/hexo.png" alt="avatar"></p>
-<h1 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h1><ul>
-<li><a href="#overview">HEXO简介</a><ul>
-<li>静态博客与动态博客</li>
-<li>基本流程</li>
-<li>运行机制</li>
+        <p><strong>摘要：</strong> 在之前的博客中介绍了三种对抗样本的生成算法，分别是FGSM、DeepFool和Universal Perturbation。这三种算法生成的对抗样本样本有一个共同的特点：其对抗性样例没有具体的目标，即我们无法控制目标模型对对抗性样例的分类结果。举例来说，如果我们构建了一个识别小动物的分类模型，现在我们需要对一张狗的照片生成其对抗性样例。先前的算法生成的对抗性样例只能达到让分类器分类错误的目的，比如说将其识别为一只鸡或者一只猫，分类结果是随机的、不可控的。更进一步，我们希望构建一种针对性更强的对抗性样例，比如说我们希望分类器对对抗性样例的分类结果只能是一只猫或者是由我们预先指定的一种小动物。本文介绍的<a href="https://arxiv.org/abs/1511.07528" target="_blank" rel="noopener">JSMA</a>算法可以达到这样一种目的。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/aisecurity.png" alt="avatar"></p>
+<h2 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h2><ul>
+<li>论文解读<ul>
+<li>攻击模型</li>
+<li>JSMA算法</li>
 </ul>
 </li>
-<li><a href="#next">HEXO NEXT主题美化</a></li>
-<li><a href="#github">HEXO部署到GITHUB</a></li>
-<li><a href="#search">提交搜索引擎</a><ul>
-<li>提交谷歌搜索引擎</li>
-<li>提交百度搜索引擎</li>
+<li>JSMA代码实现</li>
 </ul>
+<h3 id="论文解读"><a href="#论文解读" class="headerlink" title="论文解读"></a>论文解读</h3><p>&emsp;&emsp;JSMA由Papernot等人提出，其论文发表于2016年S&amp;P。论文的主要工作包括：从攻击者的目标和背景知识（或能力）两个方面来构建攻击模型、提出JSMA对抗样本生成算法、对对抗性扰动进行度量并构建防御机制。</p>
+<h4 id="攻击模型"><a href="#攻击模型" class="headerlink" title="攻击模型"></a>攻击模型</h4><p>&emsp;&emsp;分析攻击模型，主要从两个角度进行考虑：攻击者的目标和攻击者的背景知识。对于攻击者的目标而言，主要可以分为以下四类：</p>
+<ul>
+<li><strong>Confidence reduction：</strong>减小输入分类的置信度，从而引入歧义</li>
+<li><strong>Misclassification：</strong>将输出分类更改为与原始类不同的任何类</li>
+<li><strong>Targeted misclassification：</strong>生成输入，强制输出分类为特定目标类</li>
+<li><strong>Source/target misclassification：</strong>强制将特定输入的输出分类强制为特定目标类</li>
+</ul>
+<p>对于攻击者的背景知识而言，主要可以分为以下五类：</p>
+<ul>
+<li><strong>Training data and network architecture：</strong>最强大的背景知识，包含训练数据以及模型的结构和详细的参数信息</li>
+<li><strong>Network architecture：</strong>了解目标模型的网络架构</li>
+<li><strong>Training data：</strong>了解生成目标模型的训练数据</li>
+<li><strong>Oracle：</strong>攻击者可以访问模型提供的接口，输入数据并获得反馈，并且可以观察到输入和输出的变化之间的关系</li>
+<li><strong>Sample：</strong>攻击者可以访问模型提供的接口，输入数据并获得反馈，但是不能观察到输入和输出的变化之间的关系</li>
+</ul>
+<p>针对不同的场景，攻击者将采用不同的攻击手法，这也是对抗样本领域研究的重点。</p>
+<h4 id="JSMA算法"><a href="#JSMA算法" class="headerlink" title="JSMA算法"></a>JSMA算法</h4><p>&emsp;&emsp;JSMA算法的灵感来自于计算机视觉领域的显著图。简单来说，就是不同输入特征对分类器产生不同输出的影响程度不同。如果我们发现某些特征对应着分类器中某个特定的输出，我们可以通过在输入样本中增强这些特征来使得分类器产生指定类型的输出。JSMA算法主要包括三个过程：计算前向导数，计算对抗性显著图，添加扰动，以下给出具体解释。</p>
+<p>&emsp;&emsp;所谓前向导数，其实是计算神经网络最后一层的每一个输出对输入的每个特征的偏导。以MNIST分类任务为例，输入的图片的特征数（即像素点）为784，神经网络的最后一层一般为10个输出（分别对应0-9分类权重），那对于每一个输出我们都要分别计算对784个输入特征的偏导，所以计算结束得到的前向导数的矩阵为（10，784）。前向导数标识了每个输入特征对于每个输出分类的影响程度，其计算过程也是采用链式法则。这里需要说明一下，前面讨论过的FGSM和DeepFool不同在计算梯度时，是通过对损失函数求导得到的，而JSMA中前向导数是通过对神经网络最后一层输出求导得到的。前向导数$\nabla \mathbf{F}(\mathbf{X})$具体计算过程如下所示，$j$表示对应的输出分类，$i$表示对应的输入特征。<br>$$<br>\nabla \mathbf{F}(\mathbf{X})=\frac{\partial \mathbf{F}(\mathbf{X})}{\partial \mathbf{X}}=\left[\frac{\partial \mathbf{F_j}(\mathbf{X})}{\partial x_i}\right]_{i \in 1 \ldots M, j \in 1 . . N}<br>$$</p>
+<p>$$<br>\begin{aligned} \frac{\partial \mathbf{F_j}(\mathbf{X})}{\partial x_i}=&amp;\left(\mathbf{W}_{n+1, j} \cdot \frac{\partial \mathbf{H_n}}{\partial x_i}\right) \times \frac{\partial f_{n+1, j}}{\partial x_i}\left(\mathbf{W}_{n+1, j} \cdot \mathbf{H_n}+b_{n+1, j}\right) \end{aligned}<br>$$</p>
+<p>&emsp;&emsp;通过得到的前向导数，我们可以计算其对抗性显著图，即对分类器特定输出影响程度最大的输入。首先，根据扰动方式的不同（正向扰动和反向扰动），作者提出了两种计算对抗性显著图的方式，即：</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/Saliency_maps.PNG" alt="avatar"></p>
+<p>但是在文章中第四部分的应用中作者发现，找到单个满足要求的特征很困难，所以作者提出了另一种解决方案，通过对抗性显著图寻找对分类器特定输出影响程度最大的输入特征对，即每次计算得到两个特征<br>$$<br>\arg \max _{\left(p_1, p_2\right)}\left(\sum_{i=p_1, p_2} \frac{\partial \mathbf{F_t}(\mathbf{X})}{\partial \mathbf{X_i}}\right) \times\left|\sum_{i=p_1, p_2} \sum_{j \neq t} \frac{\partial \mathbf{F_j}(\mathbf{X})}{\partial \mathbf{X_i}}\right|<br>$$<br>具体的计算过程可以参考文章中的算法3。（注：根据扰动方式的不同，这种算法也有两种计算对抗性显著图的方式）</p>
+<p>&emsp;&emsp;根据对抗性显著图所得到的特征，可以对其添加扰动。扰动方式包括正向扰动和反向扰动（$+\theta$或$-\theta$）。如果添加的扰动不足以使分类结果发生转变，我们利用扰动后的样本可以重复上述过程（计算前向导数-&gt;计算对抗性显著图-&gt;添加扰动)。这个过程需要注意两点</p>
+<ul>
+<li>扰动过程的重复次数需要被约束，即修改的特征数有限</li>
+<li>一旦添加扰动后，该特征达到临界值，那么该特征不再参与扰动过程</li>
+</ul>
+<h3 id="JSMA算法实现"><a href="#JSMA算法实现" class="headerlink" title="JSMA算法实现"></a>JSMA算法实现</h3><p>&emsp;&emsp;同样，为了便于理解，这里给出相关代码段（与之前的数据集和网络模型一致）。所有的代码基于python实现，使用的深度学习框架为pytorch，更加完整的算法实现参见<a href="https://github.com/chaoge123456/MLsecurity/tree/master/blog/JSMA" target="_blank" rel="noopener">我的github</a>。（注：本文JSMA算法实现部分代码参考了<a href="https://github.com/kleincup/DEEPSEC" target="_blank" rel="noopener">DEEPSEC</a>)</p>
+<ul>
+<li><p>网络模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Net, self).__init__()</span><br><span class="line">        self.fc1 = nn.Linear(<span class="number">28</span>*<span class="number">28</span>, <span class="number">300</span>)</span><br><span class="line">        self.fc2 = nn.Linear(<span class="number">300</span>, <span class="number">100</span>)</span><br><span class="line">        self.fc3 = nn.Linear(<span class="number">100</span>, <span class="number">10</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x = F.relu(self.fc1(x))</span><br><span class="line">        x = F.relu(self.fc2(x))</span><br><span class="line">        x = self.fc3(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
 </li>
-<li><a href="#end">总结</a></li>
-</ul>
-<p></p><h2 id="overview">HEXO简介</h2><br><a href="https://hexo.io/zh-cn/" target="_blank" rel="noopener">Hexo</a>是一个基于node.js开发的快速、简洁且高效的静态博客框架。Hexo 使用 Markdown（或其他渲染引擎）解析文章，在几秒内，即可利用靓丽的主题生成静态网页。<br>hexo具有以下这些特性：<p></p>
-<ul>
-<li>hexo基于node.js，非常小巧，安装部署简单</li>
-<li>hexo开源，主题丰富，插件丰富，自定义能力强</li>
-<li>hexo支持markdown语法，易于博客写作</li>
-<li>hexo是纯静态博客，不需要数据库支持</li>
-</ul>
-<p></p><h3>静态博客系统与动态博客系统</h3><br>一个网站最基础的部分就是网页，如果想从HTML页面写起，显然成本太高，好在大牛们已经做好了博客生成器来解决网页编写的问题。一般来说，博客生成器分为动态和静态两种。其中，动态博客生成器典型代表有：WordPress、FarBox、Ghost等，静态的博客生成器典型代表有：Hexo、Jekyll、Octopress、Hugo等。关于动态和静态的区别主要有以下几点：<p></p>
-<ul>
-<li>资源占用上，静态博客相对于动态博客占用服务器资源少，可以托管在github pages上，而动态博客往往需要一台相对独立的服务器  </li>
-<li>数据管理和更新操作上，由于动态博客有独立的数据库和后台管理系统，对资源的管理和发布相对比较容易；而静态博客往往需要一些第三方平台的支持，如评论系统以及图床，数据管理更新比较繁琐。  </li>
-<li>安全性上，静态博客比动态博客安全性更好</li>
-</ul>
-<p></p><h3>基本流程</h3><br>&emsp;&emsp;这里我大致叙述一下搭建hexo博客系统的大致流程。我们首先要搭建hexo博客系统的开发环境，这里我主要讲解windows环境下的安装配置，其他系统的安装配置可以参考<a href="https://hexo.io/zh-cn/docs/index.html" target="_blank" rel="noopener">官方文档</a>。<br><figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">安装git</span><br><span class="line">安装<span class="keyword">node</span>.<span class="title">js</span></span><br><span class="line">执行命令 npm install -g hexo-cli（安装hexo命令行工具）</span><br><span class="line">执行命令 hexo init [文件夹名]</span><br><span class="line">进入刚才初始化的文件夹，执行命令 npm install 即创建了一个原始的hexo博客系统</span><br><span class="line">执行命令 hexo g 生成站点文件</span><br><span class="line">执行命令 hexo d 把博客部署到站点</span><br></pre></td></tr></table></figure><p></p>
-<p></p><h3>运行机制</h3><br>&emsp;&emsp;首先我们来分析一下hexo文件夹的结构  <p></p>
-<ul>
-<li><strong>_config.yml</strong>:站点的配置文件</li>
-<li><strong>db.json</strong>:缓存文件</li>
-<li><strong>node_modules</strong>:安装的插件以及hexo所需要的一些node.js模块</li>
-<li><strong>package.json</strong>：应用程序信息，配置hexo运行需要的js包</li>
-<li><strong>public</strong>：生成的站点文件</li>
-<li><strong>scaffolds</strong>：模板文件夹，新建文章时，会默认包含对应模板内容</li>
-<li><strong>source</strong>：资源文件夹是存放用户资源的地方。所有的源文件都会被保存在_post文件夹中</li>
-<li><strong>themes</strong>：hexo站点所使用的主题  </li>
-</ul>
-<p>&emsp;&emsp;为了搞清楚hexo的运行机制，我们有必要了解一下hexo的模板引擎（hexo使用的模板引擎是ejs编写的），模板引擎的作用就是将界面与数据分离最简单的原理是将模板内容中指定的地方替换成数据，实现业务代码与逻辑代码分离。我们可以注意到，在hexo中，source文件夹和themes文件夹是同级的，我们可以将source文件夹理解为数据库，而主题文件夹相当于界面，当执行<strong>hexo g</strong>命令时，就相当于将数据嵌入到界面中，生成静态文件public。<br>&emsp;&emsp;具体来说在hexo中，从markdown文件到生成html的过程中大致经历了两次渲染的过程：</p>
-<ol>
-<li>通过解析markdown文件，并结合站点配置文件和source目录下的相关文件，生成相应的数据对象</li>
-<li>将生成的数据对象嵌入到themes主题中的渲染引擎生成站点文件<br><img src="/images/hexo.PNG" alt="hexo运行机制"></li>
-</ol>
-<p></p><h2 id="next">HEXO NEXT主题美化</h2><br>&emsp;&emsp;基于hexo博客系统的主题有很多，你可以在<a href="https://hexo.io/themes/" target="_blank" rel="noopener">这里</a>找到你喜欢的主题。我的博客采用的是next主题，我个人觉得next主题看上去简洁大方，用起来很舒服。这里我不会详细的介绍next主题的配置过程，我会分享一些我在配置过程中遇到的一些问题。<p></p>
-<ul>
-<li>next主题的<a href="https://theme-next.iissnan.com/" target="_blank" rel="noopener">官方网站</a>详细阐述了主题的基本配置过程，我也是参照它一步步进行配置的</li>
-<li>在配置主题之前推荐大家安装一款node.js的开发工具，有利于提高效率。我安装的是webstorm，它也支持markdown文件的编写，强烈推荐（这个公司提供的开发工具都很强大，pycharm也是这个公司的产品之一）。</li>
-<li>在配置主题的过程中要注意区分两个配置文件，一个是主题的配置文件_config.yml，一个是站点的配置文件_config.yml。因为有些配置操作实在主题的配置文件中进行的，有的实在站点的配置文件进行的，一定不能弄混了。</li>
-<li>推荐一篇<a href="http://shenzekun.cn/hexo%E7%9A%84next%E4%B8%BB%E9%A2%98%E4%B8%AA%E6%80%A7%E5%8C%96%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B.html" target="_blank" rel="noopener">next主题美化的博文</a></li>
-<li>对主题进行配置时，我的建议是每修改一项之后都在本地运行一下（先运行<strong>hexo g</strong>命令，在运行<strong>hexo s</strong>命令，在浏览器中查看），看看有没有出错，这样我们可以及时找到出错的地方。</li>
-<li>hexo的配置文件是yaml格式的，它通过缩进来表示层级关系，修改配置文件时要主要缩进问题</li>
-</ul>
-<p></p><h2 id="github">HEXO部署到GITHUB</h2><br>&emsp;&emsp;在对主题修改完成之后，下一步的工作就是将hexo部署到github pages。在部署之前，需要做好一些准备工作，具体的操作过程可以参考<a href="https://zhuanlan.zhihu.com/p/26625249" target="_blank" rel="noopener">这篇博客</a>。<p></p>
-<ol>
-<li>注册github账号，<a href="http://wiki.jikexueyuan.com/project/git-tutorial/remote-repository.html" target="_blank" rel="noopener">添加ssh key</a></li>
-<li>在github中新建仓库，仓库名为：<strong>username.github.io</strong></li>
-<li>修改站点配置文件的deploy选项</li>
-<li>执行命令<strong>hexo deploy</strong>  </li>
-</ol>
-<p>&emsp;&emsp;在这些操作过程中我们需要注意一些问题：</p>
-<ul>
-<li>在deploy的过程中可能会出现速度过慢的问题，这是由于GFW对github的限制造成的，可以通过代理或者修改hosts文件来提高访问速度</li>
-<li>有时候会因为一些莫名其妙的问题导致deploy失败，无法解决这一问题时，我们可以通过复制生成的public文件，通过git提交到远程仓库，为了使整个过程更加自动化，我们可以在根目录下写一个脚本文件deploy.sh  <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hexo <span class="keyword">generate</span>  </span><br><span class="line">cp -R public<span class="comment">/* chaoge123456.github.io  </span></span><br><span class="line"><span class="comment">cd chaoge123456.github.io  </span></span><br><span class="line"><span class="comment">git add .  </span></span><br><span class="line"><span class="comment">git commit -m “update”  </span></span><br><span class="line"><span class="comment">git push origin master</span></span><br></pre></td></tr></table></figure>
+<li><p>数据集（这里只给出测试集的数据定义）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义数据转换格式</span></span><br><span class="line">mnist_transform = transforms.Compose([transforms.ToTensor(), transforms.Lambda(<span class="keyword">lambda</span> x : x.resize_(<span class="number">28</span>*<span class="number">28</span>))])</span><br><span class="line"><span class="comment"># 导入数据，定义数据接口</span></span><br><span class="line">testdata  = torchvision.datasets.MNIST(root=<span class="string">"./mnist"</span>, train=<span class="keyword">False</span>, download=<span class="keyword">True</span>, transform=mnist_transform)</span><br><span class="line">testloader = torch.utils.data.DataLoader(testdata, batch_size=<span class="number">256</span>, shuffle=<span class="keyword">True</span>, num_workers=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
-<p>每次提交更新时只需要在根目录下执行命令：<strong>./deploy.sh</strong>即可  </p>
-<p></p><h2 id="search">提交搜索引擎</h2><br>&emsp;&emsp;部署完成之后，现在我们可以通过浏览器访问到我们的博客，但是还有一件非常重要的事我们需要去完成。虽然我们可以通过浏览器访问到我们的博客，但是我们无法通过搜索引擎搜索到我们的博客，所以我们需要将我们的博客地址提交给搜索引擎。这时我们需要注意，github屏蔽了百度搜索引擎的爬虫，这也就意味着通过百度是无法搜索到我们在github上的博客（googl不存在这样的问题）。所以为了在国内也能访问到我们的博客，我们需要将我们的博客托管到国内的类似于github的平台——<a href="https://coding.net/" target="_blank" rel="noopener">coding</a>（coding的博客地址和github的博客地址不一样，所以接下来我们需要做的是将github的博客地址提交给google，将coding的地址提交给百度）。部署到coding的流程跟github类似，为了将站点同时更新到coding和github，我们需要在站点配置文件下的deploy选项的repo同时添加github和coding的远程仓库<br><figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">deploy</span>:  </span><br><span class="line">  <span class="attribute">type</span>: git  </span><br><span class="line">  <span class="attribute">repo</span>:  </span><br><span class="line">    <span class="attribute">github</span>: git<span class="variable">@github</span>.<span class="attribute">com</span>:chaoge123456/chaoge123456.github.io.git  </span><br><span class="line">    <span class="attribute">coding</span>: git<span class="variable">@git</span>.coding.<span class="attribute">net</span>:chao3236gmailco/chao3236gmailco.git  </span><br><span class="line">  <span class="attribute">branch</span>: master</span><br></pre></td></tr></table></figure><p></p>
-<p></p><h3>提交谷歌搜索引擎</h3><br><a href="https://www.google.com/webmasters/tools/home?hl=zh-CN" target="_blank" rel="noopener">Google搜索引擎提交入口</a><p></p>
-<p></p><h3>提交百度搜索引擎</h3><br><a href="http://www.baidu.com/search/url_submit.htm" target="_blank" rel="noopener">百度搜索引擎入口</a><br>&emsp;&emsp;将站点地址提交给搜索引擎的步骤也比较简单，具体操作可以参考<a href="http://tengj.top/2016/03/14/hexo6seo/" target="_blank" rel="noopener">这篇博文</a><br>,这个过程中需要注意的问题是：<p></p>
-<ul>
-<li>将验证文件提交给站点时，有人会认为，直接将验证文件放入public文件夹中然后执行<strong>hexo g</strong>和<strong>hexo d</strong>就可以将验证文件提交的远程仓库。这样做确实可以将验证文件提交的远程仓库，但是需要注意的是此时的验证文件经过了hexo渲染，和原来的验证文件已经不一致，这样的验证文件时无效的</li>
-<li>正确的做法是通过git clone获得远程仓库，在将验证文件加入刚刚获得的远程文件，然后通过向远程仓库提交该文件</li>
-<li>验证完毕后，要向搜索引擎提交站点地图，方便爬虫爬取站点</li>
-</ul>
-<p></p><h2 id="end">总结</h2><br>&emsp;&emsp;HEXO+GITHUB+CODING博客搭建大概就是这些流程，希望大家看了我的博客会有所收获。这是我博客上的第一篇博文，确实不容易，希望以后能好好坚持下去吧。好了，夜已深了，晚安世界！<p></p>
+<p>&emsp;&emsp;对于前向导数，如果根据链式法则一层层的推导，计算过程十分复杂。但是在深度学习框架中，对于反向传播过程的梯度的计算都已经封装好，我们只需要简单的调用即可，所以前向导数的计算过程十分简单，如下所示</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">compute_jacobian</span><span class="params">(model, input)</span>:</span></span><br><span class="line"></span><br><span class="line">    output = model(input)</span><br><span class="line">    num_features = int(np.prod(input.shape[<span class="number">1</span>:]))</span><br><span class="line">    jacobian = torch.zeros([output.size()[<span class="number">1</span>], num_features])</span><br><span class="line">    mask = torch.zeros(output.size())  <span class="comment"># chooses the derivative to be calculated</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(output.size()[<span class="number">1</span>]):</span><br><span class="line">        mask[:, i] = <span class="number">1</span></span><br><span class="line">        zero_gradients(input)</span><br><span class="line">        output.backward(mask, retain_graph=<span class="keyword">True</span>)</span><br><span class="line">        <span class="comment"># copy the derivative to the target place</span></span><br><span class="line">        jacobian[i] = input._grad.squeeze().view(<span class="number">-1</span>, num_features).clone()</span><br><span class="line">        mask[:, i] = <span class="number">0</span>  <span class="comment"># reset</span></span><br><span class="line">    <span class="keyword">return</span> jacobian</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;计算对抗性显著图的过程也较为简单，一般根据算法的描述一步步实现并不难。但是在该过程中存在一个问题，我们每次需要找到满足要求的一对特征，那组合的方式一共有784*783种，如果采用普通的循环来实现计算代价很大。参考了DEEPSEC的代码，我发现他们将这个问题巧妙的转化为矩阵求解的问题，大大缩短了计算时间。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">saliency_map</span><span class="params">(jacobian, target_index, increasing, search_space, nb_features)</span>:</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    domain = torch.eq(search_space, <span class="number">1</span>).float()  <span class="comment"># The search domain</span></span><br><span class="line">    <span class="comment"># the sum of all features' derivative with respect to each class</span></span><br><span class="line">    all_sum = torch.sum(jacobian, dim=<span class="number">0</span>, keepdim=<span class="keyword">True</span>)</span><br><span class="line">    target_grad = jacobian[target_index]  <span class="comment"># The forward derivative of the target class</span></span><br><span class="line">    others_grad = all_sum - target_grad  <span class="comment"># The sum of forward derivative of other classes</span></span><br><span class="line"></span><br><span class="line">    <span class="comment"># this list blanks out those that are not in the search domain</span></span><br><span class="line">    <span class="keyword">if</span> increasing:</span><br><span class="line">        increase_coef = <span class="number">2</span> * (torch.eq(domain, <span class="number">0</span>)).float()</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        increase_coef = <span class="number">-1</span> * <span class="number">2</span> * (torch.eq(domain, <span class="number">0</span>)).float()</span><br><span class="line">    increase_coef = increase_coef.view(<span class="number">-1</span>, nb_features)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># calculate sum of target forward derivative of any 2 features.</span></span><br><span class="line">    target_tmp = target_grad.clone()</span><br><span class="line">    target_tmp -= increase_coef * torch.max(torch.abs(target_grad))</span><br><span class="line">    alpha = target_tmp.view(<span class="number">-1</span>, <span class="number">1</span>, nb_features) + target_tmp.view(<span class="number">-1</span>, nb_features, <span class="number">1</span>)  </span><br><span class="line">    <span class="comment"># calculate sum of other forward derivative of any 2 features.</span></span><br><span class="line">    others_tmp = others_grad.clone()</span><br><span class="line">    others_tmp += increase_coef * torch.max(torch.abs(others_grad))</span><br><span class="line">    beta = others_tmp.view(<span class="number">-1</span>, <span class="number">1</span>, nb_features) + others_tmp.view(<span class="number">-1</span>, nb_features, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># zero out the situation where a feature sums with itself</span></span><br><span class="line">    tmp = np.ones((nb_features, nb_features), int)</span><br><span class="line">    np.fill_diagonal(tmp, <span class="number">0</span>)</span><br><span class="line">    zero_diagonal = torch.from_numpy(tmp).byte()</span><br><span class="line"></span><br><span class="line">    <span class="comment"># According to the definition of saliency map in the paper (formulas 8 and 9),</span></span><br><span class="line">    <span class="comment"># those elements in the saliency map that doesn't satisfy the requirement will be blanked out.</span></span><br><span class="line">    <span class="keyword">if</span> increasing:</span><br><span class="line">        mask1 = torch.gt(alpha, <span class="number">0.0</span>)</span><br><span class="line">        mask2 = torch.lt(beta, <span class="number">0.0</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        mask1 = torch.lt(alpha, <span class="number">0.0</span>)</span><br><span class="line">        mask2 = torch.gt(beta, <span class="number">0.0</span>)</span><br><span class="line">    <span class="comment"># apply the mask to the saliency map</span></span><br><span class="line">    mask = torch.mul(torch.mul(mask1, mask2), zero_diagonal.view_as(mask1))</span><br><span class="line">    <span class="comment"># do the multiplication according to formula 10 in the paper</span></span><br><span class="line">    saliency_map = torch.mul(torch.mul(alpha, torch.abs(beta)), mask.float())</span><br><span class="line">    <span class="comment"># get the most significant two pixels</span></span><br><span class="line">    max_value, max_idx = torch.max(saliency_map.view(<span class="number">-1</span>, nb_features * nb_features), dim=<span class="number">1</span>)</span><br><span class="line">    p = max_idx // nb_features</span><br><span class="line">    q = max_idx % nb_features</span><br><span class="line">    <span class="keyword">return</span> p, q</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;算法其余的实现可以参考<a href="https://github.com/chaoge123456/MLsecurity/tree/master/blog/JSMA" target="_blank" rel="noopener">我的gihub</a>。代码完成后进行了一些测试，选取原始样本0，目标分类结果分别为0-9。我们采用JSMA算法对其添加噪声，得到的结果如下所示。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/adv_flag1.png" alt="avatar"></p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/adv_flag2.png" alt="avatar"></p>
+<p>我们将这些图片分别丢入原始分类器中，分类结果与我们的目标全都一致。由此看来，一般情况下，JSMA算法的效果还是很不错的。</p>
 
       
 
@@ -532,7 +510,7 @@
              </br>
              <br class="post-copyright-link">
                <strong>本文链接：</strong>
-               <a href="/hex.html/" title="搭建博客：HEXO+GITHUB+CODING">hex.html/</a>
+               <a href="/对抗样本生成系列：JSMA目标扰动.html/" title="对抗样本生成系列：JSMA目标扰动">对抗样本生成系列：JSMA目标扰动.html/</a>
              </br>
              <br class="post-copyright-license">
                <strong>版权声明： </strong>
@@ -586,11 +564,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/HEXO部署和美化/" rel="tag"><i class="fa fa-tag"></i> HEXO部署和美化</a>
+            <a href="/tags/深度学习/" rel="tag"><i class="fa fa-tag"></i> 深度学习</a>
           
-            <a href="/tags/github-pages/" rel="tag"><i class="fa fa-tag"></i> github pages</a>
-          
-            <a href="/tags/建站教程/" rel="tag"><i class="fa fa-tag"></i> 建站教程</a>
+            <a href="/tags/对抗样本/" rel="tag"><i class="fa fa-tag"></i> 对抗样本</a>
           
         </div>
       
@@ -603,8 +579,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/markdown书写规范.html/" rel="next" title="markdown书写规范">
-                <i class="fa fa-chevron-left"></i> markdown书写规范
+              <a href="/对抗样本生成系列：FGSM和Deepfool.html/" rel="next" title="对抗样本生成系列：FGSM和DeepFool">
+                <i class="fa fa-chevron-left"></i> 对抗样本生成系列：FGSM和DeepFool
               </a>
             
           </div>
@@ -612,10 +588,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/KNN.html/" rel="prev" title="K近邻算法详解">
-                K近邻算法详解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -799,7 +771,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#overview"><span class="nav-number">1.1.</span> <span class="nav-text">HEXO简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.1.</span> <span class="nav-text">静态博客系统与动态博客系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.2.</span> <span class="nav-text">基本流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.1.3.</span> <span class="nav-text">运行机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#next"><span class="nav-number">1.2.</span> <span class="nav-text">HEXO NEXT主题美化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#github"><span class="nav-number">1.3.</span> <span class="nav-text">HEXO部署到GITHUB</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#search"><span class="nav-number">1.4.</span> <span class="nav-text">提交搜索引擎</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.4.1.</span> <span class="nav-text">提交谷歌搜索引擎</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#undefined"><span class="nav-number">1.4.2.</span> <span class="nav-text">提交百度搜索引擎</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#end"><span class="nav-number">1.5.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#论文解读"><span class="nav-number">1.1.</span> <span class="nav-text">论文解读</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#攻击模型"><span class="nav-number">1.1.1.</span> <span class="nav-text">攻击模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#JSMA算法"><span class="nav-number">1.1.2.</span> <span class="nav-text">JSMA算法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSMA算法实现"><span class="nav-number">1.2.</span> <span class="nav-text">JSMA算法实现</span></a></li></ol></li></ol></div>
             
 
           </div>

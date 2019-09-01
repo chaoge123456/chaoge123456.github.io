@@ -101,7 +101,7 @@
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/adversary_1.PNG">
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/linear.PNG">
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/adversarial/deepfool.PNG">
-<meta property="og:updated_time" content="2019-08-22T07:44:26.006Z">
+<meta property="og:updated_time" content="2019-09-01T03:08:54.139Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对抗样本生成系列：FGSM和DeepFool">
 <meta name="twitter:description" content="摘要：近些年来，深度学习技术在海量数据以及强大计算能力的驱动下取得了长足的发展，特别是在语音识别、计算机视觉、自然语言处理等领域，深度学习以其强大的网络表达能力刷新了一项又一项记录，各种各样基于深度学习的产品和服务也逐渐在产业界落地应用。正因为深度学习技术蕴含着巨大的商业价值，其背后潜在的安全问题更值得我们去深究。最近的研究表明，深度学习面临安全和隐私等多方面的威胁。该系列主要讨论深度学习领域最为">
@@ -465,7 +465,7 @@
 <p>&emsp;&emsp;根据这种解释，作者提出了生成对抗性样例的算法FGSM。我们将深度神经网络模型看作是一个线性模型，即类似于$f(x)=w^Tx+b$。在线性模型中，$w$为$f(x)$关于$x$的导数，而在深度神经网络模型中我们可以将$w$视为代价函数关于输入$x​$的导数，即<br>$$<br>w=\nabla_{x}J(\theta,x,y)<br>$$</p>
 <p>$$<br>\eta=\epsilon sign(\nabla_{x}J(\theta,x,y))<br>$$</p>
 <p>&emsp;&emsp;在文章的后半部分主要介绍了针对对抗性样本的防御机制，即通过对抗性训练来提高模型的鲁棒性，这些内容会在之后的工作中讨论。</p>
-<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>&emsp;&emsp;为了更好的理解算法的实现过程，以下给出本文相关的代码段。这些代码段给出的定义，对于后面的DeepFool和Universal Perturbation算法的解读依赖有效。所有的代码基于python实现，使用的深度学习框架为pytorch，更加完整的算法实现，参加<a href="https://github.com/chaoge123456/MLsecurity/tree/master/blog/FGSM%20and%20DeepFool" target="_blank" rel="noopener">我的github</a>.</p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><p>&emsp;&emsp;为了更好的理解算法的实现过程，以下给出本文相关的代码段。这些代码段给出的定义，对于后面的DeepFool和Universal Perturbation算法的解读依赖有效。所有的代码基于python实现，使用的深度学习框架为pytorch，更加完整的算法实现参见<a href="https://github.com/chaoge123456/MLsecurity/tree/master/blog/FGSM%20and%20DeepFool" target="_blank" rel="noopener">我的github</a>.</p>
 <ul>
 <li><p>网络模型</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Net</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(Net, self).__init__()</span><br><span class="line">        self.fc1 = nn.Linear(<span class="number">28</span>*<span class="number">28</span>, <span class="number">300</span>)</span><br><span class="line">        self.fc2 = nn.Linear(<span class="number">300</span>, <span class="number">100</span>)</span><br><span class="line">        self.fc3 = nn.Linear(<span class="number">100</span>, <span class="number">10</span>)</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x = F.relu(self.fc1(x))</span><br><span class="line">        x = F.relu(self.fc2(x))</span><br><span class="line">        x = self.fc3(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br></pre></td></tr></table></figure>
@@ -602,6 +602,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/对抗样本生成系列：JSMA目标扰动.html/" rel="prev" title="对抗样本生成系列：JSMA目标扰动">
+                对抗样本生成系列：JSMA目标扰动 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -684,7 +688,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -818,7 +822,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">43.4k</span>
+    <span title="Site words total count">46.0k</span>
   
 </div>
 
