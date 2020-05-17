@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="python,树莓派,内网穿透," />
+  <meta name="keywords" content="卷积网络," />
 
 
 
@@ -88,20 +88,28 @@
 
 
 
-<meta name="description" content="摘要 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。  文章概览 重新安装系统 连接树莓派 安装远程桌面服务 更新软件源 raspi-config">
-<meta name="keywords" content="python,树莓派,内网穿透">
+<meta name="description" content="摘要：卷积神经网络是受生物学中感受野机制的启发而提出的，是一种具有局部连接、权重共享等特性的深层前馈神经网络，其主要应用于图像和视频分析等领域。2012年，卷积神经网络在ImageNet大规模视觉识别挑战竞赛中大放异彩，一定程度上引领了深度学习袭卷全球的潮流。这篇文章聚焦于卷积神经网络的实现细节，本文我们将使用pytorch中的tensor实现一个简单的卷积神经网络框架（很多文章采用的是numpy">
+<meta name="keywords" content="卷积网络">
 <meta property="og:type" content="article">
-<meta property="og:title" content="raspberry入门配置">
-<meta property="og:url" content="https://chaoge123456.github.io/raspberry入门配置.html/index.html">
+<meta property="og:title" content="卷积神经网络实现解析">
+<meta property="og:url" content="https://chaoge123456.github.io/卷积神经网络实现解析.html/index.html">
 <meta property="og:site_name" content="小生很忙">
-<meta property="og:description" content="摘要 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。  文章概览 重新安装系统 连接树莓派 安装远程桌面服务 更新软件源 raspi-config">
+<meta property="og:description" content="摘要：卷积神经网络是受生物学中感受野机制的启发而提出的，是一种具有局部连接、权重共享等特性的深层前馈神经网络，其主要应用于图像和视频分析等领域。2012年，卷积神经网络在ImageNet大规模视觉识别挑战竞赛中大放异彩，一定程度上引领了深度学习袭卷全球的潮流。这篇文章聚焦于卷积神经网络的实现细节，本文我们将使用pytorch中的tensor实现一个简单的卷积神经网络框架（很多文章采用的是numpy">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/images.png">
-<meta property="og:updated_time" content="2018-11-22T10:56:01.642Z">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/5.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/1.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/2.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/3.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/4.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/6.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/7.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/8.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/9.png">
+<meta property="og:updated_time" content="2020-05-17T07:02:42.286Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="raspberry入门配置">
-<meta name="twitter:description" content="摘要 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。  文章概览 重新安装系统 连接树莓派 安装远程桌面服务 更新软件源 raspi-config">
-<meta name="twitter:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/images.png">
+<meta name="twitter:title" content="卷积神经网络实现解析">
+<meta name="twitter:description" content="摘要：卷积神经网络是受生物学中感受野机制的启发而提出的，是一种具有局部连接、权重共享等特性的深层前馈神经网络，其主要应用于图像和视频分析等领域。2012年，卷积神经网络在ImageNet大规模视觉识别挑战竞赛中大放异彩，一定程度上引领了深度学习袭卷全球的潮流。这篇文章聚焦于卷积神经网络的实现细节，本文我们将使用pytorch中的tensor实现一个简单的卷积神经网络框架（很多文章采用的是numpy">
+<meta name="twitter:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/5.png">
 
 
 
@@ -131,13 +139,13 @@
 
 
 
-  <link rel="canonical" href="https://chaoge123456.github.io/raspberry入门配置.html/"/>
+  <link rel="canonical" href="https://chaoge123456.github.io/卷积神经网络实现解析.html/"/>
 
 
 
 
 
-  <title>raspberry入门配置 | 小生很忙</title>
+  <title>卷积神经网络实现解析 | 小生很忙</title>
   
 
 
@@ -310,7 +318,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://chaoge123456.github.io/raspberry入门配置.html/">
+    <link itemprop="mainEntityOfPage" href="https://chaoge123456.github.io/卷积神经网络实现解析.html/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="光阴的故事">
@@ -327,7 +335,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">raspberry入门配置</h2>
+          <h2 class="post-title" itemprop="name headline">卷积神经网络实现解析</h2>
         
 
         <div class="post-meta">
@@ -339,8 +347,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-22T20:53:38+08:00">
-                2018-09-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-05-17T14:41:28+08:00">
+                2020-05-17
               </time>
             
 
@@ -362,8 +370,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/树莓派/" itemprop="url" rel="index">
-                    <span itemprop="name">树莓派</span>
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
                   </a>
                 </span>
 
@@ -380,8 +388,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/raspberry入门配置.html/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/raspberry入门配置.html/" itemprop="commentCount"></span>
+                <a href="/卷积神经网络实现解析.html/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/卷积神经网络实现解析.html/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -403,7 +411,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1,094
+                  3,567
                 </span>
               
 
@@ -419,7 +427,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4
+                  14
                 </span>
               
             </div>
@@ -440,34 +448,85 @@
       
 
       
-        <p><strong>摘要</strong> 最近准备在树莓派上搭建一个智能家居系统，更新系统的过程中不知道什么原因导致系统崩了，我的心顿时凉了半截。查阅了很多资料，没找到解决方法，只能重装系统（基于stretch版本）了。虽然之前的系统也是自己一步步配置的，但是这次重新配置的过程中还是遇到了很多问题，在这里记录一下，希望能给小伙伴们一些启发。</p>
-<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/raspberry/images.png" alt="avatar"></p>
+        <p><strong>摘要：</strong>卷积神经网络是受生物学中感受野机制的启发而提出的，是一种具有局部连接、权重共享等特性的深层前馈神经网络，其主要应用于图像和视频分析等领域。2012年，卷积神经网络在ImageNet大规模视觉识别挑战竞赛中大放异彩，一定程度上引领了深度学习袭卷全球的潮流。这篇文章聚焦于卷积神经网络的实现细节，本文我们将使用pytorch中的tensor实现一个简单的卷积神经网络框架（很多文章采用的是numpy实现），并在FashionMnist数据集中进行测试。文中给出实现过程中的部分代码，完整的代码可以在<a href="https://github.com/chaoge123456/ml-torch/blob/master/CNN/complex.ipynb" target="_blank" rel="noopener">我的github</a>中找到。</p>
 <h2 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h2><ul>
-<li>重新安装系统</li>
-<li>连接树莓派</li>
-<li>安装远程桌面服务</li>
-<li>更新软件源</li>
-<li>raspi-config</li>
-<li>配置无线网络</li>
-<li>配置静态IP</li>
-<li>配置内网映射</li>
-<li>安装zsh</li>
-<li>python环境搭建</li>
+<li>卷积神经网络简介</li>
+<li>卷积层的实现细节<ul>
+<li>前向计算</li>
+<li>反向传播</li>
 </ul>
-<h3 id="重新安装系统"><a href="#重新安装系统" class="headerlink" title="重新安装系统"></a>重新安装系统</h3><p>&emsp;&emsp;重新安装系统的过程我们需要用到：<a href="https://www.raspberrypi.org/downloads/" target="_blank" rel="noopener">系统镜像</a>、<a href="http://www.diskgenius.cn/" target="_blank" rel="noopener">DiskGenius</a>、<a href="#https://sourceforge.net/projects/win32diskimager/">Win32DiskImager</a>，DiskGenius的作用是格式化TF卡，Win32DiskImager的作用是将系统镜像写入TF卡，具体的操作过程可以参考<a href="https://www.jianshu.com/p/6af60049fdf1" target="_blank" rel="noopener">这篇博客</a>。</p>
-<h3 id="连接树莓派"><a href="#连接树莓派" class="headerlink" title="连接树莓派"></a>连接树莓派</h3><p>&emsp;&emsp;对于如何连接树莓派，我在之前的博客中详细的讨论过，这里不再赘述，需要提醒大家的是只需要使用某一种方法连接树莓派即可。</p>
-<h3 id="安装远程连接服务"><a href="#安装远程连接服务" class="headerlink" title="安装远程连接服务"></a>安装远程连接服务</h3><p>&emsp;&emsp;ssh连接是通过命令行对树莓派进行远程操作，而远程桌面是直接通过树莓派的GUI界面进行操作，操作简单，交互性好。xrdp是一个开源的远程桌面服务器，支持windows远程桌面连接，但是需要使用tightvncserver作为其基础服务，具体安装操作如下所示。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get update #更新</span><br><span class="line">sudo apt-get install xrdp</span><br><span class="line">sudo apt-get install tightvncserver</span><br></pre></td></tr></table></figure>
-<p>安装好以上两个服务以后。可以使用windows自带的远程连接工具连接到树莓派。</p>
-<h3 id="更新软件源"><a href="#更新软件源" class="headerlink" title="更新软件源"></a>更新软件源</h3><p>&emsp;&emsp;在更新软件源的时候，大家注意查看自己的系统版本（推荐大家安装最新的系统版本），具体操作参见<a href="https://mirror.tuna.tsinghua.edu.cn/help/" target="_blank" rel="noopener">清华大学开源软件镜像站</a>。</p>
-<h3 id="raspi-config"><a href="#raspi-config" class="headerlink" title="raspi-config"></a>raspi-config</h3><p>&emsp;&emsp;通过远程桌面连接到树莓派之后，系统会提示进行一些初始化配置，包括拓展内存、设置时区、语言等等，具体操作参见<a href="http://shumeipai.nxez.com/2013/09/07/raspi-config-configuration-raspberry-pie.html" target="_blank" rel="noopener">这篇博客</a>。</p>
-<h3 id="配置无线网络"><a href="#配置无线网络" class="headerlink" title="配置无线网络"></a>配置无线网络</h3><p>&emsp;&emsp;配置无线网络有两种方式，一个是在图形化界面直接选择连接的ssid，输入密码即可，系统会保存该无线网络的相关信息到/etc/wpa_supplicant/wpa_supplicant.conf文件；另外一种方式是直接修改该配置文件，将无线网络配置信息添加到该文件中。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">country=CN</span><br><span class="line">ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev</span><br><span class="line">update_config=1</span><br><span class="line"></span><br><span class="line">network=&#123;</span><br><span class="line">    ssid="***"</span><br><span class="line">    psk="***"</span><br><span class="line">    priority=1</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<h3 id="配置静态IP"><a href="#配置静态IP" class="headerlink" title="配置静态IP"></a>配置静态IP</h3><p>&emsp;&emsp;由于每次树莓派连接路由器的时候，路由器会分配不同的IP地址，所以当我们连接树莓派的时候每次都要通过路由器查看树莓派的IP地址，这样比较麻烦，所以，我们需要给路由器指定静态的IP。修改/etc/dhcpcd.conf文件（一定要注意不是修改/etc/network/interfaces文件），在后面添加以下内容：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">interface eth0 #有线</span><br><span class="line"> </span><br><span class="line">static ip_address=192.168.0.10/24</span><br><span class="line">static routers=192.168.0.1</span><br><span class="line">static domain_name_servers=192.168.0.1</span><br><span class="line"> </span><br><span class="line">interface wlan0 #无线连接</span><br><span class="line"> </span><br><span class="line">static ip_address=192.168.0.200/24</span><br><span class="line">static routers=192.168.0.1</span><br><span class="line">static domain_name_servers=192.168.0.1</span><br></pre></td></tr></table></figure>
-<h3 id="配置内网映射"><a href="#配置内网映射" class="headerlink" title="配置内网映射"></a>配置内网映射</h3><p>&emsp;&emsp;如果想要从外网直接访问树莓派，那我们需要将树莓派的内网IP映射到公网当中，这里我们使用的映射工具是花生壳，具体操作参见<a href="http://service.oray.com/question/2680.html" target="_blank" rel="noopener">官方教程</a>。</p>
-<h3 id="安装zsh"><a href="#安装zsh" class="headerlink" title="安装zsh"></a>安装zsh</h3><p>&emsp;&emsp;树莓派基于linux操作系统，其终端shell默认的是bash，而zsh是比bash更加强大的shell，而且更加美观，具体配置参见<a href="https://mlapp.cn/310.html" target="_blank" rel="noopener">这篇博客</a>。</p>
-<h3 id="python环境搭建"><a href="#python环境搭建" class="headerlink" title="python环境搭建"></a>python环境搭建</h3><p>&emsp;&emsp;树莓派中内置了两个版本的python，python2.7和python3.5，系统默认版本为python2.7。在进行系统环境配置和相关依赖安装的过程中，一律使用系统默认版本即python2.7（如果切换至python3.5.会出现各种各样的问题）。在程序开发过程中如果需要使用python3.5，可以切换python环境，具体操作参见<a href="https://linux.cn/article-6970-1.html" target="_blank" rel="noopener">这篇博客</a>。</p>
+</li>
+<li>池化层的实现细节<ul>
+<li>前向计算</li>
+<li>反向传播</li>
+</ul>
+</li>
+<li>测试结果</li>
+</ul>
+<h3 id="卷积神经网络简介"><a href="#卷积神经网络简介" class="headerlink" title="卷积神经网络简介"></a>卷积神经网络简介</h3><p>&emsp;&emsp;在前面的文章中我们讲到了全连接前馈网络，并且在FashionMnist数据集上对我们构建的网络框架进行了测试。简单回顾一下当时的数据处理过程，FashionMnist数据集中的图片通道数为1、图片尺寸为28×28，原始数据集表示为$ X=(N, 1, 28 ,28) $。在训练之前，我们需要将训练数据转化为 $ X=(N, 1*28*28) $，相当于将数据集中每一张图片的像素点展开成向量的形式。显而易见，将图片展开为向量会丢失空间信息，这会对模型的泛化性能产生很大的影响。除此之外，利用全连接前馈网络处理图像数据往往会需要很多的参数。举例来说，假设现在数据集中的图片为100×100的彩色图片，此时每张图片中包含的像素点为$ 3*100*100 $，即$ X=(N, 3*100*100) $。如果第一个隐藏层有1000个神经元，那么仅该层包含的参数个数为$ 30000*1000 + 1000 $。过多的参数会给模型的训练过程造成很大的负担，同时也会导致过拟合等问题。综上所述，一般情况下我们不采用全连接前馈网络来处理图像数据。</p>
+<p>&emsp;&emsp;卷积神经网络最早主要是用来处理图像信息，是受生物学中<strong>感受野</strong>机制的启发而提出的（感受野是指卷积神经网络每一层输出的特征图上的像素点在输入图片上映射的区域大小。通俗点的解释是，特征图上的一个点对应输入图上的区域）。1998年，LeCun提出了经典的卷积网络模型LeNet-5，第一次较为完整的阐述了卷积神经网络的框架和结构。卷积神经网络由输入层、卷积层、激活层、池化层、全连接层及输出层构成。卷积层和池化层一般会取若干个，采用卷积层和池化层交替设置，即一个卷积层连接一个池化层，池化层后再连接一个卷积层，依此类推。与全连接前馈网络相比，卷积神经网络在结构上具有局部连接、 权重共享、降采样等特点，并且在训练过程中会完整保留数据的空间信息。这些特性使得卷积神经网络图像处理领域表现更加出色，并且使用的参数更少。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">CNN层次结构</th>
+<th style="text-align:left">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">输入层</td>
+<td style="text-align:left">卷积网络的原始输入，可以是原始或预处理后的像素矩阵</td>
+</tr>
+<tr>
+<td style="text-align:center">卷积层</td>
+<td style="text-align:left">参数共享、局部连接，利用平移不变性从全局特征图提取局部特征</td>
+</tr>
+<tr>
+<td style="text-align:center">激活层</td>
+<td style="text-align:left">将卷积层的输出结果进行非线性映射</td>
+</tr>
+<tr>
+<td style="text-align:center">池化层</td>
+<td style="text-align:left">进一步筛选特征，可以有效减少后续网络层次所需的参数量</td>
+</tr>
+<tr>
+<td style="text-align:center">全连接层</td>
+<td style="text-align:left">将多维特征展平为2维特征，通常低维度特征对应任务的学习目标（类别或回归值）</td>
+</tr>
+</tbody>
+</table>
+<p>以下主要介绍卷积神经网络中卷积层和池化层的实现细节，激活层和全连接层的实现与全连接前馈网络基本一致，这里不再赘述，具体代码参考<a href="https://github.com/chaoge123456/ml-torch/blob/master/CNN/complex.ipynb" target="_blank" rel="noopener">我的github</a>（需要注意的是，本文实现代码中，默认输入图片高度和宽度相同）。</p>
+<h3 id="卷积层实现细节"><a href="#卷积层实现细节" class="headerlink" title="卷积层实现细节"></a>卷积层实现细节</h3><p>&emsp;&emsp;开始介绍之前，简要说明参数设置情况。输入数据尺寸为$s=5$，通道数为$in_channel=3$，即$ input=(n, 3, 5, 5)$；单个卷积核尺寸为$k=2$，卷积层输出通道数为$out_channel=10$，即$kernel=(10, 3, 2, 2)$；假设卷积步幅$stride=1$，$pad=0$，根据特征图大小计算公式<br>$$<br>p=\frac{s-k+2*pad}{stride}+1<br>$$<br>则卷积层输出为$output=(N, 10, 4, 4)$。</p>
+<h4 id="前向计算"><a href="#前向计算" class="headerlink" title="前向计算"></a>前向计算</h4><p>&emsp;&emsp;在卷积神经网络中所使用的卷积，一般是指互相关操作，其本质上就是利用卷积核在输入数据上进行滑动，并在滑动窗口内计算点积，计算过程如如下图所示。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/5.png"></p>
+<p>&emsp;&emsp;如果将该操作拓展到多通道的情况，我们需要将每一个通道数据与其对应的卷积核分别进行互相关操作，每个通道都会得到一个输出，然后将所有输出相同位置相加，得到最终的特征图，计算过程如下所示。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/1.png"></p>
+<p>&emsp;&emsp;这一过程最简单的思路是通过多重循环来实现，但是这种实现方式会极大降低训练过程的效率。im2col算法通过将这一过程转化为矩阵乘法的形式可以极大程度提升计算效率，该算法的主要思想如下图所示。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/2.png"></p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/3.png"></p>
+<p>&emsp;&emsp;im2col的核心思想是将每个卷积核在其对应通道上滑动过程中滑动窗口位置上的数据重新排列，组合成一维行向量的形式，而卷积核自身则排列成列向量的形式。卷积层输出的特征图中的每一个值都能表示成上述行向量和列向量相乘的形式。如果含有多层卷积核，则如下图方式排列。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/4.png"></p>
+<p>通过这种方式，我们的输入数据可以成$input=(n*p*p, k*k*in_channel)$，卷积核可表示为$kernel=(k*k*in_channel, out_channel)$。该过程的代码如下所示：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">im2col</span><span class="params">(self, input)</span>:</span></span><br><span class="line">    n, in_channel, s, _ = input.shape</span><br><span class="line">    p = (s - self.k_size) // self.stride + <span class="number">1</span></span><br><span class="line">    im = torch.zeros((n*p*p, k*k*in_channel))</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(p):</span><br><span class="line">        i_start = i*self.stride</span><br><span class="line">        i_end = i_start + self.k_size</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(p):</span><br><span class="line">            j_start = j*self.stride</span><br><span class="line">            j_end = j_start + self.k_size</span><br><span class="line">            im[i*p+j::p*p, :] = input[:,:,i_start:i_end,j_start:j_end].reshape(n, <span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line">    w = self.w.reshape(self.k_size**<span class="number">2</span>*c, self.out_channel)</span><br><span class="line">    output = torch.matmul(im, w) + self.b</span><br><span class="line">    <span class="keyword">return</span> output.reshape(n, self.out_channel, p, p)</span><br></pre></td></tr></table></figure>
+<h4 id="反向传播"><a href="#反向传播" class="headerlink" title="反向传播"></a>反向传播</h4><p>&emsp;&emsp;在反向传播过程中，卷积层主要做两件事：（1）利用卷积操作的输出层的误差项$\delta^l$来求卷积操作输入层的误差项$\delta^{l-1}$，并将结果继续反向传播；（2）求解卷积核的梯度，并对其进行更新（反向传播的过程可以参考<a href="https://www.cnblogs.com/pinard/p/6494810.html" target="_blank" rel="noopener">这篇博客</a>）。首先我们来求解输入层的误差项$\delta^{l-1}$，在将具体实现之前，我们先看下面这幅图</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/6.png"></p>
+<p>图的左侧表示输入，右侧表示输出。在输入数据中，数字0所标识的位置分别经历了四次卷积过程，分别对输出层的四个位置产生影响，卷积核中的4、3、2、1标识的是其每次参与运算的权重。如果我们现在需要计算0所在位置的误差项，只需要将卷积核中4、3、2、1四个权重与输出层对应位置的误差项进行点积运算即可。这种做法与互相关相同，但是需要注意的是这里的卷积核与之前的不同，是前向传播中的卷积核旋转180度的结果。我们给出输入层的误差项$\delta^{l-1}$的公式<br>$$<br>\delta^{l-1}=\delta^{l} * \operatorname{rot} 180\left(W^{l}\right)<br>$$<br>除此之外，由于输出层的尺寸要小于输入层，所以在进行卷积之前需要对输出层进行padding，如下图所示。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/7.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">nexteta</span><span class="params">(self, grad)</span>:</span></span><br><span class="line">    <span class="comment"># 计算卷积输入层的误差项</span></span><br><span class="line">    n, c, s, _ = grad.shape</span><br><span class="line">    ln, lc, ls, _ = self.param[<span class="string">'inputshape'</span>]</span><br><span class="line">    pad = math.ceil((self.stride*(ls<span class="number">-1</span>) + self.k_size - s) / <span class="number">2</span>) </span><br><span class="line">    grad = self.paddings(grad, pad)</span><br><span class="line">    w = torch.flip(self.w, dims=[<span class="number">2</span>,<span class="number">3</span>]) <span class="comment"># 卷积核翻转</span></span><br><span class="line"></span><br><span class="line">    p = (s - self.k_size) // self.stride + <span class="number">1</span></span><br><span class="line">    w = w.reshape(lc, self.k_size**<span class="number">2</span>*c)</span><br><span class="line">    im = self.im2col(grad, n, c, s, p)</span><br><span class="line">    eta = torch.matmul(im, w.T).reshape(n, lc, p, p)</span><br><span class="line">    <span class="keyword">return</span> eta   </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">paddings</span><span class="params">(self, input, pad)</span>:</span></span><br><span class="line">    <span class="comment"># padding实现接口</span></span><br><span class="line">    n, c, s, _ = input.shape</span><br><span class="line">    outshape = pad*<span class="number">2</span> + s</span><br><span class="line">    out = torch.zeros((n, c, outshape, outshape))</span><br><span class="line">    out[:,:,pad:outshape-pad,pad:outshape-pad] = input</span><br><span class="line">    <span class="keyword">return</span> out</span><br></pre></td></tr></table></figure>
+<p>接下来，我们要对卷积核进行更新。首先我们给出计算公式，<br>$$<br>\frac{\partial J(W, b)}{\partial W^{l}}=a^{l-1} * \delta^{l}<br>$$<br>其中$a^{l-1}$表示卷积层的输入， $\delta^{l}$表示卷积操作的输出层的误差项。根据前面的描述我们可以知道，$a^{l-1}$是一个$(n, 3, 5, 5)$的矩阵，$\delta^{l}$是$(n, 10, 4, 4)$的矩阵，而我们要求解的卷积核的梯度是$(10, 3, 2, 2)$的矩阵。大致的计算过程是这样的：将$\delta^{l}$视为卷积核，每次取第$i$通道$(n, i, 4, 4)$分别与对应数据的$(n, 3, 5, 5)$的三个通道进行卷积操作，由此可以得到$(n, 3, 2, 2)$，然后对$n$维数据进行求和取平均即得到$(1, 3, 2, 2)$。将此过程进行10次，即可得到卷积核的梯度值，具体代码如下所示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">backward</span><span class="params">(self, input, grad)</span>:</span></span><br><span class="line">    dw = torch.zeros(self.w.shape)</span><br><span class="line">    db = torch.zeros(self.b.shape)</span><br><span class="line">    n, c, s, _ = grad.shape</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(self.k_size):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(self.k_size):</span><br><span class="line">            cons = input[:,:,i*self.stride:i*self.stride+s,\n </span><br><span class="line">                         i*self.stride:i*self.stride+s]</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(c):</span><br><span class="line">                dw[k,:,i,j] = torch.sum(cons * (grad[:, \n</span><br><span class="line">                         k, :, :])[:, <span class="keyword">None</span>], axis=(<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>)) / n</span><br><span class="line">                db = torch.sum(grad, axis=(<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>)) / n</span><br><span class="line">    self.w -= self.learning_rate*dw <span class="comment"># 更新权重</span></span><br><span class="line">    self.b -= self.learning_rate*db <span class="comment"># 更新偏置</span></span><br><span class="line">    eta = self.nexteta(grad)</span><br><span class="line">    <span class="keyword">return</span> eta</span><br></pre></td></tr></table></figure>
+<h3 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h3><p>&emsp;&emsp;池化层又称为降采样层，作用是对感受域内的特征进行筛选，提取区域内最具代表性的特征，能够有效地降低输出特征尺度，进而减少模型所需要的参数量。按操作类型通常分为最大池化、平均池化和求和池化，它们分别提取感受域内最大、平均与总和的特征值作为输出，最常用的是最大池化（这里主要介绍最大池化）。</p>
+<p>&emsp;&emsp;开始介绍之前，简要说明参数设置情况。输入数据尺寸为$s=4$，通道数为$in_channel=10$，即$ input=(n, 10, 4, 4)$；池化窗口尺寸为$k=2$，池化步幅$stride=2$，根据特征图大小计算公式<br>$$<br>p=\frac{s-k}{stride}<br>$$<br>则卷积层输出为$output=(N, 10, 2, 2)$。</p>
+<h4 id="前向计算-1"><a href="#前向计算-1" class="headerlink" title="前向计算"></a>前向计算</h4><p>&emsp;&emsp;与卷积操作相比，池化层的计算较为简单，且池化层不改变通道数量，不包含训练参数。最大池化提取感受域内最大的值作为输出，计算过程如下图所示</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/8.png"></p>
+<p>需要注意的是，进行池化操作时需要记录感受域内最大值的位置，在反向传播时会用到，具体代码如下所示（因为需要记录位置，暂时没想到好的解决办法，所以直接用的循环）。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pool</span><span class="params">(self, input)</span>:</span></span><br><span class="line">    self.param[<span class="string">'shape'</span>] = input.shape</span><br><span class="line">    n, c, s, _ = input.shape</span><br><span class="line">    p = (s - self.k_size) // self.stride + <span class="number">1</span></span><br><span class="line">    pl = torch.zeros((n, c, p, p))</span><br><span class="line">    index = []</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(c):</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(p):</span><br><span class="line">                <span class="keyword">for</span> z <span class="keyword">in</span> range(p):</span><br><span class="line">                    inp = input[i,j,k*self.stride:k*self.stride+self.k_size,</span><br><span class="line">                                z*self.stride:z*self.stride+self.k_size]</span><br><span class="line">                    pl[i,j,k,z] = torch.max(inp)</span><br><span class="line">                    ix = torch.where(inp==pl[i,j,k,z])</span><br><span class="line">                    index.append((i,j,k*self.stride+ix[<span class="number">0</span>],z*self.stride+ix[<span class="number">1</span>])) </span><br><span class="line">                    self.param[<span class="string">'index'</span>] = index</span><br><span class="line">    <span class="keyword">return</span> pl</span><br></pre></td></tr></table></figure>
+<h4 id="反向传播-1"><a href="#反向传播-1" class="headerlink" title="反向传播"></a>反向传播</h4><p>&emsp;&emsp;池化操作的反向传播主要是计算其输入层的误差项。首先我们定义一个全0矩阵，其大小与池化操作输入相同，对于最大池化而言，将池化操作输出层的误差项的值放在之前做前向传播算法得到最大值的位置，如下图所示。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/9.png"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">backward</span><span class="params">(self, input, grad)</span>:</span></span><br><span class="line">    <span class="comment"># 反向传播</span></span><br><span class="line">    grad = grad.reshape(<span class="number">-1</span>)</span><br><span class="line">    eta = torch.zeros(self.param[<span class="string">'shape'</span>])</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(self.param[<span class="string">'index'</span>])):</span><br><span class="line">    eta[self.param[<span class="string">'index'</span>][i]] = grad[i]</span><br><span class="line">    <span class="keyword">return</span> eta</span><br></pre></td></tr></table></figure>
+<h3 id="测试结果"><a href="#测试结果" class="headerlink" title="测试结果"></a>测试结果</h3><p>&emsp;&emsp;我们定义了一个简单的卷积神经网络模型，并在FashionMnist做了一组测试。由于在池化层等操作上使用了循环操作，再加上笔记本性能不是特别好，跑了一个epoch，模型在测试集上的预测准确率达到了71.3%，但是花费的时间较长，大概40分钟，整体的代码确实需要做一些优化。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">learning_rate = <span class="number">0.1</span></span><br><span class="line">network = []</span><br><span class="line">network.append(Convolutional(<span class="number">1</span>,<span class="number">16</span>,<span class="number">5</span>,<span class="number">2</span>,learning_rate=learning_rate))</span><br><span class="line">network.append(ReLU())</span><br><span class="line">network.append(MaxPooling(<span class="number">16</span>,<span class="number">2</span>,<span class="number">2</span>))</span><br><span class="line">network.append(Dense(<span class="number">576</span>,<span class="number">20</span>,learning_rate=learning_rate))</span><br><span class="line">network.append(ReLU())</span><br><span class="line">network.append(Dense(<span class="number">20</span>,<span class="number">10</span>,learning_rate=learning_rate))</span><br><span class="line">network.append(Softmax())</span><br></pre></td></tr></table></figure>
+<p>&emsp;&emsp;总的来说，完整实现一个卷积神经网络还是有难度的。整个过程我觉得最难的是理解数据在卷积网络中的流动过程，因为这些数据都是以张量的形式呈现，所以理解起来有些困难。除此之外就是代码的调试，因为其中存在很多细节，一个地方出问题就会对整个结果产生影响。但是，经历这个过程之后，确实对卷积网络有了更多的认识。</p>
 
       
 
@@ -480,7 +539,7 @@
              </br>
              <br class="post-copyright-link">
                <strong>本文链接：</strong>
-               <a href="/raspberry入门配置.html/" title="raspberry入门配置">raspberry入门配置.html/</a>
+               <a href="/卷积神经网络实现解析.html/" title="卷积神经网络实现解析">卷积神经网络实现解析.html/</a>
              </br>
              <br class="post-copyright-license">
                <strong>版权声明： </strong>
@@ -534,11 +593,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/python/" rel="tag"><i class="fa fa-tag"></i> python</a>
-          
-            <a href="/tags/树莓派/" rel="tag"><i class="fa fa-tag"></i> 树莓派</a>
-          
-            <a href="/tags/内网穿透/" rel="tag"><i class="fa fa-tag"></i> 内网穿透</a>
+            <a href="/tags/卷积网络/" rel="tag"><i class="fa fa-tag"></i> 卷积网络</a>
           
         </div>
       
@@ -551,8 +606,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/如何连接树莓派.html/" rel="next" title="如何连接树莓派">
-                <i class="fa fa-chevron-left"></i> 如何连接树莓派
+              <a href="/对抗样本工具箱.html/" rel="next" title="对抗样本工具箱">
+                <i class="fa fa-chevron-left"></i> 对抗样本工具箱
               </a>
             
           </div>
@@ -560,10 +615,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/维吉尼亚加解密及唯密文破解.html/" rel="prev" title="维吉尼亚加解密及唯密文破解">
-                维吉尼亚加解密及唯密文破解 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -747,7 +798,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重新安装系统"><span class="nav-number">1.1.</span> <span class="nav-text">重新安装系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接树莓派"><span class="nav-number">1.2.</span> <span class="nav-text">连接树莓派</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装远程连接服务"><span class="nav-number">1.3.</span> <span class="nav-text">安装远程连接服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#更新软件源"><span class="nav-number">1.4.</span> <span class="nav-text">更新软件源</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#raspi-config"><span class="nav-number">1.5.</span> <span class="nav-text">raspi-config</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置无线网络"><span class="nav-number">1.6.</span> <span class="nav-text">配置无线网络</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置静态IP"><span class="nav-number">1.7.</span> <span class="nav-text">配置静态IP</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置内网映射"><span class="nav-number">1.8.</span> <span class="nav-text">配置内网映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装zsh"><span class="nav-number">1.9.</span> <span class="nav-text">安装zsh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#python环境搭建"><span class="nav-number">1.10.</span> <span class="nav-text">python环境搭建</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积神经网络简介"><span class="nav-number">1.1.</span> <span class="nav-text">卷积神经网络简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卷积层实现细节"><span class="nav-number">1.2.</span> <span class="nav-text">卷积层实现细节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前向计算"><span class="nav-number">1.2.1.</span> <span class="nav-text">前向计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向传播"><span class="nav-number">1.2.2.</span> <span class="nav-text">反向传播</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#池化层"><span class="nav-number">1.3.</span> <span class="nav-text">池化层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#前向计算-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">前向计算</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向传播-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">反向传播</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试结果"><span class="nav-number">1.4.</span> <span class="nav-text">测试结果</span></a></li></ol></li></ol></div>
             
 
           </div>
