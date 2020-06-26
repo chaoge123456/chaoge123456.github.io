@@ -70,28 +70,6 @@
 
     
   <url>
-    <loc>https://chaoge123456.github.io/%E5%AF%B9%E6%8A%97%E6%A0%B7%E6%9C%AC%E5%B7%A5%E5%85%B7%E7%AE%B1.html/</loc>
-    <lastmod>2019-12-17T11:34:43.498Z</lastmod>
-    <data>
-        <display>
-        <title>对抗样本工具箱</title>
-        <pubTime>2019-12-17T11:04:44.000Z</pubTime>
-        
-        <tag>深度学习</tag>
-         
-        <tag>对抗样本</tag>
-         
-         
-           
-             
-              <breadCrumb title="机器学习安全" url="https://chaoge123456.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E5%AE%89%E5%85%A8/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://chaoge123456.github.io/%E5%AF%B9%E6%8A%97%E6%A0%B7%E6%9C%AC%E7%94%9F%E6%88%90%E7%B3%BB%E5%88%97%EF%BC%9AJSMA%E7%9B%AE%E6%A0%87%E6%89%B0%E5%8A%A8.html/</loc>
     <lastmod>2019-09-01T05:18:03.490Z</lastmod>
     <data>
@@ -348,26 +326,6 @@
 
     
   <url>
-    <loc>https://chaoge123456.github.io/plan.html/</loc>
-    <lastmod>2018-11-22T10:45:08.506Z</lastmod>
-    <data>
-        <display>
-        <title>2018年下半年学习计划</title>
-        <pubTime>2018-08-15T02:25:02.000Z</pubTime>
-        
-        <tag>plan</tag>
-         
-         
-           
-             
-              <breadCrumb title="学习计划" url="https://chaoge123456.github.io/categories/%E5%AD%A6%E4%B9%A0%E8%AE%A1%E5%88%92/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>https://chaoge123456.github.io/TLS.html/</loc>
     <lastmod>2018-11-22T10:43:50.668Z</lastmod>
     <data>
@@ -401,11 +359,11 @@
         <title>K近邻算法详解</title>
         <pubTime>2018-08-03T06:14:23.000Z</pubTime>
         
-        <tag>机器学习</tag>
-         
         <tag>KNN</tag>
          
         <tag>KD树</tag>
+         
+        <tag>机器学习</tag>
          
          
            
@@ -437,26 +395,6 @@
            
              
               <breadCrumb title="机器学习算法" url="https://chaoge123456.github.io/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0%E7%AE%97%E6%B3%95/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>https://chaoge123456.github.io/markdown%E4%B9%A6%E5%86%99%E8%A7%84%E8%8C%83.html/</loc>
-    <lastmod>2018-07-30T17:56:12.609Z</lastmod>
-    <data>
-        <display>
-        <title>markdown书写规范</title>
-        <pubTime>2018-07-30T13:21:55.000Z</pubTime>
-        
-        <tag>markdown</tag>
-         
-         
-           
-             
-              <breadCrumb title="博客写作" url="https://chaoge123456.github.io/categories/%E5%8D%9A%E5%AE%A2%E5%86%99%E4%BD%9C/"/>
           
         </display>
     </data>
