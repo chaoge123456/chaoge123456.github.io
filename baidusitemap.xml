@@ -4,18 +4,18 @@
 
     
   <url>
-    <loc>https://chaoge123456.github.io/%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E8%A7%A3%E6%9E%90.html/</loc>
-    <lastmod>2020-05-19T05:12:02.389Z</lastmod>
+    <loc>https://chaoge123456.github.io/%E7%94%9F%E6%88%90%E5%AF%B9%E6%8A%97%E7%BD%91%E7%BB%9C.html/</loc>
+    <lastmod>2021-02-08T12:58:39.638Z</lastmod>
     <data>
         <display>
-        <title>深度神经网络实现解析</title>
-        <pubTime>2020-04-18T19:09:28.000Z</pubTime>
+        <title>生成对抗网络解读</title>
+        <pubTime>2021-02-08T06:13:28.000Z</pubTime>
         
-        <tag>深度神经网络</tag>
+        <tag>生成对抗网络</tag>
          
-        <tag>softmax函数</tag>
+        <tag>GAN</tag>
          
-        <tag>交叉熵损失</tag>
+        <tag>WGAN</tag>
          
          
            
@@ -29,13 +29,37 @@
     
   <url>
     <loc>https://chaoge123456.github.io/%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E8%A7%A3%E6%9E%90.html/</loc>
-    <lastmod>2020-05-18T19:08:12.191Z</lastmod>
+    <lastmod>2021-02-08T12:43:11.268Z</lastmod>
     <data>
         <display>
         <title>卷积神经网络实现解析</title>
         <pubTime>2020-05-17T06:41:28.000Z</pubTime>
         
         <tag>卷积网络</tag>
+         
+         
+           
+             
+              <breadCrumb title="深度学习" url="https://chaoge123456.github.io/categories/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>https://chaoge123456.github.io/%E6%B7%B1%E5%BA%A6%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E5%AE%9E%E7%8E%B0%E8%A7%A3%E6%9E%90.html/</loc>
+    <lastmod>2020-05-19T05:12:02.389Z</lastmod>
+    <data>
+        <display>
+        <title>深度神经网络实现解析</title>
+        <pubTime>2020-04-18T19:09:28.000Z</pubTime>
+        
+        <tag>深度神经网络</tag>
+         
+        <tag>softmax函数</tag>
+         
+        <tag>交叉熵损失</tag>
          
          
            
@@ -241,9 +265,9 @@
         <title>raspberry入门配置</title>
         <pubTime>2018-09-22T12:53:38.000Z</pubTime>
         
-        <tag>树莓派</tag>
-         
         <tag>python</tag>
+         
+        <tag>树莓派</tag>
          
         <tag>内网穿透</tag>
          
