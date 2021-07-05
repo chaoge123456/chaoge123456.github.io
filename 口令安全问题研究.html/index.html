@@ -75,7 +75,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="口令猜测,PCFG,Markov," />
 
 
 
@@ -88,16 +88,23 @@
 
 
 
-<meta name="description" content="网络安全和机器学习相关技术分享">
-<meta property="og:type" content="website">
-<meta property="og:title" content="小生很忙">
-<meta property="og:url" content="https://chaoge123456.github.io/tags/softmax函数/index.html">
+<meta name="description" content="摘要：身份认证是确保信息系统安全的第一道防线，口令是应用最为广泛的身份认证方法。尽管口令存在众多的安全性和可用性缺陷，大量的新型认证技术陆续被提出，但由于口令具有简单易用、成本低廉、容易更改等特性，在可预见的未来仍将是最主要的认证方法。之前阅读了一些该领域的文章，也复现了一些常见的口令猜测算法，该博文进行一些总结。 文章概览 口令安全问题分析 PCFG口令猜测算法实现 Markov口令猜测算法实现">
+<meta name="keywords" content="口令猜测,PCFG,Markov">
+<meta property="og:type" content="article">
+<meta property="og:title" content="口令安全问题研究">
+<meta property="og:url" content="https://chaoge123456.github.io/口令安全问题研究.html/index.html">
 <meta property="og:site_name" content="小生很忙">
-<meta property="og:description" content="网络安全和机器学习相关技术分享">
+<meta property="og:description" content="摘要：身份认证是确保信息系统安全的第一道防线，口令是应用最为广泛的身份认证方法。尽管口令存在众多的安全性和可用性缺陷，大量的新型认证技术陆续被提出，但由于口令具有简单易用、成本低廉、容易更改等特性，在可预见的未来仍将是最主要的认证方法。之前阅读了一些该领域的文章，也复现了一些常见的口令猜测算法，该博文进行一些总结。 文章概览 口令安全问题分析 PCFG口令猜测算法实现 Markov口令猜测算法实现">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/passwordguess/1.JPG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/passwordguess/3.JPG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/passwordguess/4.JPG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/passwordguess/5.JPG">
+<meta property="og:updated_time" content="2021-07-05T00:46:27.831Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="小生很忙">
-<meta name="twitter:description" content="网络安全和机器学习相关技术分享">
+<meta name="twitter:title" content="口令安全问题研究">
+<meta name="twitter:description" content="摘要：身份认证是确保信息系统安全的第一道防线，口令是应用最为广泛的身份认证方法。尽管口令存在众多的安全性和可用性缺陷，大量的新型认证技术陆续被提出，但由于口令具有简单易用、成本低廉、容易更改等特性，在可预见的未来仍将是最主要的认证方法。之前阅读了一些该领域的文章，也复现了一些常见的口令猜测算法，该博文进行一些总结。 文章概览 口令安全问题分析 PCFG口令猜测算法实现 Markov口令猜测算法实现">
+<meta name="twitter:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/passwordguess/1.JPG">
 
 
 
@@ -127,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="https://chaoge123456.github.io/tags/softmax函数/"/>
+  <link rel="canonical" href="https://chaoge123456.github.io/口令安全问题研究.html/"/>
 
 
 
 
 
-  <title>标签: softmax函数 | 小生很忙</title>
+  <title>口令安全问题研究 | 小生很忙</title>
   
 
 
@@ -162,7 +169,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <a href="https://github.com/chaoge123456" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -292,54 +299,331 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h2>softmax函数<small>标签</small>
-        </h2>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chaoge123456.github.io/口令安全问题研究.html/">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="光阴的故事">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小生很忙">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/深度神经网络实现解析.html/" itemprop="url">
-              
-                <span itemprop="name">深度神经网络实现解析</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">口令安全问题研究</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-19T03:09:28+08:00"
-              content="2020-04-19" >
-          04-19
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-07-04T20:58:49+08:00">
+                2021-07-04
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/网络安全/" itemprop="url" rel="index">
+                    <span itemprop="name">网络安全</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/口令安全问题研究.html/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/口令安全问题研究.html/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,748
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-    </div>
+      
 
+      
+        <p><strong>摘要：</strong>身份认证是确保信息系统安全的第一道防线，口令是应用最为广泛的身份认证方法。尽管口令存在众多的安全性和可用性缺陷，大量的新型认证技术陆续被提出，但由于口令具有简单易用、成本低廉、容易更改等特性，在可预见的未来仍将是最主要的认证方法。之前阅读了一些该领域的文章，也复现了一些常见的口令猜测算法，该博文进行一些总结。</p>
+<h2 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h2><ul>
+<li>口令安全问题分析</li>
+<li>PCFG口令猜测算法实现</li>
+<li>Markov口令猜测算法实现</li>
+</ul>
+<hr>
+<h3 id="口令安全问题分析"><a href="#口令安全问题分析" class="headerlink" title="口令安全问题分析"></a>口令安全问题分析</h3><p>&emsp;&emsp;对于一个安全问题，往往可以从攻击者和防御者两个角度来考虑，以下分别从这两个角度对口令安全问题进行分析和总结。</p>
+<h4 id="攻击者"><a href="#攻击者" class="headerlink" title="攻击者"></a>攻击者</h4><p>&emsp;&emsp;对于口令安全问题而言，攻击者的目的是利用各种手段快速方便的获取用户的口令信息，从而获得进入相关系统的权限。首先，攻击者需要对该问题进行分析，找到突破口。对口令安全造成威胁的因素主要有以下两种：</p>
+<ul>
+<li>系统（或网络应用）的口令安全机制，主要体现在以下几个方面。<ul>
+<li><strong>口令生成策略：</strong>目前很多网站的口令生成策略一般要求字母+数字+特殊字符的组合，口令长度8位以上。如果网站的口令生成策略要求很低，会导致用户倾向于选择更为简单、便于记忆的口令组合，会加剧口令被攻击者成功猜测的风险。</li>
+<li><strong>口令强度评估：</strong>良好的口令强度评估机制可以帮助用户选择更为安全的口令，增加攻击者猜测的成本。但是出于技术难度或者用户体验等方面的考虑，目前的口令强度评估机制仍然存在很大的问题。</li>
+<li><strong>口令认证机制：</strong>由于口令传输阶段不涉及人的因素，研究的问题主要是基于口令的身份认证协议，问题容易刻画，目前这方面的研究较为成熟，攻击者很难从这个角度来突破。</li>
+<li><strong>口令存储机制：</strong>如果系统采用明文方式存储用户口令，一旦口令文件被泄漏，会造成很大的安全威胁。一般情况下，采用较为先进的hash函数来生成口令文件。hash函数的单向性和碰撞约束特性能够保证即使口令文件被泄漏，攻击者也难以恢复用户的口令。</li>
+</ul>
+</li>
+<li>用户脆弱口令行为，主要体现在以下几个方面。<ul>
+<li><strong>用户的倾向性口令构造模式：</strong>用户倾向于用特定的模式来构造口令，这种构造模式可能与其所处文化环境、语言特点有关，并且具有群体特征。这些线索可以帮助攻击者缩小口令猜测范围，提高攻击效率。</li>
+<li><strong>口令重用：</strong>面对大量需要管理的帐号，口令重用是很多用户常见的做法。口令重用可以使得攻击者在获得已知用户口令的情况下，提取用户口令构造特征，从而推测用户未知口令。</li>
+<li><strong>基于个人信息构造口令：</strong>为了便于记忆，用户在构造口令时往往会掺入个人相关信息。攻击者可以结合已知的用户信息和相关口令构造模型来猜测用户口令。</li>
+</ul>
+</li>
+</ul>
+<p>&emsp;&emsp;通过以上分析可知，用户脆弱口令行为是造成口令安全风险的主要原因，同时系统（或网络应用）中脆弱的口令生成策略和口令强度评估机制也为攻击者成功攻击创造了条件。其实，口令猜测攻击的思路很简单，即提交不同的口令直到认证成功为止。但是，其难点在于如何提高攻击的成功率和效率。因此，口令猜测算法的研究专注于深入挖掘用户脆弱口令行为，针对不同场景构建高效的口令猜测算法。根据攻击过程中是否利用用户个人信息，口令猜测算法可分为漫步攻击和定向攻击。</p>
+<ul>
+<li>漫步攻击是指攻击者不关心具体攻击对象是谁，其唯一目标是在允许的猜测次数下，猜出越多口令越好。<ul>
+<li><strong>启发式方法：</strong>没有严密的理论体系，很大程度依靠零散的“奇思妙想”，比如构造独特的猜测字典，采用精心设计的猜测顺序等。</li>
+<li><strong>概率统计方法：</strong>基于概率统计思想，对口令的组成结构进行分析，从而得到概率模型，比如概率上下文无关方法（PCFG）、Markov、NLP。</li>
+<li><strong>深度学习方法：</strong>核心思想是利用深度学习模型强大的端到端的学习能力，自动提取口令集合潜在的分布特征，从而指导猜测口令的生成，比如PassGAN、FLA。</li>
+</ul>
+</li>
+<li>定向攻击是指攻击者利用与攻击相关的个人信息以增强口令猜测的针对性。<ul>
+<li><strong>口令重用信息：</strong>利用用户在其他网站中泄漏的口令来推测用户口令构造特征，这类攻击方法包括TarGuess、pass2path。</li>
+<li><strong>人口学相关信息：</strong>这类信息包括用户的姓名、年龄、生日、性别、邮箱、手机号以及家庭成员信息，这类攻击方法包括Targeted-Markov、Personal-PCFG、TarGues</li>
+</ul>
+</li>
+</ul>
+<p>&emsp;&emsp;总的来说，口令猜测算法的发展趋势是由漫步攻击慢慢过度到定向攻击，因为定向攻击的更有针对性且效率更高。除此之外，利用深度学习方法来进行口令猜测也是未来的发展趋势之一。因为传统的口令猜测算法大多建立在特定规则和概率统计的基础上，可能无法全面的体现口令的分布特征，深度学习模型强大的表示能力为解决这一问题提供了可能性。</p>
+<h4 id="防御者"><a href="#防御者" class="headerlink" title="防御者"></a>防御者</h4><p>&emsp;&emsp;从攻击者的分析来看，造成口令安全风险的主要原因是用户的安全意识不足，其次是由于系统（或网络应用）的口令安全策略不严格造成的。由于用户的安全意识等人为因素是无法控制的，所以防御者构建口令安全防御机制主要是立足于口令强度评估等安全策略。口令强度评估机制需要准确的告诉用户，当前构造的口令是否安全，所以这就需要口令强度评估机制足够的健壮。目前的口令强度评估机制主要有以下三类：</p>
+<ul>
+<li><strong>基于规则的口令强度评价方法：</strong>口令强度依据长度和所包含的字符类型而定，比如NIST PSM。</li>
+<li><strong>基于模式检测的口令强度评估方法：</strong>检测口令各个子段所属的构造模式，然后对各个模式赋予相应的分数，得到该口令的总分数，即为强度值，比如zxcvbn。</li>
+<li><strong>基于攻击算法的口令强度评估方法：</strong>使用攻击算法对给定口令进行攻击，根据攻击的难易程度进行强度判定，比如PCFG-based PSM、Markovbased PSM。</li>
+<li><strong>基于相似度检测的口令强度评估方法：</strong>vec-PPSM（口令重用）。</li>
+</ul>
+<p>&emsp;&emsp;目前的口令强度评估的研究相对来说不是很成熟，提出的很多评估方法都没能得到大规模的应用。目前大部分的口令强度评估机制都是基于漫步猜测攻击，未考虑到用户个人信息对口令安全性的影响，这一领域值得探索的方向是设计基于定向攻击者模型的口令强度评估机制。</p>
+<hr>
+<h3 id="PCFG口令猜测算法实现"><a href="#PCFG口令猜测算法实现" class="headerlink" title="PCFG口令猜测算法实现"></a>PCFG口令猜测算法实现</h3><p>&emsp;&emsp;PCFG是一种完全自动的、建立在严密的概率上下文无关法基础之上的漫步口令猜测算法，该算法的核心思想是将每一条口令看作是由字母段L、数字段D、特殊字符段S根据一定的模式互相组合而成的。我们可以通过对大量的口令数据进行分析，统计出这些口令可能的组合模式，从而利用该模式生成更多的口令，进行口令猜测。</p>
+<h4 id="实现细节"><a href="#实现细节" class="headerlink" title="实现细节"></a>实现细节</h4><p>&emsp;&emsp;该算法的实现主要包括三个部分：口令集预处理、口令集训练、口令猜测，使用的编程语言为python3.7，具体细节如下所示：</p>
+<ul>
+<li><strong>口令集预处理：</strong>实验中所使用的口令集为MySpace，去掉了包含非ASCLL或者空格的口令，剩余口令总数为41251。然后将这些口令随机拆分为训练集和测试集，分别存放在trainword.txt和testword.txt文件中。代码中设置了参数eps可以对训练集和测试集的分配比例进行调节，本文将eps设置为0.4，即测试集占口令总数的40%（16500）。除此之外，在随机拆分训练集和测试集时，设置了随机种子seed，方便实验结果的复现。</li>
+<li><strong>口令集训练：</strong>口令集训练的目的是统计出口令模式频率和字符组件频率。对于字符组件频率的统计，论文中提到的方法只统计了数字段和D和特殊S。在实现过程中，我也统计了字母段L的频率，同时字母段L将作为字典参与口令猜测过程。（根据测试集生成的口令模式一共有1134种）</li>
+<li><strong>口令猜测：</strong>口令猜测的过程类似于树的遍历，这里采用类似于深度优先遍历的方法。分别对所有的口令模式频率表和字符组件频率表由大到小进行排序，从频率最高的口令模式开始进行口令猜测，根据字符组件频率表依次生成该模式下所有可能的口令，然后在进行下一个口令模式的猜测。对于每个生成的口令，需要计算其可能出现的概率，如果该概率值大于预设的阈值（比如0.000000001），则可以将其输出并与测试集中的口令进行比对。反之，则将该口令丢弃。实验中所有的猜测口令都存放在guess文件夹下对应的口令模式文件中。</li>
+</ul>
+<h4 id="实验结果"><a href="#实验结果" class="headerlink" title="实验结果"></a>实验结果</h4><p>&emsp;&emsp;按照上述实验设置进行了实验，具体代码参考我的<a href="https://github.com/chaoge123456/passwordguess" target="_blank" rel="noopener">GitHub</a>。在代码刚开始运行阶段，正确猜解口令的速度很快。两分钟的时间内大概能够正确猜解6000多个口令，之后正确猜解的速度逐渐降低，下图展示了口令破解速度的变化趋势。由于⽣成口令时我们设置了阈值，只有超过该阈值的口令才会进⾏匹配，所以真正参与口令猜测的 口令数量要远远小于实际⽣成的口令数量，上图横坐标展⽰的就是参与口令猜测的口令数量。这⾥展⽰ 的结果是利⽤口令模式表中前400种左右的模式⽣成的口令，正确猜解的口令数量为6529（总共 16500）</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/passwordguess/1.JPG" alt="PCFG" style="zoom:80%;"></p>
+<hr>
+<h3 id="Markov口令猜测算法实现"><a href="#Markov口令猜测算法实现" class="headerlink" title="Markov口令猜测算法实现"></a>Markov口令猜测算法实现</h3><p>&emsp;&emsp;⼀般情况下，⽤⼾构造口令的顺序是从前向后依次进⾏的。根据这⼀特点，Narayanan等⼈在 2005年⾸次将Markov链技术引⼊口令猜测中来。与PCFG算法不同，基于Markov模型的口令猜测算法 对整个口令进⾏训练，通过从左到右的字符之间的联系来计算口令的概率。该算法也分为训练和猜测集 ⽣成两个阶段，以下介绍实现细节。（针对此前代码存在的问题，本次代码进⾏了相应的修改。对于 start symbol问题，已经充分理解并实现；对于阈值问题，优化了阈值的分配⽅式。综合来看，实验效果得到了很⼤的提升）</p>
+<h4 id="实现细节-1"><a href="#实现细节-1" class="headerlink" title="实现细节"></a>实现细节</h4><p>&emsp;&emsp;该算法的实现主要包括三个部分：口令集预处理、口令集训练、口令猜测，使⽤的编程语⾔为 python3.7，具体细节如下所⽰：</p>
+<ul>
+<li>口令集预处理：实验中所使⽤的口令集为Rockyou，去掉了包含⾮ASCLL或者空格的口令，剩余口 令总数为32460357。由于口令总数很⼤，这⾥我没有使⽤全部的口令进⾏训练和测试。我从数据 集中随机选择了2000000条口令，然后将这些口令拆分为训练集和测试集（各占50%）。代码中设 置了number参数，可以选择使⽤数据的量。除此之外，在随机选择数据时，设置了随机种⼦seed，⽅便实验结果的复现。</li>
+<li>口令集训练：口令集训练的⽬的是统计出各个字串在训练集中出现的频数。统计频数时，对于口令 开头字⺟出现的频率单独进⾏统计，其余字串的频数均存放在⼀个字典中。我使⽤了End-Symbol 正规化技术，频数统计时也会对口令结束标志符号进⾏统计。频数统计完成之后，利⽤Laplace平 滑技术来计算概率，然后对每个字串后⾯出现的字⺟依据概率值⼤小进⾏排序。</li>
+<li>口令集猜测：这⾥使⽤优先队列的思想来对猜测口令进⾏存储和遍历，如果当前队列前端的字符串 最后⼀个字符为口令结束标识符，则将其输出进⾏口令猜解，否则根据其字串在概率表中的统计情 况，在该字符串后继续添加字符并计算概率，然后插⼊队列。为了减少队列对内存的损耗，再将每 ⼀个字符串插⼊队列之前，要对其概率值进⾏判断。只有当其概率值⼤于预设阈值时，才准许插⼊队列。</li>
+</ul>
+<h4 id="实验结果-1"><a href="#实验结果-1" class="headerlink" title="实验结果"></a>实验结果</h4><p>&emsp;&emsp;按照上述实验设置进⾏了实验，具体代码参考我的<a href="https://github.com/chaoge123456/passwordguess" target="_blank" rel="noopener">GitHub</a>。由于实验机器性能有限，这⾥使⽤的测试集口令总数为 1000000，猜测次数为1000000，order=3,4,5，下图展⽰了口令破解速度的变化趋势。order=3时，猜测出的口令数⽬为279517；order=4时，猜测出的口令数⽬为378980；order=5时，猜测出的口令数 ⽬为414806。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/passwordguess/3.JPG" alt="3" style="zoom:100%;"></p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/passwordguess/4.JPG" alt="4"></p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/passwordguess/5.JPG" alt="5"></p>
+
+      
+
+       <div>
+        
+        
+           <ul class="post-copyright">
+             <br class="post-copyright-author">
+                 <strong>本文作者：</strong>光阴的故事
+             </br>
+             <br class="post-copyright-link">
+               <strong>本文链接：</strong>
+               <a href="/口令安全问题研究.html/" title="口令安全问题研究">口令安全问题研究.html/</a>
+             </br>
+             <br class="post-copyright-license">
+               <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+             </br>
+           </ul>
+         
+       </div>
+
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="光阴的故事 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="光阴的故事 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/口令猜测/" rel="tag"><i class="fa fa-tag"></i> 口令猜测</a>
+          
+            <a href="/tags/PCFG/" rel="tag"><i class="fa fa-tag"></i> PCFG</a>
+          
+            <a href="/tags/Markov/" rel="tag"><i class="fa fa-tag"></i> Markov</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/生成对抗网络.html/" rel="next" title="生成对抗网络解读">
+                <i class="fa fa-chevron-left"></i> 生成对抗网络解读
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -347,6 +631,13 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
 
         </div>
         
@@ -367,8 +658,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -477,6 +777,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#口令安全问题分析"><span class="nav-number">1.1.</span> <span class="nav-text">口令安全问题分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#攻击者"><span class="nav-number">1.1.1.</span> <span class="nav-text">攻击者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#防御者"><span class="nav-number">1.1.2.</span> <span class="nav-text">防御者</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCFG口令猜测算法实现"><span class="nav-number">1.2.</span> <span class="nav-text">PCFG口令猜测算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现细节"><span class="nav-number">1.2.1.</span> <span class="nav-text">实现细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验结果"><span class="nav-number">1.2.2.</span> <span class="nav-text">实验结果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Markov口令猜测算法实现"><span class="nav-number">1.3.</span> <span class="nav-text">Markov口令猜测算法实现</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#实现细节-1"><span class="nav-number">1.3.1.</span> <span class="nav-text">实现细节</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实验结果-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">实验结果</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -661,6 +977,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
