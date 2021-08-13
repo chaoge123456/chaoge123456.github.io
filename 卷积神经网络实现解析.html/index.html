@@ -105,7 +105,7 @@
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/7.png">
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/8.png">
 <meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/9.png">
-<meta property="og:updated_time" content="2021-02-08T12:43:11.268Z">
+<meta property="og:updated_time" content="2021-08-13T15:08:50.055Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="卷积神经网络实现解析">
 <meta name="twitter:description" content="摘要：卷积神经网络是受生物学中感受野机制的启发而提出的，是一种具有局部连接、权重共享等特性的深层前馈神经网络，其主要应用于图像和视频分析等领域。2012年，卷积神经网络在ImageNet大规模视觉识别挑战竞赛中大放异彩，一定程度上引领了深度学习袭卷全球的潮流。这篇文章聚焦于卷积神经网络的实现细节，本文我们将使用pytorch中的tensor实现一个简单的卷积神经网络框架（很多文章采用的是numpy">
@@ -411,7 +411,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  3,567
+                  3,568
                 </span>
               
 
@@ -516,7 +516,7 @@
 <p>接下来，我们要对卷积核进行更新。首先我们给出计算公式，<br>$$<br>\frac{\partial J(W, b)}{\partial W^{l}}=a^{l-1} * \delta^{l}<br>$$<br>其中$a^{l-1}$表示卷积层的输入， $\delta^{l}$表示卷积操作的输出层的误差项。根据前面的描述我们可以知道，$a^{l-1}$是一个$(n, 3, 5, 5)$的矩阵，$\delta^{l}$是$(n, 10, 4, 4)$的矩阵，而我们要求解的卷积核的梯度是$(10, 3, 2, 2)$的矩阵。大致的计算过程是这样的：将$\delta^{l}$视为卷积核，每次取第$i$通道$(n, i, 4, 4)$分别与对应数据的$(n, 3, 5, 5)$的三个通道进行卷积操作，由此可以得到$(n, 3, 2, 2)$，然后对$n$维数据进行求和取平均即得到$(1, 3, 2, 2)$。将此过程进行10次，即可得到卷积核的梯度值，具体代码如下所示。</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">backward</span><span class="params">(self, input, grad)</span>:</span></span><br><span class="line">    dw = torch.zeros(self.w.shape)</span><br><span class="line">    db = torch.zeros(self.b.shape)</span><br><span class="line">    n, c, s, _ = grad.shape</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(self.k_size):</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(self.k_size):</span><br><span class="line">            cons = input[:,:,i*self.stride:i*self.stride+s,\n </span><br><span class="line">                         i*self.stride:i*self.stride+s]</span><br><span class="line">            <span class="keyword">for</span> k <span class="keyword">in</span> range(c):</span><br><span class="line">                dw[k,:,i,j] = torch.sum(cons * (grad[:, \n</span><br><span class="line">                         k, :, :])[:, <span class="keyword">None</span>], axis=(<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>)) / n</span><br><span class="line">                db = torch.sum(grad, axis=(<span class="number">0</span>,<span class="number">2</span>,<span class="number">3</span>)) / n</span><br><span class="line">    self.w -= self.learning_rate*dw <span class="comment"># 更新权重</span></span><br><span class="line">    self.b -= self.learning_rate*db <span class="comment"># 更新偏置</span></span><br><span class="line">    eta = self.nexteta(grad)</span><br><span class="line">    <span class="keyword">return</span> eta</span><br></pre></td></tr></table></figure>
 <h3 id="池化层"><a href="#池化层" class="headerlink" title="池化层"></a>池化层</h3><p>&emsp;&emsp;池化层又称为降采样层，作用是对感受域内的特征进行筛选，提取区域内最具代表性的特征，能够有效地降低输出特征尺度，进而减少模型所需要的参数量。按操作类型通常分为最大池化、平均池化和求和池化，它们分别提取感受域内最大、平均与总和的特征值作为输出，最常用的是最大池化（这里主要介绍最大池化）。</p>
-<p>&emsp;&emsp;开始介绍之前，简要说明参数设置情况。输入数据尺寸为$s=4$，通道数为$in_channel=10$，即$ input=(n, 10, 4, 4)$；池化窗口尺寸为$k=2$，池化步幅$stride=2$，根据特征图大小计算公式<br>$$<br>p=\frac{s-k}{stride}<br>$$<br>则池化层输出为$output=(N, 10, 2, 2)$。</p>
+<p>&emsp;&emsp;开始介绍之前，简要说明参数设置情况。输入数据尺寸为$s=4$，通道数为$in_channel=10$，即$ input=(n, 10, 4, 4)$；池化窗口尺寸为$k=2$，池化步幅$stride=2$，根据特征图大小计算公式<br>$$<br>p=\frac{s-k}{stride}+1<br>$$<br>则池化层输出为$output=(N, 10, 2, 2)$。</p>
 <h4 id="前向计算-1"><a href="#前向计算-1" class="headerlink" title="前向计算"></a>前向计算</h4><p>&emsp;&emsp;与卷积操作相比，池化层的计算较为简单，且池化层不改变通道数量，不包含训练参数。最大池化提取感受域内最大的值作为输出，计算过程如下图所示</p>
 <p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/cnn/cnn/8.png" style="zoom:80%;"></p>
 <p>需要注意的是，进行池化操作时需要记录感受域内最大值的位置，在反向传播时会用到，具体代码如下所示（因为需要记录位置，暂时没想到好的解决办法，所以直接用的循环）。</p>
@@ -702,7 +702,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -836,7 +836,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">52.7k</span>
+    <span title="Site words total count">54.1k</span>
   
 </div>
 
