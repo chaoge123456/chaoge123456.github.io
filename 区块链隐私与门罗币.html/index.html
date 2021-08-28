@@ -1,0 +1,1399 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="区块链,门罗币," />
+
+
+
+
+
+  <link rel="alternate" href="/rss2.xml" title="小生很忙" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="摘要：最近接触了一些与区块链相关的知识，主要与区块链隐私相关，感觉挺有趣，在此记录一下。本文主要梳理了区块链系统的隐私问题，并以门罗币为例，阐述了交易匿名化的解决方案。   文章概览 区块链系统概述 区块链隐私问题 门罗币隐私保护机制   区块链系统概述&amp;emsp;&amp;emsp;区块链本质上相当于一个去中心化的账本数据库，以P2P网络作为通信载体，依赖密码学确定所有权和保障隐私。相对于传统的数据库，">
+<meta name="keywords" content="区块链,门罗币">
+<meta property="og:type" content="article">
+<meta property="og:title" content="区块链隐私与门罗币">
+<meta property="og:url" content="https://chaoge123456.github.io/区块链隐私与门罗币.html/index.html">
+<meta property="og:site_name" content="小生很忙">
+<meta property="og:description" content="摘要：最近接触了一些与区块链相关的知识，主要与区块链隐私相关，感觉挺有趣，在此记录一下。本文主要梳理了区块链系统的隐私问题，并以门罗币为例，阐述了交易匿名化的解决方案。   文章概览 区块链系统概述 区块链隐私问题 门罗币隐私保护机制   区块链系统概述&amp;emsp;&amp;emsp;区块链本质上相当于一个去中心化的账本数据库，以P2P网络作为通信载体，依赖密码学确定所有权和保障隐私。相对于传统的数据库，">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/blockchain/monero.png">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/blockchain/13.JPG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/blockchain/7.JPG">
+<meta property="og:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/blockchain/ringCT.JPG">
+<meta property="og:updated_time" content="2021-08-28T11:53:24.143Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="区块链隐私与门罗币">
+<meta name="twitter:description" content="摘要：最近接触了一些与区块链相关的知识，主要与区块链隐私相关，感觉挺有趣，在此记录一下。本文主要梳理了区块链系统的隐私问题，并以门罗币为例，阐述了交易匿名化的解决方案。   文章概览 区块链系统概述 区块链隐私问题 门罗币隐私保护机制   区块链系统概述&amp;emsp;&amp;emsp;区块链本质上相当于一个去中心化的账本数据库，以P2P网络作为通信载体，依赖密码学确定所有权和保障隐私。相对于传统的数据库，">
+<meta name="twitter:image" content="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/blockchain/monero.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://chaoge123456.github.io/区块链隐私与门罗币.html/"/>
+
+
+
+
+
+  <title>区块链隐私与门罗币 | 小生很忙</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?864e67f86882d21f52697b62b69de48d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/chaoge123456" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#64CEAA; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">小生很忙</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">THINK THE WORLD</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://chaoge123456.github.io/区块链隐私与门罗币.html/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="光阴的故事">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/head.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="小生很忙">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">区块链隐私与门罗币</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-08-28T19:32:49+08:00">
+                2021-08-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/区块链/" itemprop="url" rel="index">
+                    <span itemprop="name">区块链</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/区块链隐私与门罗币.html/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/区块链隐私与门罗币.html/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3,058
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>摘要：</strong>最近接触了一些与区块链相关的知识，主要与区块链隐私相关，感觉挺有趣，在此记录一下。本文主要梳理了区块链系统的隐私问题，并以门罗币为例，阐述了交易匿名化的解决方案。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/blockchain/monero.png" style="zoom:150%;"></p>
+<hr>
+<h3 id="文章概览"><a href="#文章概览" class="headerlink" title="文章概览"></a>文章概览</h3><ul>
+<li>区块链系统概述</li>
+<li>区块链隐私问题</li>
+<li>门罗币隐私保护机制</li>
+</ul>
+<hr>
+<h4 id="区块链系统概述"><a href="#区块链系统概述" class="headerlink" title="区块链系统概述"></a>区块链系统概述</h4><p>&emsp;&emsp;区块链本质上相当于一个去中心化的账本数据库，以P2P网络作为通信载体，依赖密码学确定所有权和保障隐私。相对于传统的数据库，其核心特征是不可篡改。实现区块链需要解决的两个关键问题是：</p>
+<ul>
+<li><strong>如何组织数据以确保不被篡改，即数据结构。</strong>这里的数据结构有两层含义，一层含义是指区块内部的交易数据的组织形式，常见的组织形式包括Merkle树、Merkle Patircia树等；另一层含义是指区块与区块之间的组织形式，常见的组织形式包括链式结构（比特币）、树状结构（以太坊）、DAG图结构（IOTA）。</li>
+<li><strong>如何在分布式环境中对账本状态的更新达成共识，即共识机制。</strong>共识机制使得参与区块链系统的各个节点都可以参与到记账权的竞争当中，获得记账权的节点将会获得相应的奖励，同时系统中的节点都可以对新加入链中的区块进行验证。常见的共识机制包括Proof of work、Proof of stake等。</li>
+</ul>
+<p>&emsp;&emsp;以比特币为例，整个区块链系统的运行机制可以简述为：首先客户端发起一笔交易，将该交易广播至比特币网络中的任意节点，节点在收到交易后需要验证交易是否合法。如果验证不通过，节点将拒绝该交易，并向发送者返回交易被拒绝的消息；如果验证通过，节点会将该交易放入自己的交易池中，并向网络中继续传播。各节点从各自的交易池中打包交易，并通过加入随机数进行计算。最先计算出符合要求哈希值的节点打包的区块有效，即获得记账权。然后，该节点将计算得到的区块广播到区块链网络中，其他节点接收到新的区块后会进行验证。验证成功后将新区块连接到自己的链中，同时删除自己交易池中已经被打包的交易记录，重新开始新一轮的生产区块过程。</p>
+<hr>
+<h4 id="区块链隐私问题"><a href="#区块链隐私问题" class="headerlink" title="区块链隐私问题"></a>区块链隐私问题</h4><p>&emsp;&emsp;区块链系统中的隐私一般是指用户的身份隐私、位置隐私以及交易内容隐私，我认为造成区块链系统中的隐私问题的原因主要有三个：</p>
+<ul>
+<li>为了鼓励更多用户参与共识，早期的区块链系统不会对加入的节点进行认证，这就为攻击者窃取隐私数据创造了机会。攻击者可以共享系统中的交易数据、嗅探网络流量，从而挖掘出关于用户的敏感信息。</li>
+<li>为了增强区块链系统的拓展性，通常将其部署在开放网络环境当中。这就使得攻击者可以任意部署节点,监听网络中各节点隐私信息以及网络通信信息。相关研究表明，攻击者可以对区块链地址及 IP 地址对应关系进行分析，揭露用户与实际物理位置的对应关系。</li>
+<li>为了更加高效的对交易记录进行验证，区块链系统中的交易记录通常是完全公开的，没有采取额外的保护措施。交易记录通常能够反映一些敏感信息，有可能泄露用户的隐私。例如用户购物的交易记录能够反映用户的消费水平、生活状态等。</li>
+</ul>
+<p>&emsp;&emsp;为了解决区块链系统中的隐私问题，以下从三个角度来对当前的防御机制进行总结：</p>
+<ul>
+<li><p>对应于导致隐私问题的第一个原因，我们可以通过在区块链系统中加入节点认证机制限制恶意节点的加入。基于这一想法，研究人员提出了私有链和联盟链的架构，这些架构可以适用于对隐私需求更高的一些场景。（应用案例：Hyperledger Fabric）</p>
+</li>
+<li><p>对应于导致隐私问题的第二个原因，我们可以将区块链系统运行在具有隐私保护特性的网络上，例如Tor网络以及I2P网络。这些网络通过多层加密以及特殊的路由转发技术可以能够隐藏用户IP，防止通过网络层信息实现交易溯源。（应用案例：门罗币）</p>
+</li>
+<li><p>对应于导致隐私问题的第三个原因，我们可以在满足区块链正常运行的基础上 ，防止恶意节点获得准确的交易数据。这类技术一般包括以下三类：</p>
+<ul>
+<li>基于数据失真的技术：通过将交易内容的部分数据进行混淆 ，使攻击者无法获得准确的数据 ，增加分析难度。这种方案的难点在于不破坏交易结果的条件下 ，防止攻击者发现不同地址之间的交易关系，一般称为混币机制。（去中心化的混币方法CoinJoin）</li>
+<li>基于数据加密的技术：通过将交易信息加密，使攻击者无法获得具体的交易信息，从而无法开展分析，这种方案的难点在于实现加密的同时，必须保证原有的验证机制不受影响。（门罗币，Zcash）</li>
+<li>基于限制发布的技术：通过发布少量或者不发布交易数据，减少攻击者能够获得的交易数据 ，增加分析难度。（闪电网络）</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/blockchain/13.JPG" alt=""></p>
+<hr>
+<h4 id="门罗币隐私保护机制"><a href="#门罗币隐私保护机制" class="headerlink" title="门罗币隐私保护机制"></a>门罗币隐私保护机制</h4><p>&emsp;&emsp;以下将以比特币为例，探讨区块链中交易内容隐私保护方法和策略。比特币采用UTXO的方式来对交易内容进行记录，交易记录如下图所示。在交易记录中包含发送方引用的UTXO、发送方的公钥、交易金额、接收方的地址以及发送方对交易内容的签名。发送发生成交易记录之后向其他节点广播，节点收到交易记录之后对其进行验证，主要验证以下内容：</p>
+<ul>
+<li>每个被引用的输入必须有效，且未被使用过；</li>
+<li>交易的签名必须与每笔输入的所有者签名匹配；</li>
+<li>输入的总值必须等于或大于输出的总值。</li>
+</ul>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/blockchain/7.JPG" alt=""></p>
+<p>&emsp;&emsp;在比特币系统中，由于所有的交易记录都是公开的，所以节点可以高效的对交易内容进行验证，从而保证系统的正常运转。如果我们希望提高比特币系统的隐私性，势必要隐藏交易内容中的相关信息，首当其冲面临的问题就是如何实现隐私场景下的交易验证。接下来将以门罗币为例，讲解如何实现交易内容隐私保护以及如何实现隐私场景下的交易验证。</p>
+<p>&emsp;&emsp;门罗币（Monero）是一种领先的密码学货币，聚焦交易隐私安全。在一笔交易中主要涉及的隐私信息包括发送方、接收方、交易金额，门罗币使用了一系列密码学方法来隐藏所有隐私细节并阻止任何区块链跟踪。</p>
+<p><img src="https://githubpage-1255710107.cos.ap-shanghai.myqcloud.com/static/images/blockchain/ringCT.JPG" style="zoom:50%;"></p>
+<ul>
+<li><strong>隐藏交易金额：</strong>对于大多数密码学货币，交易数额以明文形式发送，任何人都可以看到。门罗币利用RingCT技术来隐藏任何交易中发送的金额。RingCT通过允许发送者证明自己有足够的金额来进行交易，而不会透露该金额的值，从而使得此敏感信息保密。这都要归功于密码学中的承诺和范围证明。当发送方发起交易时，将以一种秘密方式“承诺”该金额，仅向网络披露足够的信息以确认交易的合法性，但不会公开揭露金额本身。一个有效的承诺保证了交易不会欺骗性地创建或超支已有的金额。</li>
+<li><strong>隐藏发送方：</strong>在比特币交易记录中，发送者需要利用自己的私钥对交易进行签名，同时给出自己的公钥方便其他节点来对交易进行验证。因为交易记录中包含发送者的公钥，所以能够很方便的对发送者的交易行为进行追踪。如果我们希望隐藏发送者的身份，那就不能在交易记录中给出公钥。门罗币使用<strong>环签名</strong>来解决这一问题。在门罗币交易过程中，发送者随机选择几个用户的公钥，并将自己的公钥混入其中，构成一个集合（签名者在签名时无需集合中其他成员的协作，甚至于可以不让其他成员知晓）。发送者利用自己的私钥进行签名，同时给出集合中的公钥。当节点对该交易进行验证时，唯一知道的是该签名来自集合成员，但是无法区分是某个具体成员，从而实现了发送方的匿名性。</li>
+<li><strong>隐藏接收方：</strong>在比特币交易记录中，需要指定接收方的地址。通过对接收方的地址进行追踪，可以获得关于接收方的隐私信息。为了实现对接收方的隐私保护，门罗币使用隐形地址进行交易。每笔交易都被发送到唯一的一次性地址上，接收方可以访问发送到隐形地址的资金，而不暴露其钱包公开地址或其他交易的任何关联。</li>
+</ul>
+<p>&emsp;&emsp;由于在交易记录中隐藏了交易金额、发送方、接收方，这就导致节点无法对交易内容进行验证。针对上述提到的三个验证问题，门罗币提供了以下解决方案：</p>
+<ul>
+<li>在交易过程中，发送方利用环签名技术来隐藏发送方的身份。发送方利用自身的私钥对交易进行签名，验证节点可以通过集合中的公钥对其进行验证。验证通过即证实了发送方对UTXO的所有权，因此引用的UTXO是有效的。那如何证明该UTXO未被使用过呢？门罗币通过利用每次交易生成和记录的<strong>密钥镜像</strong>来解决这一问题，这些密钥镜像是唯一地从所花费的实际输出中得出的。网络无法确定哪个环成员连接到密钥镜像，但是其他参与者只需要检查密钥镜像是否已被使用过。如果恶意用户尝试花费两次相同的输出，它将两次生成相同的密钥镜像，并且网络会立即拒绝欺诈性的第二笔交易。</li>
+<li>环签名技术可以确保交易的签名必须与每笔输入的所有者签名匹配。</li>
+<li>RingCT技术利用密码学中的承诺和范围证明，将以一种秘密方式“承诺”该金额，仅向网络披露足够的信息以确认交易的合法性，但不会公开揭露金额本身。</li>
+</ul>
+<p>&emsp;&emsp;除此之外，门罗币鼓励用户通过Tor、I2P等匿名网络接入到门罗币系统中，从而隐藏用户的IP地址，进一步增强其隐私性。</p>
+
+      
+
+       <div>
+        
+        
+           <ul class="post-copyright">
+             <br class="post-copyright-author">
+                 <strong>本文作者：</strong>光阴的故事
+             </br>
+             <br class="post-copyright-link">
+               <strong>本文链接：</strong>
+               <a href="/区块链隐私与门罗币.html/" title="区块链隐私与门罗币">区块链隐私与门罗币.html/</a>
+             </br>
+             <br class="post-copyright-license">
+               <strong>版权声明： </strong>
+               本博客所有文章除特别声明外，均采用 <a href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0 CN</a> 许可协议。转载请注明出处！
+             </br>
+           </ul>
+         
+       </div>
+
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/weixin.png" alt="光阴的故事 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/zhifubao.jpg" alt="光阴的故事 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/区块链/" rel="tag"><i class="fa fa-tag"></i> 区块链</a>
+          
+            <a href="/tags/门罗币/" rel="tag"><i class="fa fa-tag"></i> 门罗币</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/开发环境配置.html/" rel="next" title="开发环境配置">
+                <i class="fa fa-chevron-left"></i> 开发环境配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/head.jpg"
+                alt="光阴的故事" />
+            
+              <p class="site-author-name" itemprop="name">光阴的故事</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/rss2.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/chaoge123456" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.jianshu.com/u/e4cca84bd02e" target="_blank" title="简书">
+                      
+                        <i class="fa fa-fw fa-globe"></i>简书</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                友情链接
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://lackar.com/aa/" title="资源搜索" target="_blank">资源搜索</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://www.shentoushi.top/" title="安全导航" target="_blank">安全导航</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://sayhi2urmom.top/" title="sayhi博客" target="_blank">sayhi博客</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#文章概览"><span class="nav-number">1.</span> <span class="nav-text">文章概览</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#区块链系统概述"><span class="nav-number">1.1.</span> <span class="nav-text">区块链系统概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区块链隐私问题"><span class="nav-number">1.2.</span> <span class="nav-text">区块链隐私问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#门罗币隐私保护机制"><span class="nav-number">1.3.</span> <span class="nav-text">门罗币隐私保护机制</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">光阴的故事</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">57.1k</span>
+  
+</div>
+
+
+
+<!--
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+-->
+
+
+
+<!--
+  <span class="post-meta-divider">|</span>
+-->
+
+
+
+<!--
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+-->
+
+
+
+
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'wtWdk3Onubla9rRs4LsPFnoJ-gzGzoHsz',
+        appKey: '2ULgKsbxIGrnmjnh1g6GVer5',
+        placeholder: '小生很忙',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/love.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
